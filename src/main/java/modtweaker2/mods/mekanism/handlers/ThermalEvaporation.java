@@ -10,7 +10,7 @@ import mekanism.common.recipe.RecipeHandler.Recipe;
 import mekanism.common.recipe.inputs.FluidInput;
 import mekanism.common.recipe.inputs.MachineInput;
 import mekanism.common.recipe.machines.MachineRecipe;
-import mekanism.common.recipe.machines.SolarEvaporationRecipe;
+import mekanism.common.recipe.machines.ThermalEvaporationRecipe;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IngredientAny;
@@ -24,10 +24,10 @@ import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-@ZenClass("mods.mekanism.SolarEvaporation")
-public class SolarEvaporation {
+@ZenClass("mods.mekanism.ThermalEvaporation")
+public class ThermalEvaporation {
     
-    public static final String name = "Mekanism Solar Evaporation";
+    public static final String name = "Mekanism Thermal Evaporation";
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -39,9 +39,9 @@ public class SolarEvaporation {
             return;
         }
         
-        SolarEvaporationRecipe recipe = new SolarEvaporationRecipe(toFluid(liquidInput), toFluid(liquidOutput));
+        ThermalEvaporationRecipe recipe = new ThermalEvaporationRecipe(toFluid(liquidInput), toFluid(liquidOutput));
         
-        MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.SOLAR_EVAPORATION_PLANT.get(), recipe));
+        MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.THERMAL_EVAPORATION_PLANT.get(), recipe));
     }
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,7 +58,7 @@ public class SolarEvaporation {
         
         Map<MachineInput, MachineRecipe> recipes = new HashMap<MachineInput, MachineRecipe>();
         
-        for(Entry<FluidInput, SolarEvaporationRecipe> entry : ((Map<FluidInput, SolarEvaporationRecipe>)Recipe.SOLAR_EVAPORATION_PLANT.get()).entrySet() ) {
+        for(Entry<FluidInput, ThermalEvaporationRecipe> entry : ((Map<FluidInput, ThermalEvaporationRecipe>)Recipe.THERMAL_EVAPORATION_PLANT.get()).entrySet() ) {
             ILiquidStack inputLiquid = InputHelper.toILiquidStack(entry.getKey().ingredient);
             ILiquidStack outputLiquid = InputHelper.toILiquidStack(entry.getValue().recipeOutput.output);
 
@@ -69,7 +69,7 @@ public class SolarEvaporation {
         }
         
         if(!recipes.isEmpty()) {
-            MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.SOLAR_EVAPORATION_PLANT.get(), recipes));
+            MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.THERMAL_EVAPORATION_PLANT.get(), recipes));
         } else {
             LogHelper.logWarning(String.format("No %s recipe found for %s and %s. Command ignored!", name, liquidInput.toString(), liquidOutput.toString()));
         }

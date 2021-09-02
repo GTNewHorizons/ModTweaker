@@ -20,7 +20,7 @@ import modtweaker2.mods.mekanism.handlers.Purification;
 import modtweaker2.mods.mekanism.handlers.Reaction;
 import modtweaker2.mods.mekanism.handlers.Sawmill;
 import modtweaker2.mods.mekanism.handlers.Separator;
-import modtweaker2.mods.mekanism.handlers.SolarEvaporation;
+import modtweaker2.mods.mekanism.handlers.ThermalEvaporation;
 import modtweaker2.mods.mekanism.handlers.SolarNeutronActivator;
 import modtweaker2.utils.TweakerPlugin;
 
@@ -45,7 +45,7 @@ public class Mekanism extends TweakerPlugin {
         MineTweakerAPI.registerClass(Reaction.class);
         MineTweakerAPI.registerClass(Sawmill.class);
         MineTweakerAPI.registerClass(Separator.class);
-        MineTweakerAPI.registerClass(SolarEvaporation.class);
+        MineTweakerAPI.registerClass(ThermalEvaporation.class);
         MineTweakerAPI.registerClass(SolarNeutronActivator.class);
     }
 }
