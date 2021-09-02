@@ -10,7 +10,7 @@ import mekanism.common.recipe.RecipeHandler.Recipe;
 import mekanism.common.recipe.inputs.FluidInput;
 import mekanism.common.recipe.inputs.MachineInput;
 import mekanism.common.recipe.machines.MachineRecipe;
-import mekanism.common.recipe.machines.SolarEvaporationRecipe;
+import mekanism.common.recipe.machines.ThermalEvaporationRecipe;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IngredientAny;
@@ -24,11 +24,11 @@ import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-@ZenClass("mods.mekanism.SolarEvaporation")
-public class SolarEvaporation {
-
-    public static final String name = "Mekanism Solar Evaporation";
-
+@ZenClass("mods.mekanism.ThermalEvaporation")
+public class ThermalEvaporation {
+    
+    public static final String name = "Mekanism Thermal Evaporation";
+    
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @SuppressWarnings("unchecked")
@@ -38,10 +38,10 @@ public class SolarEvaporation {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-
-        SolarEvaporationRecipe recipe = new SolarEvaporationRecipe(toFluid(liquidInput), toFluid(liquidOutput));
-
-        MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.SOLAR_EVAPORATION_PLANT.get(), recipe));
+        
+        ThermalEvaporationRecipe recipe = new ThermalEvaporationRecipe(toFluid(liquidInput), toFluid(liquidOutput));
+        
+        MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.THERMAL_EVAPORATION_PLANT.get(), recipe));
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,9 +57,8 @@ public class SolarEvaporation {
         if (liquidOutput == null) liquidOutput = IngredientAny.INSTANCE;
 
         Map<MachineInput, MachineRecipe> recipes = new HashMap<MachineInput, MachineRecipe>();
-
-        for (Entry<FluidInput, SolarEvaporationRecipe> entry : ((Map<FluidInput, SolarEvaporationRecipe>) Recipe.SOLAR_EVAPORATION_PLANT
-                .get()).entrySet()) {
+        
+        for(Entry<FluidInput, ThermalEvaporationRecipe> entry : ((Map<FluidInput, ThermalEvaporationRecipe>)Recipe.THERMAL_EVAPORATION_PLANT.get()).entrySet() ) {
             ILiquidStack inputLiquid = InputHelper.toILiquidStack(entry.getKey().ingredient);
             ILiquidStack outputLiquid = InputHelper.toILiquidStack(entry.getValue().recipeOutput.output);
 
@@ -68,9 +67,9 @@ public class SolarEvaporation {
 
             recipes.put(entry.getKey(), entry.getValue());
         }
-
-        if (!recipes.isEmpty()) {
-            MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.SOLAR_EVAPORATION_PLANT.get(), recipes));
+        
+        if(!recipes.isEmpty()) {
+            MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.THERMAL_EVAPORATION_PLANT.get(), recipes));
         } else {
             LogHelper.logWarning(
                     String.format(
