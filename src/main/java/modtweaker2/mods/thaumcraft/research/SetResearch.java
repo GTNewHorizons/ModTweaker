@@ -6,7 +6,10 @@ import minetweaker.IUndoableAction;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import modtweaker2.mods.thaumcraft.handlers.Research.SetType;
 import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchCategoryList;
 import thaumcraft.api.research.ResearchItem;
+
+import static modtweaker2.ModTweaker2.logger;
 
 public class SetResearch implements IUndoableAction {
     String key;
@@ -68,7 +71,18 @@ public class SetResearch implements IUndoableAction {
 
     @Override
     public void undo() {
-        ResearchItem research = ResearchCategories.researchCategories.get(tab).research.get(key);
+        final ResearchCategoryList cat = ResearchCategories.researchCategories.get(tab);
+        if(cat == null) {
+            logger.error("SCRIPT ERROR: Error, research tab {} doesn't exist", tab);
+            return;
+        }
+
+        final ResearchItem research = cat.research.get(key);
+        if(research == null) {
+            logger.error("SCRIPT ERROR: Research {} doesn't exist.", key);
+            return;
+        }
+
         if (!flag) {
             if (type == SetType.AUTO) research.setAutoUnlock();
             else if (type == SetType.ROUND) research.setRound();
