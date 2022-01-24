@@ -12,22 +12,18 @@ public class ExtendedShapelessRecipes implements IExtendedRecipe {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public boolean matches(InventoryCrafting inventory, World world) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inventory) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public int getRecipeSize() {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public ItemStack getRecipeOutput() {
 		throw new UnsupportedOperationException();
 	}

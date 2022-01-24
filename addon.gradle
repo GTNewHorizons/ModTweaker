@@ -3,6 +3,7 @@ configurations {
 }
 
 sourceSets {
+    compileStubs
     compileHelper {
         compileClasspath += configurations.compileHelper
     }
