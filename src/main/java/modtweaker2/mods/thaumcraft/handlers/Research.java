@@ -78,19 +78,19 @@ public class Research {
 	@ZenMethod
 	public static void addResearch(String key, String tab, @Optional String aspects, int x, int y, int difficulty, String domain, String path) {
 		
-			MineTweakerAPI.apply(new AddResearch(new ResearchItem(key, tab, ThaumcraftHelper.parseAspects(aspects), x, y, difficulty, new ResourceLocation(domain, path)), null, null));
+			MineTweakerAPI.apply(new AddResearch(new ResearchItem(key, tab, ThaumcraftHelper.parseAspects(aspects), x, y, difficulty, new ResourceLocation(domain, path)), null, null, null));
 	}
 
 	@ZenMethod
 	public static void addResearch(String key, String tab, @Optional String aspects, int x, int y, int difficulty, IItemStack item) {
 		
-			MineTweakerAPI.apply(new AddResearch(new ResearchItem(key, tab, ThaumcraftHelper.parseAspects(aspects), x, y, difficulty, toStack(item)),null, null));
+			MineTweakerAPI.apply(new AddResearch(new ResearchItem(key, tab, ThaumcraftHelper.parseAspects(aspects), x, y, difficulty, toStack(item)),null, null, null));
 	}
 	
 	@ZenMethod
-    public static void addResearch(String key, String tab, @Optional String aspects, int x, int y, int difficulty, IItemStack item, IItemStack[] triggers, String[] entTriggers) {
+    public static void addResearch(String key, String tab, @Optional String aspects, int x, int y, int difficulty, IItemStack item, IItemStack[] triggers, String[] entTriggers, String aspectsTrigger) {
 	
-        MineTweakerAPI.apply(new AddResearch(new ResearchItem(key, tab, ThaumcraftHelper.parseAspects(aspects), x, y, difficulty, toStack(item)), InputHelper.toStacks(triggers), entTriggers));
+        MineTweakerAPI.apply(new AddResearch(new ResearchItem(key, tab, ThaumcraftHelper.parseAspects(aspects), x, y, difficulty, toStack(item)), InputHelper.toStacks(triggers), entTriggers, ThaumcraftHelper.parseAspects(aspectsTrigger)));
     }
 
 	@ZenMethod
@@ -207,6 +207,11 @@ public class Research {
 	}
 
 	@ZenMethod
+	public static void addItemTriggers(String key, IItemStack[] itemStacks) {
+
+	}
+
+	@ZenMethod
 	public static void setAspects(String key, String aspects) {
 		
 			MineTweakerAPI.apply(new SetAspects(key, ThaumcraftHelper.parseAspects(aspects)));
@@ -237,6 +242,6 @@ public class Research {
 	}
 
 	public static enum SetType {
-		AUTO, ROUND, SPIKE, SECONDARY, STUB, VIRTUAL, CONCEAL, HIDDEN
+		AUTO, ROUND, SPIKE, SECONDARY, STUB, VIRTUAL, CONCEAL, HIDDEN, ITEM_TRIGGERS
 	}
 }
