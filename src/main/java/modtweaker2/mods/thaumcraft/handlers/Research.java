@@ -202,6 +202,11 @@ public class Research {
 	}
 
 	@ZenMethod
+	public static void setHidden(String key, boolean flag) {
+		MineTweakerAPI.apply(new SetResearch(key, flag, SetType.HIDDEN));
+	}
+
+	@ZenMethod
 	public static void setAspects(String key, String aspects) {
 		
 			MineTweakerAPI.apply(new SetAspects(key, ThaumcraftHelper.parseAspects(aspects)));
@@ -232,6 +237,6 @@ public class Research {
 	}
 
 	public static enum SetType {
-		AUTO, ROUND, SPIKE, SECONDARY, STUB, VIRTUAL, CONCEAL
+		AUTO, ROUND, SPIKE, SECONDARY, STUB, VIRTUAL, CONCEAL, HIDDEN
 	}
 }
