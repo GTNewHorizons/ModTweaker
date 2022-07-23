@@ -90,7 +90,7 @@ public class Research {
 	@ZenMethod
     public static void addResearch(String key, String tab, @Optional String aspects, int x, int y, int difficulty, IItemStack item, IItemStack[] triggers, String[] entTriggers, String aspectsTrigger) {
 	
-        MineTweakerAPI.apply(new AddResearch(new ResearchItem(key, tab, ThaumcraftHelper.parseAspects(aspects), x, y, difficulty, toStack(item)), InputHelper.toStacks(triggers), entTriggers, ThaumcraftHelper.parseAspects(aspectsTrigger)));
+        	MineTweakerAPI.apply(new AddResearch(new ResearchItem(key, tab, ThaumcraftHelper.parseAspects(aspects), x, y, difficulty, toStack(item)), InputHelper.toStacks(triggers), entTriggers, ThaumcraftHelper.parseAspects(aspectsTrigger)));
     }
 
 	@ZenMethod
@@ -203,12 +203,7 @@ public class Research {
 
 	@ZenMethod
 	public static void setHidden(String key, boolean flag) {
-		MineTweakerAPI.apply(new SetResearch(key, flag, SetType.HIDDEN));
-	}
-
-	@ZenMethod
-	public static void addItemTriggers(String key, IItemStack[] itemStacks) {
-
+			MineTweakerAPI.apply(new SetResearch(key, flag, SetType.HIDDEN));
 	}
 
 	@ZenMethod
@@ -241,7 +236,7 @@ public class Research {
 		return ThaumcraftApiHelper.isResearchComplete(player.getName(), key);
 	}
 
-	public static enum SetType {
-		AUTO, ROUND, SPIKE, SECONDARY, STUB, VIRTUAL, CONCEAL, HIDDEN, ITEM_TRIGGERS
+	public enum SetType {
+		AUTO, ROUND, SPIKE, SECONDARY, STUB, VIRTUAL, CONCEAL, HIDDEN
 	}
 }
