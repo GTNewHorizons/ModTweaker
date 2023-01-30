@@ -99,7 +99,7 @@ public class MCAspectStack implements IAspectStack {
         if (internal != null) {
             AspectList itemAspectList = new AspectList(internal);
 
-            if (itemAspectList.aspects.keySet().contains(stack.aspect.getTag())) {
+            if (itemAspectList.aspects.containsKey(stack.aspect)) {
                 return true;
             }
         }
@@ -124,6 +124,11 @@ public class MCAspectStack implements IAspectStack {
     @Override
     public boolean matches(ILiquidStack arg0) {
         return false;
+    }
+
+    @Override
+    public boolean matchesExact(IItemStack item) {
+        return matches(item);
     }
 
     @Override

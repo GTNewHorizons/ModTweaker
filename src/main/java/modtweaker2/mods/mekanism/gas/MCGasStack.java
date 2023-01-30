@@ -108,6 +108,12 @@ public class MCGasStack implements IGasStack {
     }
 
     @Override
+    public boolean matchesExact(IItemStack item) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
     public boolean matches(ILiquidStack arg0) {
         // TODO Auto-generated method stub
         return false;

@@ -1,5 +1,5 @@
 dependencies {
-    api("com.github.GTNewHorizons:CraftTweaker:3.2.10:dev")
+    api("com.github.GTNewHorizons:CraftTweaker:3.2.11:dev")
 
     compileOnly("com.azanor:Thaumcraft:1.7.10-4.2.3.5:deobf") { transitive = false }
     compileOnly("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-72-GTNH:dev") { transitive = false }
