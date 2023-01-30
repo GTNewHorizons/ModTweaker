@@ -13,11 +13,13 @@ import mods.railcraft.common.util.crafting.CokeOvenCraftingManager.CokeOvenRecip
 import mods.railcraft.common.util.crafting.RockCrusherCraftingManager.CrusherRecipe;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.helpers.ReflectionHelper;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fluids.FluidStack;
 
 public class RailcraftHelper {
+
     public static List<? extends IBlastFurnaceRecipe> furnace = null;
     public static List<? extends ICokeOvenRecipe> oven = null;
     public static List<? extends IRockCrusherRecipe> crusher = null;
@@ -29,17 +31,31 @@ public class RailcraftHelper {
             oven = RailcraftCraftingManager.cokeOven.getRecipes();
             crusher = RailcraftCraftingManager.rockCrusher.getRecipes();
             rolling = RailcraftCraftingManager.rollingMachine.getRecipeList();
-            
-            fuels = new ArrayList<ItemStack>(RailcraftCraftingManager.blastFurnace.getFuels());
-            ReflectionHelper.setPrivateValue(BlastFurnaceCraftingManager.class, RailcraftCraftingManager.blastFurnace, "fuels", fuels);
 
-        } catch (Exception e) { LogHelper.logError("Error in RailcraftHelper", e); }
+            fuels = new ArrayList<ItemStack>(RailcraftCraftingManager.blastFurnace.getFuels());
+            ReflectionHelper.setPrivateValue(
+                    BlastFurnaceCraftingManager.class,
+                    RailcraftCraftingManager.blastFurnace,
+                    "fuels",
+                    fuels);
+
+        } catch (Exception e) {
+            LogHelper.logError("Error in RailcraftHelper", e);
+        }
     }
 
     private RailcraftHelper() {}
 
-    public static IBlastFurnaceRecipe getBlastFurnaceRecipe(ItemStack input, boolean matchDamage, boolean matchNBT, int cookTime, ItemStack output) {
-        return ReflectionHelper.getInstance(ReflectionHelper.getConstructor(BlastFurnaceRecipe.class,ItemStack.class, boolean.class, boolean.class, int.class, ItemStack.class),
+    public static IBlastFurnaceRecipe getBlastFurnaceRecipe(ItemStack input, boolean matchDamage, boolean matchNBT,
+            int cookTime, ItemStack output) {
+        return ReflectionHelper.getInstance(
+                ReflectionHelper.getConstructor(
+                        BlastFurnaceRecipe.class,
+                        ItemStack.class,
+                        boolean.class,
+                        boolean.class,
+                        int.class,
+                        ItemStack.class),
                 input,
                 matchDamage,
                 matchNBT,
@@ -47,8 +63,17 @@ public class RailcraftHelper {
                 output);
     }
 
-    public static ICokeOvenRecipe getCokeOvenRecipe(ItemStack input, boolean matchDamage, boolean matchNBT, ItemStack output, FluidStack fluidOutput, int cookTime) {
-        return ReflectionHelper.getInstance(ReflectionHelper.getConstructor(CokeOvenRecipe.class, ItemStack.class, boolean.class, boolean.class, ItemStack.class, FluidStack.class, int.class),
+    public static ICokeOvenRecipe getCokeOvenRecipe(ItemStack input, boolean matchDamage, boolean matchNBT,
+            ItemStack output, FluidStack fluidOutput, int cookTime) {
+        return ReflectionHelper.getInstance(
+                ReflectionHelper.getConstructor(
+                        CokeOvenRecipe.class,
+                        ItemStack.class,
+                        boolean.class,
+                        boolean.class,
+                        ItemStack.class,
+                        FluidStack.class,
+                        int.class),
                 input,
                 matchDamage,
                 matchNBT,
@@ -58,7 +83,8 @@ public class RailcraftHelper {
     }
 
     public static IRockCrusherRecipe getRockCrusherRecipe(ItemStack stack, boolean matchDamage, boolean matchNBT) {
-        return ReflectionHelper.getInstance(ReflectionHelper.getConstructor(CrusherRecipe.class, ItemStack.class, boolean.class, boolean.class),
+        return ReflectionHelper.getInstance(
+                ReflectionHelper.getConstructor(CrusherRecipe.class, ItemStack.class, boolean.class, boolean.class),
                 stack,
                 matchDamage,
                 matchNBT);

@@ -26,27 +26,37 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.mariculture.Casting")
 public class Casting {
-    
+
     public static final String name = "Mariculture Casting";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @ZenMethod
     public static void addNuggetRecipe(ILiquidStack input, IItemStack output) {
-        MineTweakerAPI.apply(new Add(new RecipeNuggetCasting(toFluid(input), toStack(output)), MaricultureHandlers.casting.getNuggetRecipes()));
+        MineTweakerAPI.apply(
+                new Add(
+                        new RecipeNuggetCasting(toFluid(input), toStack(output)),
+                        MaricultureHandlers.casting.getNuggetRecipes()));
     }
 
     @ZenMethod
     public static void addIngotRecipe(ILiquidStack input, IItemStack output) {
-        MineTweakerAPI.apply(new Add(new RecipeNuggetCasting(toFluid(input), toStack(output)), MaricultureHandlers.casting.getIngotRecipes()));
+        MineTweakerAPI.apply(
+                new Add(
+                        new RecipeNuggetCasting(toFluid(input), toStack(output)),
+                        MaricultureHandlers.casting.getIngotRecipes()));
     }
 
     @ZenMethod
     public static void addBlockRecipe(ILiquidStack input, IItemStack output) {
-        MineTweakerAPI.apply(new Add(new RecipeNuggetCasting(toFluid(input), toStack(output)), MaricultureHandlers.casting.getBlockRecipes()));
+        MineTweakerAPI.apply(
+                new Add(
+                        new RecipeNuggetCasting(toFluid(input), toStack(output)),
+                        MaricultureHandlers.casting.getBlockRecipes()));
     }
 
     private static class Add extends BaseMapAddition<String, RecipeCasting> {
+
         public Add(RecipeCasting recipe, HashMap<String, RecipeCasting> map) {
             super(Casting.name, map);
             recipes.put(MaricultureHelper.getKey(recipe.fluid), recipe);
@@ -74,28 +84,29 @@ public class Casting {
     public static void removeBlockRecipe(IIngredient ingredient) {
         removeRecipe(ingredient, MaricultureHandlers.casting.getBlockRecipes());
     }
-    
+
     public static void removeRecipe(IIngredient ingredient, HashMap<String, RecipeCasting> map) {
         Map<String, RecipeCasting> recipes = new HashMap<String, RecipeCasting>();
-        
-        for(Entry<String, RecipeCasting> recipe : map.entrySet()) {
-            if(recipe != null && recipe.getValue() != null) {
-                if(recipe.getValue().fluid != null && matches(ingredient, toILiquidStack(recipe.getValue().fluid))) {
+
+        for (Entry<String, RecipeCasting> recipe : map.entrySet()) {
+            if (recipe != null && recipe.getValue() != null) {
+                if (recipe.getValue().fluid != null && matches(ingredient, toILiquidStack(recipe.getValue().fluid))) {
                     recipes.put(recipe.getKey(), recipe.getValue());
                 }
-                
-                if(recipe.getValue().output != null && matches(ingredient, toIItemStack(recipe.getValue().output))) {
+
+                if (recipe.getValue().output != null && matches(ingredient, toIItemStack(recipe.getValue().output))) {
                     recipes.put(recipe.getKey(), recipe.getValue());
                 }
             }
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new Remove(map, recipes));
         }
     }
 
     private static class Remove extends BaseMapRemoval<String, RecipeCasting> {
+
         public Remove(Map<String, RecipeCasting> map, Map<String, RecipeCasting> recipes) {
             super(Casting.name, map, recipes);
         }

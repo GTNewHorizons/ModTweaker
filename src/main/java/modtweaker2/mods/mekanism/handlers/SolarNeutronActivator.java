@@ -28,50 +28,56 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class SolarNeutronActivator {
 
     public static final String name = "Mekanism Solar Evaporation";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings("unchecked")
     @ZenMethod
     public static void addRecipe(IGasStack gasInput, IGasStack gasOutput) {
-        if(gasInput == null || gasOutput == null) {
+        if (gasInput == null || gasOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
+
         SolarNeutronRecipe recipe = new SolarNeutronRecipe(toGas(gasInput), toGas(gasOutput));
-        
+
         MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.SOLAR_NEUTRON_ACTIVATOR.get(), recipe));
     }
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @ZenMethod
     public static void removeRecipe(IIngredient gasInput, @Optional IIngredient gasOutput) {
-        if(gasInput == null) {
+        if (gasInput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        if(gasOutput == null) gasOutput = IngredientAny.INSTANCE;
+
+        if (gasOutput == null) gasOutput = IngredientAny.INSTANCE;
 
         Map<MachineInput, MachineRecipe> recipes = new HashMap<MachineInput, MachineRecipe>();
 
-        for(Entry<GasInput, SolarNeutronRecipe> entry : ((Map<GasInput, SolarNeutronRecipe>)Recipe.SOLAR_NEUTRON_ACTIVATOR.get()).entrySet() ) {
+        for (Entry<GasInput, SolarNeutronRecipe> entry : ((Map<GasInput, SolarNeutronRecipe>) Recipe.SOLAR_NEUTRON_ACTIVATOR
+                .get()).entrySet()) {
             IGasStack inputGas = new MCGasStack(entry.getKey().ingredient);
             IGasStack outputGas = new MCGasStack(entry.getValue().recipeOutput.output);
 
-            if(!StackHelper.matches(gasInput, inputGas)) continue;
-            if(!StackHelper.matches(gasOutput, outputGas)) continue;
-            
+            if (!StackHelper.matches(gasInput, inputGas)) continue;
+            if (!StackHelper.matches(gasOutput, outputGas)) continue;
+
             recipes.put(entry.getKey(), entry.getValue());
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.SOLAR_NEUTRON_ACTIVATOR.get(), recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s recipe found for %s and %s. Command ignored!", name, gasInput.toString(), gasOutput.toString()));
+            LogHelper.logWarning(
+                    String.format(
+                            "No %s recipe found for %s and %s. Command ignored!",
+                            name,
+                            gasInput.toString(),
+                            gasOutput.toString()));
         }
     }
 }

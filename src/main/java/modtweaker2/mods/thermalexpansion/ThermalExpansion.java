@@ -11,13 +11,13 @@ import modtweaker2.mods.thermalexpansion.handlers.Transposer;
 
 public class ThermalExpansion {
 
-	public ThermalExpansion(){
-		MineTweakerAPI.registerClass(Crucible.class);
-		MineTweakerAPI.registerClass(Furnace.class);
-		MineTweakerAPI.registerClass(Insolator.class);
-		MineTweakerAPI.registerClass(Pulverizer.class);
-		MineTweakerAPI.registerClass(Sawmill.class);
-		MineTweakerAPI.registerClass(Smelter.class);
-		MineTweakerAPI.registerClass(Transposer.class);
-	}
+    public ThermalExpansion() {
+        MineTweakerAPI.registerClass(Crucible.class);
+        MineTweakerAPI.registerClass(Furnace.class);
+        MineTweakerAPI.registerClass(Insolator.class);
+        MineTweakerAPI.registerClass(Pulverizer.class);
+        MineTweakerAPI.registerClass(Sawmill.class);
+        MineTweakerAPI.registerClass(Smelter.class);
+        MineTweakerAPI.registerClass(Transposer.class);
+    }
 }

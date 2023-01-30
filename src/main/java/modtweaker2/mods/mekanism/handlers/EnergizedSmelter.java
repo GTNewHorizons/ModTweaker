@@ -28,50 +28,56 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class EnergizedSmelter {
 
     public static final String name = "Mekanism Smelter";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings("unchecked")
     @ZenMethod
     public static void addRecipe(IItemStack itemInput, IItemStack itemOutput) {
-        if(itemInput == null || itemOutput == null) {
+        if (itemInput == null || itemOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
+
         SmeltingRecipe recipe = new SmeltingRecipe(toStack(itemInput), toStack(itemOutput));
-        
+
         MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.ENERGIZED_SMELTER.get(), recipe));
     }
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @ZenMethod
     public static void removeRecipe(IIngredient itemInput, @Optional IIngredient itemOutput) {
-        if(itemInput == null) {
+        if (itemInput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        if(itemOutput == null) itemOutput = IngredientAny.INSTANCE;
+
+        if (itemOutput == null) itemOutput = IngredientAny.INSTANCE;
 
         Map<MachineInput, MachineRecipe> recipes = new HashMap<MachineInput, MachineRecipe>();
 
-        for(Entry<ItemStackInput, SmeltingRecipe> entry : ((Map<ItemStackInput, SmeltingRecipe>)Recipe.ENERGIZED_SMELTER.get()).entrySet() ) {
+        for (Entry<ItemStackInput, SmeltingRecipe> entry : ((Map<ItemStackInput, SmeltingRecipe>) Recipe.ENERGIZED_SMELTER
+                .get()).entrySet()) {
             IItemStack inputItem = InputHelper.toIItemStack(entry.getKey().ingredient);
             IItemStack outputItem = InputHelper.toIItemStack(entry.getValue().recipeOutput.output);
 
-            if(!StackHelper.matches(itemInput, inputItem)) continue;
-            if(!StackHelper.matches(itemOutput, outputItem)) continue;
-            
+            if (!StackHelper.matches(itemInput, inputItem)) continue;
+            if (!StackHelper.matches(itemOutput, outputItem)) continue;
+
             recipes.put(entry.getKey(), entry.getValue());
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.ENERGIZED_SMELTER.get(), recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s recipe found for %s and %s. Command ignored!", name, itemInput.toString(), itemOutput.toString()));
+            LogHelper.logWarning(
+                    String.format(
+                            "No %s recipe found for %s and %s. Command ignored!",
+                            name,
+                            itemInput.toString(),
+                            itemOutput.toString()));
         }
     }
 }

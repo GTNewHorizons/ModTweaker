@@ -12,9 +12,11 @@ import minetweaker.api.player.IPlayer;
 import minetweaker.api.server.ICommandFunction;
 
 public class GasLogger implements ICommandFunction {
+
     public static final Comparator<Gas> COMPARATOR = new Compare();
 
     private static class Compare implements Comparator<Gas> {
+
         @Override
         public int compare(Gas o1, Gas o2) {
             return o1.getName().compareTo(o2.getName());
@@ -32,7 +34,9 @@ public class GasLogger implements ICommandFunction {
         }
 
         if (player != null) {
-            player.sendChat(MineTweakerImplementationAPI.platform.getMessage("List generated; see minetweaker.log in your minecraft dir"));
+            player.sendChat(
+                    MineTweakerImplementationAPI.platform
+                            .getMessage("List generated; see minetweaker.log in your minecraft dir"));
         }
     }
 }

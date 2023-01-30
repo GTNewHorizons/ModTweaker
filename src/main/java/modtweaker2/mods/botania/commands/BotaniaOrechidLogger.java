@@ -10,18 +10,20 @@ import vazkii.botania.api.BotaniaAPI;
 
 public class BotaniaOrechidLogger implements ICommandFunction {
 
-	@Override
-	public void execute(String[] arguments, IPlayer player) {
+    @Override
+    public void execute(String[] arguments, IPlayer player) {
 
-		Set<String> keys = BotaniaAPI.oreWeights.keySet();
-		System.out.println("Orechid Keys: " + keys.size());
-		for (String str : BotaniaAPI.oreWeights.keySet()) {
-			System.out.println("Orechid Key: " + str);
-			MineTweakerAPI.logCommand(str + ": " + BotaniaAPI.oreWeights.get(str) + "\n");
-		}
+        Set<String> keys = BotaniaAPI.oreWeights.keySet();
+        System.out.println("Orechid Keys: " + keys.size());
+        for (String str : BotaniaAPI.oreWeights.keySet()) {
+            System.out.println("Orechid Key: " + str);
+            MineTweakerAPI.logCommand(str + ": " + BotaniaAPI.oreWeights.get(str) + "\n");
+        }
 
-		if (player != null) {
-			player.sendChat(MineTweakerImplementationAPI.platform.getMessage("List generated; see minetweaker.log in your minecraft dir"));
-		}
-	}
+        if (player != null) {
+            player.sendChat(
+                    MineTweakerImplementationAPI.platform
+                            .getMessage("List generated; see minetweaker.log in your minecraft dir"));
+        }
+    }
 }

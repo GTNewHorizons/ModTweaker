@@ -26,52 +26,58 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.mekanism.SolarEvaporation")
 public class SolarEvaporation {
-    
+
     public static final String name = "Mekanism Solar Evaporation";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings("unchecked")
     @ZenMethod
     public static void addRecipe(ILiquidStack liquidInput, ILiquidStack liquidOutput) {
-        if(liquidInput == null || liquidOutput == null) {
+        if (liquidInput == null || liquidOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
+
         SolarEvaporationRecipe recipe = new SolarEvaporationRecipe(toFluid(liquidInput), toFluid(liquidOutput));
-        
+
         MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.SOLAR_EVAPORATION_PLANT.get(), recipe));
     }
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @ZenMethod
     public static void removeRecipe(IIngredient liquidInput, @Optional IIngredient liquidOutput) {
-        if(liquidInput == null) {
+        if (liquidInput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        if(liquidOutput == null) liquidOutput = IngredientAny.INSTANCE;
-        
+
+        if (liquidOutput == null) liquidOutput = IngredientAny.INSTANCE;
+
         Map<MachineInput, MachineRecipe> recipes = new HashMap<MachineInput, MachineRecipe>();
-        
-        for(Entry<FluidInput, SolarEvaporationRecipe> entry : ((Map<FluidInput, SolarEvaporationRecipe>)Recipe.SOLAR_EVAPORATION_PLANT.get()).entrySet() ) {
+
+        for (Entry<FluidInput, SolarEvaporationRecipe> entry : ((Map<FluidInput, SolarEvaporationRecipe>) Recipe.SOLAR_EVAPORATION_PLANT
+                .get()).entrySet()) {
             ILiquidStack inputLiquid = InputHelper.toILiquidStack(entry.getKey().ingredient);
             ILiquidStack outputLiquid = InputHelper.toILiquidStack(entry.getValue().recipeOutput.output);
 
-            if(!StackHelper.matches(liquidInput, inputLiquid)) continue;
-            if(!StackHelper.matches(liquidOutput, outputLiquid)) continue;
-            
+            if (!StackHelper.matches(liquidInput, inputLiquid)) continue;
+            if (!StackHelper.matches(liquidOutput, outputLiquid)) continue;
+
             recipes.put(entry.getKey(), entry.getValue());
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.SOLAR_EVAPORATION_PLANT.get(), recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s recipe found for %s and %s. Command ignored!", name, liquidInput.toString(), liquidOutput.toString()));
+            LogHelper.logWarning(
+                    String.format(
+                            "No %s recipe found for %s and %s. Command ignored!",
+                            name,
+                            liquidInput.toString(),
+                            liquidOutput.toString()));
         }
     }
 }

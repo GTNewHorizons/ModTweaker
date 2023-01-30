@@ -1,10 +1,13 @@
 package modtweaker2.mods.thaumcraft.research;
 
 import minetweaker.IUndoableAction;
+
 import net.minecraft.util.ResourceLocation;
+
 import thaumcraft.api.research.ResearchCategories;
 
 public class AddTab implements IUndoableAction {
+
     String tab;
     ResourceLocation icon;
     ResourceLocation background;

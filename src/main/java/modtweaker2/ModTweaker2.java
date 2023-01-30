@@ -27,6 +27,7 @@ import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thermalexpansion.ThermalExpansion;
 import modtweaker2.proxy.CommonProxy;
 import modtweaker2.utils.TweakerPlugin;
+
 import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.logging.log4j.LogManager;
@@ -46,73 +47,72 @@ import cpw.mods.fml.relauncher.Side;
 @Mod(modid = ModProps.modid, version = ModProps.version, dependencies = ModProps.dependencies)
 public class ModTweaker2 {
 
-	public static Logger logger = LogManager.getLogger(ModProps.modid);
+    public static Logger logger = LogManager.getLogger(ModProps.modid);
 
-	public static File baseIMCFolder;
-	@Instance(ModProps.modid)
-	public ModTweaker2 instance;
+    public static File baseIMCFolder;
+    @Instance(ModProps.modid)
+    public ModTweaker2 instance;
 
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		logger.info("Starting PreInitialization for " + ModProps.modid);
-	}
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        logger.info("Starting PreInitialization for " + ModProps.modid);
+    }
 
-	@SidedProxy(clientSide = "modtweaker2.proxy.ClientProxy", serverSide = "modtweaker2.proxy.CommonProxy")
-	public static CommonProxy proxy;
+    @SidedProxy(clientSide = "modtweaker2.proxy.ClientProxy", serverSide = "modtweaker2.proxy.CommonProxy")
+    public static CommonProxy proxy;
 
-	@EventHandler
-	public void init(FMLInitializationEvent event) {
-		logger.info("Starting Initialization for " + ModProps.modid);
-		TweakerPlugin.register("appliedenergistics2-core", AppliedEnergistics.class);
-		TweakerPlugin.register("Botania", Botania.class);
-		TweakerPlugin.register("shadowfox_botany", BotanicalAddons.class);
-		TweakerPlugin.register("exnihilo", ExNihilo.class);
-		TweakerPlugin.register("extendedWorkbench", ExtendedWorkbench.class);
-		TweakerPlugin.register("factorization", Factorization.class);
-		TweakerPlugin.register("Mariculture", Mariculture.class);
-		TweakerPlugin.register("Mekanism", Mekanism.class);
-		TweakerPlugin.register("Metallurgy", Metallurgy.class);
-		TweakerPlugin.register("PneumaticCraft", PneumaticCraft.class);
-		TweakerPlugin.register("Railcraft", Railcraft.class);
-		TweakerPlugin.register("TConstruct", TConstruct.class);
-		TweakerPlugin.register("Thaumcraft", Thaumcraft.class);
-		TweakerPlugin.register("ThermalExpansion", ThermalExpansion.class);
-		TweakerPlugin.register("Forestry", Forestry.class);
-		TweakerPlugin.register("chisel", Chisel.class);
-		TweakerPlugin.register("aura", AuraCascade.class);
-		TweakerPlugin.register("ExtraUtilities", ExtraUtils.class);
-		TweakerPlugin.register("IC2", IC2C.class);
-		
+    @EventHandler
+    public void init(FMLInitializationEvent event) {
+        logger.info("Starting Initialization for " + ModProps.modid);
+        TweakerPlugin.register("appliedenergistics2-core", AppliedEnergistics.class);
+        TweakerPlugin.register("Botania", Botania.class);
+        TweakerPlugin.register("shadowfox_botany", BotanicalAddons.class);
+        TweakerPlugin.register("exnihilo", ExNihilo.class);
+        TweakerPlugin.register("extendedWorkbench", ExtendedWorkbench.class);
+        TweakerPlugin.register("factorization", Factorization.class);
+        TweakerPlugin.register("Mariculture", Mariculture.class);
+        TweakerPlugin.register("Mekanism", Mekanism.class);
+        TweakerPlugin.register("Metallurgy", Metallurgy.class);
+        TweakerPlugin.register("PneumaticCraft", PneumaticCraft.class);
+        TweakerPlugin.register("Railcraft", Railcraft.class);
+        TweakerPlugin.register("TConstruct", TConstruct.class);
+        TweakerPlugin.register("Thaumcraft", Thaumcraft.class);
+        TweakerPlugin.register("ThermalExpansion", ThermalExpansion.class);
+        TweakerPlugin.register("Forestry", Forestry.class);
+        TweakerPlugin.register("chisel", Chisel.class);
+        TweakerPlugin.register("aura", AuraCascade.class);
+        TweakerPlugin.register("ExtraUtilities", ExtraUtils.class);
+        TweakerPlugin.register("IC2", IC2C.class);
 
-		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			MinecraftForge.EVENT_BUS.register(new ClientEvents());
-		}
+        if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+            MinecraftForge.EVENT_BUS.register(new ClientEvents());
+        }
 
-		MineTweakerImplementationAPI.onReloadEvent(new IEventHandler<MineTweakerImplementationAPI.ReloadEvent>() {
+        MineTweakerImplementationAPI.onReloadEvent(new IEventHandler<MineTweakerImplementationAPI.ReloadEvent>() {
 
-			@Override
-			public void handle(ReloadEvent event) {
-				proxy.registerCommands();
+            @Override
+            public void handle(ReloadEvent event) {
+                proxy.registerCommands();
 
-			}
-		});
+            }
+        });
 
-		File scripts = new File("scripts");
-		if (!scripts.exists()) {
-			scripts.mkdir();
-		}
-		MineTweakerImplementationAPI.setScriptProvider(new ScriptProviderDirectory(scripts));
-	}
+        File scripts = new File("scripts");
+        if (!scripts.exists()) {
+            scripts.mkdir();
+        }
+        MineTweakerImplementationAPI.setScriptProvider(new ScriptProviderDirectory(scripts));
+    }
 
-	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		logger.info("Starting PostInitialization for " + ModProps.modid);
-	}
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+        logger.info("Starting PostInitialization for " + ModProps.modid);
+    }
 
-	@EventHandler
-	public void serverStart(FMLServerStartingEvent event) {
-		logger.info("Starting ServerStart for " + ModProps.modid);
-		proxy.registerCommands();
+    @EventHandler
+    public void serverStart(FMLServerStartingEvent event) {
+        logger.info("Starting ServerStart for " + ModProps.modid);
+        proxy.registerCommands();
 
-	}
+    }
 }

@@ -29,55 +29,68 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.mekanism.Separator")
 public class Separator {
-    
+
     public static final String name = "Mekanism Separator";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings("unchecked")
     @ZenMethod
-    public static void addRecipe(ILiquidStack liquidInput, double energy, IGasStack leftGasOutput, IGasStack rightGasOutput) {
-        if(liquidInput == null || leftGasOutput == null || rightGasOutput == null) {
+    public static void addRecipe(ILiquidStack liquidInput, double energy, IGasStack leftGasOutput,
+            IGasStack rightGasOutput) {
+        if (liquidInput == null || leftGasOutput == null || rightGasOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        SeparatorRecipe recipe = new SeparatorRecipe(toFluid(liquidInput), energy, toGas(leftGasOutput), toGas(rightGasOutput));
-        
+
+        SeparatorRecipe recipe = new SeparatorRecipe(
+                toFluid(liquidInput),
+                energy,
+                toGas(leftGasOutput),
+                toGas(rightGasOutput));
+
         MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.ELECTROLYTIC_SEPARATOR.get(), recipe));
     }
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @ZenMethod
-    public static void removeRecipe(IIngredient liquidInput, @Optional IIngredient leftGasInput, @Optional IIngredient rightGasInput) {
-        if(liquidInput == null) {
+    public static void removeRecipe(IIngredient liquidInput, @Optional IIngredient leftGasInput,
+            @Optional IIngredient rightGasInput) {
+        if (liquidInput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        if(leftGasInput == null) leftGasInput = IngredientAny.INSTANCE;
-        if(rightGasInput == null) leftGasInput = IngredientAny.INSTANCE;
-        
+
+        if (leftGasInput == null) leftGasInput = IngredientAny.INSTANCE;
+        if (rightGasInput == null) leftGasInput = IngredientAny.INSTANCE;
+
         Map<MachineInput, MachineRecipe> recipes = new HashMap<MachineInput, MachineRecipe>();
-        
-        for(Entry<FluidInput, SeparatorRecipe> entry : ((Map<FluidInput, SeparatorRecipe>)Recipe.ELECTROLYTIC_SEPARATOR.get()).entrySet() ) {
+
+        for (Entry<FluidInput, SeparatorRecipe> entry : ((Map<FluidInput, SeparatorRecipe>) Recipe.ELECTROLYTIC_SEPARATOR
+                .get()).entrySet()) {
             ILiquidStack inputLiquid = InputHelper.toILiquidStack(entry.getKey().ingredient);
             IGasStack outputItemLeft = new MCGasStack(entry.getValue().recipeOutput.leftGas);
             IGasStack outputItemRight = new MCGasStack(entry.getValue().recipeOutput.rightGas);
-            
-            if(!StackHelper.matches(liquidInput, inputLiquid)) continue;
-            if(!StackHelper.matches(leftGasInput, outputItemLeft)) continue;
-            if(!StackHelper.matches(rightGasInput, outputItemRight)) continue;
-            
+
+            if (!StackHelper.matches(liquidInput, inputLiquid)) continue;
+            if (!StackHelper.matches(leftGasInput, outputItemLeft)) continue;
+            if (!StackHelper.matches(rightGasInput, outputItemRight)) continue;
+
             recipes.put(entry.getKey(), entry.getValue());
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.ELECTROLYTIC_SEPARATOR.get(), recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s recipe found for %s, %s and %s. Command ignored!", name, liquidInput.toString(), leftGasInput.toString(), rightGasInput.toString()));
+            LogHelper.logWarning(
+                    String.format(
+                            "No %s recipe found for %s, %s and %s. Command ignored!",
+                            name,
+                            liquidInput.toString(),
+                            leftGasInput.toString(),
+                            rightGasInput.toString()));
         }
     }
 }

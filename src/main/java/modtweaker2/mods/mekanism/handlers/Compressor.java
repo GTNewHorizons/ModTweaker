@@ -31,71 +31,79 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.mekanism.Compressor")
 public class Compressor {
-    
+
     public static final String name = "Mekanism Compressor";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings("unchecked")
     @ZenMethod
     public static void addRecipe(IItemStack itemInput, IItemStack itemOutput) {
-        if(itemInput == null || itemOutput == null) {
+        if (itemInput == null || itemOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
+
         OsmiumCompressorRecipe recipe = new OsmiumCompressorRecipe(toStack(itemInput), toStack(itemOutput));
-        
+
         MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.OSMIUM_COMPRESSOR.get(), recipe));
     }
-    
+
     @SuppressWarnings("unchecked")
     @ZenMethod
     public static void addRecipe(IItemStack itemInput, IGasStack gasInput, IItemStack itemOutput) {
-        if(itemInput == null || gasInput == null || itemOutput == null) {
+        if (itemInput == null || gasInput == null || itemOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
+
         AdvancedMachineInput input = new AdvancedMachineInput(toStack(itemInput), toGas(gasInput).getGas());
         ItemStackOutput output = new ItemStackOutput(toStack(itemOutput));
-        
+
         OsmiumCompressorRecipe recipe = new OsmiumCompressorRecipe(input, output);
-        
+
         MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.OSMIUM_COMPRESSOR.get(), recipe));
     }
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @ZenMethod
-    public static void removeRecipe(IIngredient itemOutput, @Optional IIngredient itemInput, @Optional IIngredient gasInput) {
-        if(itemOutput == null) {
+    public static void removeRecipe(IIngredient itemOutput, @Optional IIngredient itemInput,
+            @Optional IIngredient gasInput) {
+        if (itemOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        if(itemInput == null) itemInput = IngredientAny.INSTANCE;
-        if(gasInput == null) gasInput = IngredientAny.INSTANCE;
-        
+
+        if (itemInput == null) itemInput = IngredientAny.INSTANCE;
+        if (gasInput == null) gasInput = IngredientAny.INSTANCE;
+
         Map<MachineInput, MachineRecipe> recipes = new HashMap<MachineInput, MachineRecipe>();
-        
-        for(Entry<AdvancedMachineInput, OsmiumCompressorRecipe> entry : ((Map<AdvancedMachineInput, OsmiumCompressorRecipe>)Recipe.OSMIUM_COMPRESSOR.get()).entrySet()) {
+
+        for (Entry<AdvancedMachineInput, OsmiumCompressorRecipe> entry : ((Map<AdvancedMachineInput, OsmiumCompressorRecipe>) Recipe.OSMIUM_COMPRESSOR
+                .get()).entrySet()) {
             IItemStack inputItem = InputHelper.toIItemStack(entry.getKey().itemStack);
             IGasStack inputGas = new MCGasStack(new GasStack(entry.getKey().gasType, 1));
             IItemStack outputItem = InputHelper.toIItemStack(entry.getValue().getOutput().output);
-            
-            if(!StackHelper.matches(itemInput, inputItem)) continue;
-            if(!StackHelper.matches(gasInput, inputGas)) continue;
-            if(!StackHelper.matches(itemOutput, outputItem)) continue;
-            
+
+            if (!StackHelper.matches(itemInput, inputItem)) continue;
+            if (!StackHelper.matches(gasInput, inputGas)) continue;
+            if (!StackHelper.matches(itemOutput, outputItem)) continue;
+
             recipes.put(entry.getKey(), entry.getValue());
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.OSMIUM_COMPRESSOR.get(), recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s recipe found for %s, %s and %s. Command ignored!", name, itemInput.toString(), gasInput.toString(), itemOutput.toString()));
+            LogHelper.logWarning(
+                    String.format(
+                            "No %s recipe found for %s, %s and %s. Command ignored!",
+                            name,
+                            itemInput.toString(),
+                            gasInput.toString(),
+                            itemOutput.toString()));
         }
     }
 }

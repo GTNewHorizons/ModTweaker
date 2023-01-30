@@ -1,16 +1,17 @@
 package modtweaker2.mods.thaumcraft.research;
 
+import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
+
+import java.lang.reflect.Field;
+
 import minetweaker.IUndoableAction;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import modtweaker2.mods.thaumcraft.handlers.Research.SetType;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 
-import java.lang.reflect.Field;
-
-import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
-
 public class SetResearch implements IUndoableAction {
+
     String key;
     String tab;
     SetType type;
@@ -40,14 +41,22 @@ public class SetResearch implements IUndoableAction {
         } else {
             try {
                 Field target = null;
-                if (type == SetType.AUTO) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isAutoUnlock");
-                else if (type == SetType.ROUND) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isRound");
-                else if (type == SetType.SPIKE) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isSpecial");
-                else if (type == SetType.SECONDARY) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isSecondary");
-                else if (type == SetType.STUB) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isStub");
-                else if (type == SetType.VIRTUAL) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isVirtual");
-                else if (type == SetType.CONCEAL) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isConcealed");
-                else if (type == SetType.HIDDEN) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isHidden");
+                if (type == SetType.AUTO)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isAutoUnlock");
+                else if (type == SetType.ROUND)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isRound");
+                else if (type == SetType.SPIKE)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isSpecial");
+                else if (type == SetType.SECONDARY)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isSecondary");
+                else if (type == SetType.STUB)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isStub");
+                else if (type == SetType.VIRTUAL)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isVirtual");
+                else if (type == SetType.CONCEAL)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isConcealed");
+                else if (type == SetType.HIDDEN)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isHidden");
 
                 if (target != null) {
                     target.setAccessible(true);
@@ -73,7 +82,7 @@ public class SetResearch implements IUndoableAction {
     @Override
     public void undo() {
         final ResearchItem research = getResearchSafe(tab, key);
-        if(research == null) {
+        if (research == null) {
             return;
         }
 
@@ -89,14 +98,22 @@ public class SetResearch implements IUndoableAction {
         } else {
             try {
                 Field target = null;
-                if (type == SetType.AUTO) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isAutoUnlock");
-                else if (type == SetType.ROUND) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isRound");
-                else if (type == SetType.SPIKE) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isSpecial");
-                else if (type == SetType.SECONDARY) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isSecondary");
-                else if (type == SetType.STUB) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isStub");
-                else if (type == SetType.VIRTUAL) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isVirtual");
-                else if (type == SetType.CONCEAL) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isConcealed");
-                else if (type == SetType.HIDDEN) target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isHidden");
+                if (type == SetType.AUTO)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isAutoUnlock");
+                else if (type == SetType.ROUND)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isRound");
+                else if (type == SetType.SPIKE)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isSpecial");
+                else if (type == SetType.SECONDARY)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isSecondary");
+                else if (type == SetType.STUB)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isStub");
+                else if (type == SetType.VIRTUAL)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isVirtual");
+                else if (type == SetType.CONCEAL)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isConcealed");
+                else if (type == SetType.HIDDEN)
+                    target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isHidden");
 
                 if (target != null) {
                     target.setAccessible(true);

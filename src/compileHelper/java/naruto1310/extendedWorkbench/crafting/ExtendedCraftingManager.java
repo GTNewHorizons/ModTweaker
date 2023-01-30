@@ -6,12 +6,12 @@ import net.minecraft.item.crafting.IRecipe;
 
 public class ExtendedCraftingManager {
 
-	public static final ExtendedCraftingManager getInstance() {
-		throw new UnsupportedOperationException();
-	}
+    public static final ExtendedCraftingManager getInstance() {
+        throw new UnsupportedOperationException();
+    }
 
-	public List<IRecipe> getRecipeList() {
-		throw new UnsupportedOperationException();
-	}
+    public List<IRecipe> getRecipeList() {
+        throw new UnsupportedOperationException();
+    }
 
 }

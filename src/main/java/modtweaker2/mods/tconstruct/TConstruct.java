@@ -9,6 +9,7 @@ import modtweaker2.mods.tconstruct.handlers.TiCTweaks;
 import modtweaker2.mods.tconstruct.handlers.ToolStats;
 
 public class TConstruct {
+
     public TConstruct() {
         MineTweakerAPI.registerClass(Casting.class);
         MineTweakerAPI.registerClass(Drying.class);

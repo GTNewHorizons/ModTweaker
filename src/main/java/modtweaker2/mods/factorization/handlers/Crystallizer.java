@@ -15,25 +15,28 @@ import modtweaker2.helpers.ReflectionHelper;
 import modtweaker2.mods.factorization.FactorizationHelper;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
+
 import net.minecraft.item.ItemStack;
+
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-
 @ZenClass("mods.factorization.Crystallizer")
 public class Crystallizer {
-    
+
     public static final String name = "Factorization Crystallizer";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @ZenMethod
     public static void addRecipe(IItemStack input, IItemStack output, IItemStack solution, double output_count) {
-        Object recipe = FactorizationHelper.getCrystallizerRecipe(toStack(input), toStack(output), toStack(solution), (float) output_count);
+        Object recipe = FactorizationHelper
+                .getCrystallizerRecipe(toStack(input), toStack(output), toStack(solution), (float) output_count);
         MineTweakerAPI.apply(new Add(recipe));
     }
 
     private static class Add extends BaseListAddition<Object> {
+
         @SuppressWarnings("unchecked")
         public Add(Object recipe) {
             super(Crystallizer.name, FactorizationHelper.crystallizer);
@@ -42,7 +45,7 @@ public class Crystallizer {
 
         @Override
         public String getRecipeInfo(Object recipe) {
-            return LogHelper.getStackDescription((ItemStack)ReflectionHelper.getObject(recipe, "output"));
+            return LogHelper.getStackDescription((ItemStack) ReflectionHelper.getObject(recipe, "output"));
         }
     }
 
@@ -51,7 +54,7 @@ public class Crystallizer {
     @ZenMethod
     public static void removeRecipe(IIngredient output) {
         List<Object> recipes = new LinkedList<Object>();
-        
+
         for (Object r : FactorizationHelper.crystallizer) {
             if (r != null) {
                 ItemStack out = (ItemStack) ReflectionHelper.getObject(r, "output");;
@@ -60,15 +63,17 @@ public class Crystallizer {
                 }
             }
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new Remove(recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s Recipe found for %s. Command ignored!", Crystallizer.name, output.toString()));
+            LogHelper.logWarning(
+                    String.format("No %s Recipe found for %s. Command ignored!", Crystallizer.name, output.toString()));
         }
     }
 
     private static class Remove extends BaseListRemoval<Object> {
+
         @SuppressWarnings("unchecked")
         public Remove(List<Object> recipes) {
             super(Crystallizer.name, FactorizationHelper.crystallizer, recipes);
@@ -76,7 +81,7 @@ public class Crystallizer {
 
         @Override
         public String getRecipeInfo(Object recipe) {
-            return LogHelper.getStackDescription((ItemStack)ReflectionHelper.getObject(recipe, "output"));
+            return LogHelper.getStackDescription((ItemStack) ReflectionHelper.getObject(recipe, "output"));
         }
     }
 }

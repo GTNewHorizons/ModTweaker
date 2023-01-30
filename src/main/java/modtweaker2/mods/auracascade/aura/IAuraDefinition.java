@@ -7,7 +7,7 @@ import stanhebben.zenscript.annotations.ZenOperator;
 
 @ZenClass("modtweaker.auraCascade.IAuraDefinition")
 public interface IAuraDefinition {
-	
+
     @ZenOperator(OperatorType.MUL)
     public IAuraStack asAura(int amount);
 

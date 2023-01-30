@@ -3,8 +3,8 @@ package modtweaker2.mods.mekanism.gas;
 import mekanism.api.gas.Gas;
 import mekanism.api.gas.GasStack;
 
-
 public class MCGasDefinition implements IGasDefinition {
+
     private final Gas gas;
 
     public MCGasDefinition(Gas gas) {

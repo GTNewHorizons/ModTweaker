@@ -16,144 +16,157 @@ import modtweaker2.helpers.ReflectionHelper;
 import modtweaker2.mods.thermalexpansion.ThermalHelper;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
+import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import stanhebben.zenscript.annotations.Optional;
 import cofh.thermalexpansion.util.crafting.SawmillManager;
 import cofh.thermalexpansion.util.crafting.SawmillManager.RecipeSawmill;
 
 @ZenClass("mods.thermalexpansion.Sawmill")
 public class Sawmill {
-    
-    public static final String name = "Thermal Expansion Sawmill";
-    
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   
-	@ZenMethod
-	public static void addRecipe(int energy, IItemStack input, IItemStack output) {
-		addRecipe(energy, input, output, null, 0);
-	}
 
-	@ZenMethod
-	public static void addRecipe(int energy, IItemStack input, IItemStack output, @Optional IItemStack secondary, @Optional int secondaryChance) {
-        if(input == null || output == null) {
+    public static final String name = "Thermal Expansion Sawmill";
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @ZenMethod
+    public static void addRecipe(int energy, IItemStack input, IItemStack output) {
+        addRecipe(energy, input, output, null, 0);
+    }
+
+    @ZenMethod
+    public static void addRecipe(int energy, IItemStack input, IItemStack output, @Optional IItemStack secondary,
+            @Optional int secondaryChance) {
+        if (input == null || output == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        if(SawmillManager.recipeExists(toStack(input))) {
-            LogHelper.logWarning(String.format("Duplicate %s Recipe found for %s. Command ignored!", name, LogHelper.getStackDescription(toStack(input))));
+
+        if (SawmillManager.recipeExists(toStack(input))) {
+            LogHelper.logWarning(
+                    String.format(
+                            "Duplicate %s Recipe found for %s. Command ignored!",
+                            name,
+                            LogHelper.getStackDescription(toStack(input))));
             return;
         }
-        
-        RecipeSawmill recipe = ReflectionHelper.getInstance(ThermalHelper.sawmillRecipe, toStack(input), toStack(output), toStack(secondary), secondaryChance, energy);
-        
-        if(recipe != null) {
+
+        RecipeSawmill recipe = ReflectionHelper.getInstance(
+                ThermalHelper.sawmillRecipe,
+                toStack(input),
+                toStack(output),
+                toStack(secondary),
+                secondaryChance,
+                energy);
+
+        if (recipe != null) {
             MineTweakerAPI.apply(new Add(recipe));
         } else {
             LogHelper.logError(String.format("Error while creating instance for %s recipe.", name));
         }
-	}
+    }
 
-	private static class Add extends BaseListAddition<RecipeSawmill> {
-		public Add(RecipeSawmill recipe) {
-			super(Sawmill.name, null);
-			recipes.add(recipe);
-		}
+    private static class Add extends BaseListAddition<RecipeSawmill> {
 
-		@Override
-		public void apply() {
-		    for(RecipeSawmill recipe : recipes) {
-		        boolean applied = SawmillManager.addRecipe(
-		                recipe.getEnergy(),
-		                recipe.getInput(),
-		                recipe.getPrimaryOutput(),
-		                recipe.getSecondaryOutput(),
-		                recipe.getSecondaryOutputChance());
-		        
-		        if(applied) {
-		            successful.add(recipe);
-		        }
-		    }
-		}
+        public Add(RecipeSawmill recipe) {
+            super(Sawmill.name, null);
+            recipes.add(recipe);
+        }
 
-		@Override
-		public void undo() {
-		    for(RecipeSawmill recipe : successful) {
-		        SawmillManager.removeRecipe(recipe.getInput());
-		    }
-		}
-		
-		@Override
-		protected boolean equals(RecipeSawmill recipe, RecipeSawmill otherRecipe) {
-		    return ThermalHelper.equals(recipe, otherRecipe);
-		}
+        @Override
+        public void apply() {
+            for (RecipeSawmill recipe : recipes) {
+                boolean applied = SawmillManager.addRecipe(
+                        recipe.getEnergy(),
+                        recipe.getInput(),
+                        recipe.getPrimaryOutput(),
+                        recipe.getSecondaryOutput(),
+                        recipe.getSecondaryOutputChance());
+
+                if (applied) {
+                    successful.add(recipe);
+                }
+            }
+        }
+
+        @Override
+        public void undo() {
+            for (RecipeSawmill recipe : successful) {
+                SawmillManager.removeRecipe(recipe.getInput());
+            }
+        }
+
+        @Override
+        protected boolean equals(RecipeSawmill recipe, RecipeSawmill otherRecipe) {
+            return ThermalHelper.equals(recipe, otherRecipe);
+        }
 
         @Override
         protected String getRecipeInfo(RecipeSawmill recipe) {
             return LogHelper.getStackDescription(recipe.getInput());
         }
 
-	}
+    }
 
-	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	@ZenMethod
-	public static void removeRecipe(IIngredient input) {
-	    List<RecipeSawmill> recipes = new LinkedList<RecipeSawmill>();
-	    RecipeSawmill[] list = SawmillManager.getRecipeList();
-	    
-	    for(RecipeSawmill recipe : list) {
-	        if(recipe != null && recipe.getInput() != null && matches(input, toIItemStack(recipe.getInput()))) {
-	            recipes.add(recipe);
-	        }
-	    }
-	    
-	    if(!recipes.isEmpty()) {
-	        MineTweakerAPI.apply(new Remove(recipes));
-	    } else {
-	        LogHelper.logWarning(String.format("No %s Recipe found for %s.", name, input.toString()));
-	    }
-	}
+    @ZenMethod
+    public static void removeRecipe(IIngredient input) {
+        List<RecipeSawmill> recipes = new LinkedList<RecipeSawmill>();
+        RecipeSawmill[] list = SawmillManager.getRecipeList();
 
-	private static class Remove extends BaseListRemoval<RecipeSawmill> {
-		public Remove(List<RecipeSawmill> recipes) {
-			super(Sawmill.name, null, recipes);
-		}
+        for (RecipeSawmill recipe : list) {
+            if (recipe != null && recipe.getInput() != null && matches(input, toIItemStack(recipe.getInput()))) {
+                recipes.add(recipe);
+            }
+        }
 
-		public void apply() {
-		    for(RecipeSawmill recipe : recipes) {
-		        boolean removed = SawmillManager.removeRecipe(recipe.getInput());
-		        if(removed) {
-		            successful.add(recipe);
-		        }
-		            
-		    }
-		}
+        if (!recipes.isEmpty()) {
+            MineTweakerAPI.apply(new Remove(recipes));
+        } else {
+            LogHelper.logWarning(String.format("No %s Recipe found for %s.", name, input.toString()));
+        }
+    }
 
-		public void undo() {
-		    for(RecipeSawmill recipe : successful) {
-		        SawmillManager.addRecipe(
-		                recipe.getEnergy(),
-		                recipe.getInput(),
-		                recipe.getPrimaryOutput(),
-		                recipe.getSecondaryOutput(),
-		                recipe.getSecondaryOutputChance());
-		    }
-		}
-		
+    private static class Remove extends BaseListRemoval<RecipeSawmill> {
+
+        public Remove(List<RecipeSawmill> recipes) {
+            super(Sawmill.name, null, recipes);
+        }
+
+        public void apply() {
+            for (RecipeSawmill recipe : recipes) {
+                boolean removed = SawmillManager.removeRecipe(recipe.getInput());
+                if (removed) {
+                    successful.add(recipe);
+                }
+
+            }
+        }
+
+        public void undo() {
+            for (RecipeSawmill recipe : successful) {
+                SawmillManager.addRecipe(
+                        recipe.getEnergy(),
+                        recipe.getInput(),
+                        recipe.getPrimaryOutput(),
+                        recipe.getSecondaryOutput(),
+                        recipe.getSecondaryOutputChance());
+            }
+        }
+
         @Override
         protected boolean equals(RecipeSawmill recipe, RecipeSawmill otherRecipe) {
             return ThermalHelper.equals(recipe, otherRecipe);
         }
-		
-		@Override
-		protected String getRecipeInfo(RecipeSawmill recipe) {
-		    return LogHelper.getStackDescription(recipe.getInput());
-		}
-	}
-	
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
+
+        @Override
+        protected String getRecipeInfo(RecipeSawmill recipe) {
+            return LogHelper.getStackDescription(recipe.getInput());
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @ZenMethod
     public static void refreshRecipes() {
@@ -174,8 +187,7 @@ public class Sawmill {
             return "Refreshing " + Sawmill.name + " recipes";
         }
 
-        public void undo() {
-        }
+        public void undo() {}
 
         public String describeUndo() {
             return "Ignoring undo of " + Sawmill.name + " recipe refresh";

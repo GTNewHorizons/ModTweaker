@@ -7,6 +7,7 @@ import stanhebben.zenscript.annotations.ZenOperator;
 
 @ZenClass("modtweaker.gas.IGasDefinition")
 public interface IGasDefinition {
+
     @ZenOperator(OperatorType.MUL)
     public IGasStack asStack(int millibuckets);
 

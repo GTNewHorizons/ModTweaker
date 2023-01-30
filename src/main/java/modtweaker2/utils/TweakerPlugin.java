@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import cpw.mods.fml.common.Loader;
 
 public class TweakerPlugin {
+
     private static ArrayList<String> isLoaded = new ArrayList<String>();
 
     public static void register(String mod, Class<?> clazz) {
@@ -25,5 +26,5 @@ public class TweakerPlugin {
     public static boolean isLoaded(String string) {
         return isLoaded.contains(string);
     }
-    
+
 }

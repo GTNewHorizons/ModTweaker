@@ -6,6 +6,7 @@ import minetweaker.api.item.IIngredient;
 import modtweaker2.mods.mekanism.gas.IGasStack;
 
 public class MekanismHelper {
+
     private MekanismHelper() {}
 
     public static GasStack toGas(IGasStack iStack) {
@@ -20,8 +21,7 @@ public class MekanismHelper {
 
     public static GasStack[] toGases(IGasStack[] iStack) {
         GasStack[] stack = new GasStack[iStack.length];
-        for (int i = 0; i < stack.length; i++)
-            stack[i] = toGas(iStack[i]);
+        for (int i = 0; i < stack.length; i++) stack[i] = toGas(iStack[i]);
         return stack;
     }
 }

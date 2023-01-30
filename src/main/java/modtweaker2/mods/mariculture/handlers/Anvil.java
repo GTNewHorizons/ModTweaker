@@ -22,9 +22,9 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.mariculture.Anvil")
 public class Anvil {
-    
+
     public static final String name = "Mariculture Anvil";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @ZenMethod
@@ -33,6 +33,7 @@ public class Anvil {
     }
 
     private static class Add extends BaseMapAddition<String, RecipeAnvil> {
+
         public Add(RecipeAnvil recipe) {
             super("Mariculture Anvil", MaricultureHandlers.anvil.getRecipes());
             recipes.put(MaricultureHelper.getKey(recipe.input), recipe);
@@ -46,25 +47,29 @@ public class Anvil {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //Removing a Mariculture Anvil recipe
+    // Removing a Mariculture Anvil recipe
     @ZenMethod
     public static void removeRecipe(IIngredient input) {
         Map<String, RecipeAnvil> recipes = new HashMap<String, RecipeAnvil>();
-        
-        for(Entry<String, RecipeAnvil> recipe : MaricultureHandlers.anvil.getRecipes().entrySet()) {
-            if(recipe != null && recipe.getValue() != null && recipe.getValue().input != null && matches(input, toIItemStack(recipe.getValue().input))) {
+
+        for (Entry<String, RecipeAnvil> recipe : MaricultureHandlers.anvil.getRecipes().entrySet()) {
+            if (recipe != null && recipe.getValue() != null
+                    && recipe.getValue().input != null
+                    && matches(input, toIItemStack(recipe.getValue().input))) {
                 recipes.put(recipe.getKey(), recipe.getValue());
             }
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new Remove(recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s Recipe found for %s. Command ignored!", Anvil.name, input.toString()));
+            LogHelper.logWarning(
+                    String.format("No %s Recipe found for %s. Command ignored!", Anvil.name, input.toString()));
         }
     }
 
     private static class Remove extends BaseMapRemoval<String, RecipeAnvil> {
+
         public Remove(Map<String, RecipeAnvil> recipes) {
             super("Mariculture Anvil", MaricultureHandlers.anvil.getRecipes(), recipes);
         }

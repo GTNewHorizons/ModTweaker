@@ -9,6 +9,7 @@ import stanhebben.zenscript.annotations.ZenOperator;
 
 @ZenClass("modtweaker.gas.IGasStack")
 public interface IGasStack extends IIngredient {
+
     @ZenGetter("definition")
     public IGasDefinition getDefinition();
 

@@ -1,23 +1,24 @@
 package modtweaker2.mods.thaumcraft.research;
 
+import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
+
+import java.lang.reflect.Field;
+
 import minetweaker.IUndoableAction;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 
-import java.lang.reflect.Field;
-
-import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
-
 public class SetAspects implements IUndoableAction {
+
     String key;
     String tab;
     AspectList oldList;
     AspectList list;
     boolean applied = false;
     final static Field tags;
-    
+
     static {
         Field tags1;
         try {
@@ -63,7 +64,7 @@ public class SetAspects implements IUndoableAction {
     public void undo() {
         try {
             final ResearchItem research = getResearchSafe(tab, key);
-            if(research == null || tags == null) {
+            if (research == null || tags == null) {
                 return;
             }
             tags.setAccessible(true);

@@ -1,71 +1,71 @@
 package modtweaker2.mods.thaumcraft.research;
 
-import net.minecraft.item.ItemStack;
 import minetweaker.IUndoableAction;
-import thaumcraft.api.aspects.Aspect;
+
+import net.minecraft.item.ItemStack;
+
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 
 public class AddResearch implements IUndoableAction {
-	String key;
-	String tab;
-	ResearchItem research;
-	ResearchItem oldResearch;
-	ItemStack[] itemTriggers;
-	String[] entityTriggers;
-	AspectList aspectTriggers;
 
-	public AddResearch(ResearchItem res, ItemStack[] itemTriggers, String[] entityTriggers, AspectList aspectTriggers) {
-		research = res;
-		tab = research.category;
-		key = research.key;
-		this.itemTriggers = itemTriggers;
-		this.entityTriggers = entityTriggers;
-		this.aspectTriggers = aspectTriggers;
-	}
+    String key;
+    String tab;
+    ResearchItem research;
+    ResearchItem oldResearch;
+    ItemStack[] itemTriggers;
+    String[] entityTriggers;
+    AspectList aspectTriggers;
 
-	@Override
-	public void apply() {
-		oldResearch = ResearchCategories.getResearch(research.key);
-		if (itemTriggers != null) {
-			research = research.setItemTriggers(itemTriggers);
-		}
-		if (entityTriggers != null) {
-			research = research.setEntityTriggers(entityTriggers);
-		}
-		if (aspectTriggers != null) {
-			research = research.setAspectTriggers(aspectTriggers.getAspects());
-		}
-		research.registerResearchItem();
-	}
+    public AddResearch(ResearchItem res, ItemStack[] itemTriggers, String[] entityTriggers, AspectList aspectTriggers) {
+        research = res;
+        tab = research.category;
+        key = research.key;
+        this.itemTriggers = itemTriggers;
+        this.entityTriggers = entityTriggers;
+        this.aspectTriggers = aspectTriggers;
+    }
 
-	@Override
-	public String describe() {
-		return "Registering Research: " + key;
-	}
+    @Override
+    public void apply() {
+        oldResearch = ResearchCategories.getResearch(research.key);
+        if (itemTriggers != null) {
+            research = research.setItemTriggers(itemTriggers);
+        }
+        if (entityTriggers != null) {
+            research = research.setEntityTriggers(entityTriggers);
+        }
+        if (aspectTriggers != null) {
+            research = research.setAspectTriggers(aspectTriggers.getAspects());
+        }
+        research.registerResearchItem();
+    }
 
-	@Override
-	public boolean canUndo() {
-		return tab != null && key != null;
-	}
+    @Override
+    public String describe() {
+        return "Registering Research: " + key;
+    }
 
-	@Override
-	public void undo() {
-		if (oldResearch == null)
-			ResearchCategories.researchCategories.get(tab).research.remove(key);
-		else
-			ResearchCategories.researchCategories.get(tab).research.put(key, oldResearch);
-	}
+    @Override
+    public boolean canUndo() {
+        return tab != null && key != null;
+    }
 
-	@Override
-	public String describeUndo() {
-		return "Removing Research: " + key;
-	}
+    @Override
+    public void undo() {
+        if (oldResearch == null) ResearchCategories.researchCategories.get(tab).research.remove(key);
+        else ResearchCategories.researchCategories.get(tab).research.put(key, oldResearch);
+    }
 
-	@Override
-	public String getOverrideKey() {
-		return null;
-	}
+    @Override
+    public String describeUndo() {
+        return "Removing Research: " + key;
+    }
+
+    @Override
+    public String getOverrideKey() {
+        return null;
+    }
 
 }

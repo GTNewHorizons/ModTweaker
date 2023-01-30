@@ -5,6 +5,7 @@ import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategoryList;
 
 public class RemoveTab implements IUndoableAction {
+
     String tab;
     ResearchCategoryList list;
 

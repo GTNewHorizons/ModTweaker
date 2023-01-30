@@ -5,41 +5,41 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 
 public class RemoveEntry implements IUndoableAction {
-	
-	LexiconEntry Entry;
+
+    LexiconEntry Entry;
 
     public RemoveEntry(LexiconEntry Entry) {
-        this.Entry=Entry;
+        this.Entry = Entry;
     }
 
     @Override
-	public void apply() {
-		Entry.category.entries.remove(Entry);
-		BotaniaAPI.getAllEntries().remove(Entry);
-	}
+    public void apply() {
+        Entry.category.entries.remove(Entry);
+        BotaniaAPI.getAllEntries().remove(Entry);
+    }
 
-	@Override
-	public boolean canUndo() {
+    @Override
+    public boolean canUndo() {
         return Entry != null;
-	}
-	
-	@Override
-	public String describe() {
+    }
+
+    @Override
+    public String describe() {
         return "Removing Lexicon Entry: " + Entry.getUnlocalizedName();
-	}
-	
-	@Override
-	public String describeUndo() {
+    }
+
+    @Override
+    public String describeUndo() {
         return "Adding Lexicon Entry: " + Entry.getUnlocalizedName();
-	}
-	
-	@Override
-	public void undo() {
-    	BotaniaAPI.addEntry(Entry, Entry.category);
-	}
-	
-	@Override
-	public Object getOverrideKey() {
-		return null;
-	}
+    }
+
+    @Override
+    public void undo() {
+        BotaniaAPI.addEntry(Entry, Entry.category);
+    }
+
+    @Override
+    public Object getOverrideKey() {
+        return null;
+    }
 }

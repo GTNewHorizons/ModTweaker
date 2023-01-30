@@ -2,8 +2,8 @@ package modtweaker2.mods.auracascade.aura;
 
 import pixlepix.auracascade.data.AuraQuantity;
 
-
 public class MCAuraStack implements IAuraStack {
+
     private final AuraQuantity aura;
 
     public MCAuraStack(AuraQuantity aura) {

@@ -26,8 +26,9 @@ import cofh.thermalexpansion.util.crafting.TransposerManager;
 import cofh.thermalexpansion.util.crafting.TransposerManager.RecipeTransposer;
 
 public class ThermalExpansionLogger implements ICommandFunction {
+
     private static final List<String> validArguments = new LinkedList<String>();
-    
+
     static {
         validArguments.add("Crucible");
         validArguments.add("Furnace");
@@ -37,131 +38,160 @@ public class ThermalExpansionLogger implements ICommandFunction {
         validArguments.add("Smelter");
         validArguments.add("Transposer");
     }
-    
+
     @Override
     public void execute(String[] arguments, IPlayer player) {
         List<String> args = StringHelper.toLowerCase(Arrays.asList(arguments));
-        
-        if(!validArguments.containsAll(args)) {
-            if(player != null) {
-                player.sendChat(MineTweakerImplementationAPI.platform.getMessage("Invalid arguments for command. Valid arguments: " + StringHelper.join(validArguments, ", ")));
+
+        if (!validArguments.containsAll(args)) {
+            if (player != null) {
+                player.sendChat(
+                        MineTweakerImplementationAPI.platform.getMessage(
+                                "Invalid arguments for command. Valid arguments: "
+                                        + StringHelper.join(validArguments, ", ")));
             }
         } else {
-            if(args.isEmpty() || args.contains("Crucible")) {
-                for(RecipeCrucible recipe : CrucibleManager.getRecipeList()) {
-                    MineTweakerAPI.logCommand(String.format("mods.thermalexpansion.Crucible.addRecipe(%d, %s, %s);",
-                            recipe.getEnergy(),
-                            LogHelper.getStackDescription(recipe.getInput()),
-                            LogHelper.getStackDescription(recipe.getOutput())));
+            if (args.isEmpty() || args.contains("Crucible")) {
+                for (RecipeCrucible recipe : CrucibleManager.getRecipeList()) {
+                    MineTweakerAPI.logCommand(
+                            String.format(
+                                    "mods.thermalexpansion.Crucible.addRecipe(%d, %s, %s);",
+                                    recipe.getEnergy(),
+                                    LogHelper.getStackDescription(recipe.getInput()),
+                                    LogHelper.getStackDescription(recipe.getOutput())));
                 }
             }
-            
-            if(args.isEmpty() || args.contains("Furnace")) {
-                for(RecipeFurnace recipe : FurnaceManager.getRecipeList()) {
-                    MineTweakerAPI.logCommand(String.format("mods.thermalexpansion.Furnace.addRecipe(%d, %s, %s);",
-                            recipe.getEnergy(),
-                            LogHelper.getStackDescription(recipe.getInput()),
-                            LogHelper.getStackDescription(recipe.getOutput())));
+
+            if (args.isEmpty() || args.contains("Furnace")) {
+                for (RecipeFurnace recipe : FurnaceManager.getRecipeList()) {
+                    MineTweakerAPI.logCommand(
+                            String.format(
+                                    "mods.thermalexpansion.Furnace.addRecipe(%d, %s, %s);",
+                                    recipe.getEnergy(),
+                                    LogHelper.getStackDescription(recipe.getInput()),
+                                    LogHelper.getStackDescription(recipe.getOutput())));
                 }
             }
-            
-            if(args.isEmpty() || args.contains("Insolator")) {
-                for(RecipeInsolator recipe : InsolatorManager.getRecipeList()) {
-                    if(recipe.getSecondaryOutput() != null) {
-                        MineTweakerAPI.logCommand(String.format("mods.thermalexpansion.Insolator.addRecipe(%d, %s, %s, %s, %s, %d);",
-                                recipe.getEnergy(),
-                                LogHelper.getStackDescription(recipe.getPrimaryInput()),
-                                LogHelper.getStackDescription(recipe.getSecondaryInput()),
-                                LogHelper.getStackDescription(recipe.getPrimaryOutput()),
-                                LogHelper.getStackDescription(recipe.getSecondaryOutput()),
-                                recipe.getSecondaryOutputChance()));
+
+            if (args.isEmpty() || args.contains("Insolator")) {
+                for (RecipeInsolator recipe : InsolatorManager.getRecipeList()) {
+                    if (recipe.getSecondaryOutput() != null) {
+                        MineTweakerAPI.logCommand(
+                                String.format(
+                                        "mods.thermalexpansion.Insolator.addRecipe(%d, %s, %s, %s, %s, %d);",
+                                        recipe.getEnergy(),
+                                        LogHelper.getStackDescription(recipe.getPrimaryInput()),
+                                        LogHelper.getStackDescription(recipe.getSecondaryInput()),
+                                        LogHelper.getStackDescription(recipe.getPrimaryOutput()),
+                                        LogHelper.getStackDescription(recipe.getSecondaryOutput()),
+                                        recipe.getSecondaryOutputChance()));
                     } else {
-                        MineTweakerAPI.logCommand(String.format("mods.thermalexpansion.Insolator.addRecipe(%d, %s, %s, %s);",
-                                recipe.getEnergy(),
-                                LogHelper.getStackDescription(recipe.getPrimaryInput()),
-                                LogHelper.getStackDescription(recipe.getSecondaryInput()),
-                                LogHelper.getStackDescription(recipe.getPrimaryOutput())));                        
+                        MineTweakerAPI.logCommand(
+                                String.format(
+                                        "mods.thermalexpansion.Insolator.addRecipe(%d, %s, %s, %s);",
+                                        recipe.getEnergy(),
+                                        LogHelper.getStackDescription(recipe.getPrimaryInput()),
+                                        LogHelper.getStackDescription(recipe.getSecondaryInput()),
+                                        LogHelper.getStackDescription(recipe.getPrimaryOutput())));
                     }
                 }
             }
-            
-            if(args.isEmpty() || args.contains("Pulverizer")) {
-                for(RecipePulverizer recipe : PulverizerManager.getRecipeList()) {
-                    if(recipe.getSecondaryOutput() != null) {
-                        MineTweakerAPI.logCommand(String.format("mods.thermalexpansion.Pulverizer.addRecipe(%d, %s, %s, %s, %d);",
-                                recipe.getEnergy(),
-                                LogHelper.getStackDescription(recipe.getInput()),
-                                LogHelper.getStackDescription(recipe.getPrimaryOutput()),
-                                LogHelper.getStackDescription(recipe.getSecondaryOutput()),
-                                recipe.getSecondaryOutputChance()));
+
+            if (args.isEmpty() || args.contains("Pulverizer")) {
+                for (RecipePulverizer recipe : PulverizerManager.getRecipeList()) {
+                    if (recipe.getSecondaryOutput() != null) {
+                        MineTweakerAPI.logCommand(
+                                String.format(
+                                        "mods.thermalexpansion.Pulverizer.addRecipe(%d, %s, %s, %s, %d);",
+                                        recipe.getEnergy(),
+                                        LogHelper.getStackDescription(recipe.getInput()),
+                                        LogHelper.getStackDescription(recipe.getPrimaryOutput()),
+                                        LogHelper.getStackDescription(recipe.getSecondaryOutput()),
+                                        recipe.getSecondaryOutputChance()));
                     } else {
-                        MineTweakerAPI.logCommand(String.format("mods.thermalexpansion.Pulverizer.addRecipe(%d, %s, %s);",
-                                recipe.getEnergy(),
-                                LogHelper.getStackDescription(recipe.getInput()),
-                                LogHelper.getStackDescription(recipe.getPrimaryOutput())));                        
+                        MineTweakerAPI.logCommand(
+                                String.format(
+                                        "mods.thermalexpansion.Pulverizer.addRecipe(%d, %s, %s);",
+                                        recipe.getEnergy(),
+                                        LogHelper.getStackDescription(recipe.getInput()),
+                                        LogHelper.getStackDescription(recipe.getPrimaryOutput())));
                     }
                 }
             }
-            
-            if(args.isEmpty() || args.contains("Sawmill")) {
-                for(RecipeSawmill recipe : SawmillManager.getRecipeList()) {
-                    if(recipe.getSecondaryOutput() != null) {
-                        MineTweakerAPI.logCommand(String.format("mods.thermalexpansion.Sawmill.addRecipe(%d, %s, %s, %s, %d);",
-                                recipe.getEnergy(),
-                                LogHelper.getStackDescription(recipe.getInput()),
-                                LogHelper.getStackDescription(recipe.getPrimaryOutput()),
-                                LogHelper.getStackDescription(recipe.getSecondaryOutput()),
-                                recipe.getSecondaryOutputChance()));
+
+            if (args.isEmpty() || args.contains("Sawmill")) {
+                for (RecipeSawmill recipe : SawmillManager.getRecipeList()) {
+                    if (recipe.getSecondaryOutput() != null) {
+                        MineTweakerAPI.logCommand(
+                                String.format(
+                                        "mods.thermalexpansion.Sawmill.addRecipe(%d, %s, %s, %s, %d);",
+                                        recipe.getEnergy(),
+                                        LogHelper.getStackDescription(recipe.getInput()),
+                                        LogHelper.getStackDescription(recipe.getPrimaryOutput()),
+                                        LogHelper.getStackDescription(recipe.getSecondaryOutput()),
+                                        recipe.getSecondaryOutputChance()));
                     } else {
-                        MineTweakerAPI.logCommand(String.format("mods.thermalexpansion.Sawmill.addRecipe(%d, %s, %s);",
-                                recipe.getEnergy(),
-                                LogHelper.getStackDescription(recipe.getInput()),
-                                LogHelper.getStackDescription(recipe.getPrimaryOutput())));                        
+                        MineTweakerAPI.logCommand(
+                                String.format(
+                                        "mods.thermalexpansion.Sawmill.addRecipe(%d, %s, %s);",
+                                        recipe.getEnergy(),
+                                        LogHelper.getStackDescription(recipe.getInput()),
+                                        LogHelper.getStackDescription(recipe.getPrimaryOutput())));
                     }
                 }
             }
-            
-            if(args.isEmpty() || args.contains("Smelter")) {
-                for(RecipeSmelter recipe : SmelterManager.getRecipeList()) {
-                    if(recipe.getSecondaryOutput() != null) {
-                        MineTweakerAPI.logCommand(String.format("mods.thermalexpansion.Smelter.addRecipe(%d, %s, %s, %s, %s, %d);",
-                                recipe.getEnergy(),
-                                LogHelper.getStackDescription(recipe.getPrimaryInput()),
-                                LogHelper.getStackDescription(recipe.getSecondaryInput()),
-                                LogHelper.getStackDescription(recipe.getPrimaryOutput()),
-                                LogHelper.getStackDescription(recipe.getSecondaryOutput()),
-                                recipe.getSecondaryOutputChance()));
+
+            if (args.isEmpty() || args.contains("Smelter")) {
+                for (RecipeSmelter recipe : SmelterManager.getRecipeList()) {
+                    if (recipe.getSecondaryOutput() != null) {
+                        MineTweakerAPI.logCommand(
+                                String.format(
+                                        "mods.thermalexpansion.Smelter.addRecipe(%d, %s, %s, %s, %s, %d);",
+                                        recipe.getEnergy(),
+                                        LogHelper.getStackDescription(recipe.getPrimaryInput()),
+                                        LogHelper.getStackDescription(recipe.getSecondaryInput()),
+                                        LogHelper.getStackDescription(recipe.getPrimaryOutput()),
+                                        LogHelper.getStackDescription(recipe.getSecondaryOutput()),
+                                        recipe.getSecondaryOutputChance()));
                     } else {
-                        MineTweakerAPI.logCommand(String.format("mods.thermalexpansion.Smelter.addRecipe(%d, %s, %s, %s);",
-                                recipe.getEnergy(),
-                                LogHelper.getStackDescription(recipe.getPrimaryInput()),
-                                LogHelper.getStackDescription(recipe.getSecondaryInput()),
-                                LogHelper.getStackDescription(recipe.getPrimaryOutput())));                        
+                        MineTweakerAPI.logCommand(
+                                String.format(
+                                        "mods.thermalexpansion.Smelter.addRecipe(%d, %s, %s, %s);",
+                                        recipe.getEnergy(),
+                                        LogHelper.getStackDescription(recipe.getPrimaryInput()),
+                                        LogHelper.getStackDescription(recipe.getSecondaryInput()),
+                                        LogHelper.getStackDescription(recipe.getPrimaryOutput())));
                     }
                 }
             }
-            
-            if(args.isEmpty() || args.contains("Transposer")) {
-                for(RecipeTransposer recipe : TransposerManager.getFillRecipeList()) {
-                    MineTweakerAPI.logCommand(String.format("mods.thermalexpansion.Transposer.addFillRecipe(%d, %s, %s, %s);",
-                            recipe.getEnergy(),
-                            LogHelper.getStackDescription(recipe.getInput()),
-                            LogHelper.getStackDescription(recipe.getOutput()),
-                            LogHelper.getStackDescription(recipe.getFluid())));  
+
+            if (args.isEmpty() || args.contains("Transposer")) {
+                for (RecipeTransposer recipe : TransposerManager.getFillRecipeList()) {
+                    MineTweakerAPI.logCommand(
+                            String.format(
+                                    "mods.thermalexpansion.Transposer.addFillRecipe(%d, %s, %s, %s);",
+                                    recipe.getEnergy(),
+                                    LogHelper.getStackDescription(recipe.getInput()),
+                                    LogHelper.getStackDescription(recipe.getOutput()),
+                                    LogHelper.getStackDescription(recipe.getFluid())));
                 }
-                
-                for(RecipeTransposer recipe : TransposerManager.getExtractionRecipeList()) {
-                    MineTweakerAPI.logCommand(String.format("mods.thermalexpansion.Transposer.addExtractRecipe(%d, %s, %s, %s, %d);",
-                            recipe.getEnergy(),
-                            LogHelper.getStackDescription(recipe.getInput()),
-                            LogHelper.getStackDescription(recipe.getOutput()),
-                            LogHelper.getStackDescription(recipe.getFluid()),
-                            recipe.getChance()));
+
+                for (RecipeTransposer recipe : TransposerManager.getExtractionRecipeList()) {
+                    MineTweakerAPI.logCommand(
+                            String.format(
+                                    "mods.thermalexpansion.Transposer.addExtractRecipe(%d, %s, %s, %s, %d);",
+                                    recipe.getEnergy(),
+                                    LogHelper.getStackDescription(recipe.getInput()),
+                                    LogHelper.getStackDescription(recipe.getOutput()),
+                                    LogHelper.getStackDescription(recipe.getFluid()),
+                                    recipe.getChance()));
                 }
             }
-            
+
             if (player != null) {
-                player.sendChat(MineTweakerImplementationAPI.platform.getMessage("List generated; see minetweaker.log in your minecraft dir"));
+                player.sendChat(
+                        MineTweakerImplementationAPI.platform
+                                .getMessage("List generated; see minetweaker.log in your minecraft dir"));
             }
         }
     }

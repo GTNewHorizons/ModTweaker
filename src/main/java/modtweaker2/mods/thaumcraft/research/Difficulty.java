@@ -1,22 +1,23 @@
 package modtweaker2.mods.thaumcraft.research;
 
+import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
+
+import java.lang.reflect.Field;
+
 import minetweaker.IUndoableAction;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 
-import java.lang.reflect.Field;
-
-import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
-
 public class Difficulty implements IUndoableAction {
+
     String key;
     String tab;
     int difficulty;
     int oldDif;
     boolean applied = false;
     final static Field complexity;
-    
+
     static {
         Field complexity1;
         try {
@@ -27,8 +28,6 @@ public class Difficulty implements IUndoableAction {
         }
         complexity = complexity1;
     }
-    
-
 
     public Difficulty(String res, int dif) {
         key = res;
@@ -64,7 +63,7 @@ public class Difficulty implements IUndoableAction {
     public void undo() {
         try {
             final ResearchItem research = getResearchSafe(tab, key);
-            if(research == null || complexity == null) {
+            if (research == null || complexity == null) {
                 return;
             }
             complexity.setAccessible(true);

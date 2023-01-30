@@ -9,12 +9,15 @@ import java.util.function.Function;
 
 import minetweaker.IUndoableAction;
 import modtweaker2.helpers.LogHelper;
+
 import org.apache.commons.lang3.ArrayUtils;
+
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategoryList;
 import thaumcraft.api.research.ResearchItem;
 
 public class OrphanResearch implements IUndoableAction {
+
     String key;
     private final Set<String> children = new HashSet<>();
     private final Set<String> secretChildren = new HashSet<>();
@@ -35,13 +38,12 @@ public class OrphanResearch implements IUndoableAction {
         }
     }
 
-    private void add(Set<String> set, Function<ResearchItem, String[]> function, BiConsumer<ResearchItem, String[]> consumer) {
+    private void add(Set<String> set, Function<ResearchItem, String[]> function,
+            BiConsumer<ResearchItem, String[]> consumer) {
         for (String research : set) {
             ResearchItem researchItem = ResearchCategories.getResearch(research);
-            if (researchItem == null)
-                LogHelper.logWarning("Missing research: " + research);
-            else
-                consumer.accept(researchItem, ArrayUtils.add(function.apply(researchItem), key));
+            if (researchItem == null) LogHelper.logWarning("Missing research: " + research);
+            else consumer.accept(researchItem, ArrayUtils.add(function.apply(researchItem), key));
         }
     }
 

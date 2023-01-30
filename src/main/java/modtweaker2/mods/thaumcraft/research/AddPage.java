@@ -1,12 +1,16 @@
 package modtweaker2.mods.thaumcraft.research;
 
 import static modtweaker2.helpers.StackHelper.areEqual;
+import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
+
 import minetweaker.IUndoableAction;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
+
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.crafting.CrucibleRecipe;
 import thaumcraft.api.crafting.IArcaneRecipe;
@@ -16,9 +20,9 @@ import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.research.ResearchPage.PageType;
-import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
 
 public class AddPage implements IUndoableAction {
+
     String key;
     String tab;
     ResearchPage page;
@@ -72,7 +76,8 @@ public class AddPage implements IUndoableAction {
             for (Object craft : ThaumcraftApi.getCraftingRecipes()) {
                 if (craft instanceof InfusionRecipe) {
                     InfusionRecipe theCraft = (InfusionRecipe) craft;
-                    if (theCraft.getRecipeOutput() != null && theCraft.getRecipeOutput() instanceof ItemStack && areEqual(((ItemStack) (theCraft.getRecipeOutput())), target)) {
+                    if (theCraft.getRecipeOutput() != null && theCraft.getRecipeOutput() instanceof ItemStack
+                            && areEqual(((ItemStack) (theCraft.getRecipeOutput())), target)) {
                         page = new ResearchPage(theCraft);
                         break;
                     }
@@ -113,7 +118,7 @@ public class AddPage implements IUndoableAction {
     @Override
     public void undo() {
         final ResearchItem research = getResearchSafe(tab, key);
-        if(research == null) {
+        if (research == null) {
             return;
         }
 

@@ -7,6 +7,7 @@ import modtweaker2.mods.railcraft.handlers.RockCrusher;
 import modtweaker2.mods.railcraft.handlers.RollingMachine;
 
 public class Railcraft {
+
     public Railcraft() {
         MineTweakerAPI.registerClass(BlastFurnace.class);
         MineTweakerAPI.registerClass(CokeOven.class);

@@ -1,5 +1,7 @@
 package modtweaker2.mods.botanicaladdons.handlers;
 
+import java.util.LinkedList;
+import java.util.List;
 
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
@@ -7,16 +9,15 @@ import modtweaker2.helpers.InputHelper;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+
 import ninja.shadowfox.shadowfox_botany.api.ShadowFoxAPI;
 import ninja.shadowfox.shadowfox_botany.api.trees.IIridescentSaplingVariant;
 import ninja.shadowfox.shadowfox_botany.api.trees.IridescentSaplingBaseVariant;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-
-import java.util.LinkedList;
-import java.util.List;
 
 @ZenClass("mods.botanicaladdons.IridescentTree")
 public class IridescentTree {
@@ -26,30 +27,38 @@ public class IridescentTree {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @ZenMethod
-    public static void addVariant(IItemStack blockSoil, IItemStack blockWood, IItemStack blockLeaves, int metaMin, int metaMax, int metaShift) {
+    public static void addVariant(IItemStack blockSoil, IItemStack blockWood, IItemStack blockLeaves, int metaMin,
+            int metaMax, int metaShift) {
         Object soil = InputHelper.toObject(blockSoil);
         Object wood = InputHelper.toObject(blockWood);
         Object leaves = InputHelper.toObject(blockLeaves);
-        if (soil == null || !(soil instanceof ItemStack) || !InputHelper.isABlock((ItemStack)soil)) {
+        if (soil == null || !(soil instanceof ItemStack) || !InputHelper.isABlock((ItemStack) soil)) {
             LogHelper.logError("Soil must be a block.");
             return;
-        }
-        else if (wood == null || !(wood instanceof ItemStack) || !InputHelper.isABlock((ItemStack)wood)) {
+        } else if (wood == null || !(wood instanceof ItemStack) || !InputHelper.isABlock((ItemStack) wood)) {
             LogHelper.logError("Wood must be a block.");
             return;
-        }
-        else if(leaves == null || !(leaves instanceof ItemStack) || !InputHelper.isABlock((ItemStack)leaves)) {
+        } else if (leaves == null || !(leaves instanceof ItemStack) || !InputHelper.isABlock((ItemStack) leaves)) {
             LogHelper.logError("Leaves must be a block.");
             return;
         }
-        Block soilBlock = Block.getBlockFromItem(((ItemStack)soil).getItem());
-        Block woodBlock = Block.getBlockFromItem(((ItemStack)wood).getItem());
-        Block leavesBlock = Block.getBlockFromItem(((ItemStack)leaves).getItem());
-        MineTweakerAPI.apply(new Add(new IridescentSaplingBaseVariant(soilBlock, woodBlock, leavesBlock, metaMin, metaMax, metaShift)));
+        Block soilBlock = Block.getBlockFromItem(((ItemStack) soil).getItem());
+        Block woodBlock = Block.getBlockFromItem(((ItemStack) wood).getItem());
+        Block leavesBlock = Block.getBlockFromItem(((ItemStack) leaves).getItem());
+        MineTweakerAPI.apply(
+                new Add(
+                        new IridescentSaplingBaseVariant(
+                                soilBlock,
+                                woodBlock,
+                                leavesBlock,
+                                metaMin,
+                                metaMax,
+                                metaShift)));
     }
 
     @ZenMethod
-    public static void addVariant(IItemStack blockSoil, IItemStack blockWood, IItemStack blockLeaves, int metaMin, int metaMax) {
+    public static void addVariant(IItemStack blockSoil, IItemStack blockWood, IItemStack blockLeaves, int metaMin,
+            int metaMax) {
         addVariant(blockSoil, blockWood, blockLeaves, metaMin, metaMax, 0);
     }
 
@@ -64,6 +73,7 @@ public class IridescentTree {
     }
 
     private static class Add extends BaseListAddition<IIridescentSaplingVariant> {
+
         public Add(IIridescentSaplingVariant recipe) {
             super(IridescentTree.name, ShadowFoxAPI.treeVariants);
 
@@ -83,11 +93,11 @@ public class IridescentTree {
         // Get list of existing recipes, matching with parameter
 
         Object soil = InputHelper.toObject(blockSoil);
-        if (soil == null || !(soil instanceof ItemStack) || !InputHelper.isABlock((ItemStack)soil)) {
+        if (soil == null || !(soil instanceof ItemStack) || !InputHelper.isABlock((ItemStack) soil)) {
             LogHelper.logError("Soil must be a block.");
             return;
         }
-        Block soilBlock = Block.getBlockFromItem(((ItemStack)soil).getItem());
+        Block soilBlock = Block.getBlockFromItem(((ItemStack) soil).getItem());
 
         List<IIridescentSaplingVariant> recipes = new LinkedList<IIridescentSaplingVariant>();
 
@@ -98,14 +108,19 @@ public class IridescentTree {
         }
 
         // Check if we found the recipes and apply the action
-        if(!recipes.isEmpty()) {
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new Remove(recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s Recipe found for %s. Command ignored!", IridescentTree.name, soilBlock.toString()));
+            LogHelper.logWarning(
+                    String.format(
+                            "No %s Recipe found for %s. Command ignored!",
+                            IridescentTree.name,
+                            soilBlock.toString()));
         }
     }
 
     private static class Remove extends BaseListRemoval<IIridescentSaplingVariant> {
+
         public Remove(List<IIridescentSaplingVariant> recipes) {
             super(IridescentTree.name, ShadowFoxAPI.treeVariants, recipes);
         }
@@ -116,4 +131,3 @@ public class IridescentTree {
         }
     }
 }
-

@@ -11,19 +11,23 @@ import modtweaker2.helpers.LogHelper;
 import modtweaker2.mods.metallurgy.MetallurgyHelper;
 import modtweaker2.utils.BaseMapAddition;
 import modtweaker2.utils.BaseMapRemoval;
+
 import net.minecraft.item.ItemStack;
+
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.metallurgy.Crusher")
 public class Crusher {
-    //Adding a Metallurgy Crusher Recipe
+
+    // Adding a Metallurgy Crusher Recipe
     @ZenMethod
     public static void addRecipe(IItemStack input, IItemStack output) {
         MineTweakerAPI.apply(new Add(toStack(input), toStack(output)));
     }
 
     private static class Add extends BaseMapAddition<String, ItemStack> {
+
         private final ItemStack stack;
 
         public Add(ItemStack input, ItemStack output) {
@@ -35,7 +39,7 @@ public class Crusher {
         @Override
         public void apply() {
             super.apply();
-            for(Entry<String, ItemStack> recipe : successful.entrySet()) {
+            for (Entry<String, ItemStack> recipe : successful.entrySet()) {
                 addToInput(stack, recipe.getValue());
             }
         }
@@ -43,11 +47,11 @@ public class Crusher {
         @Override
         public void undo() {
             super.undo();
-            for(Entry<String, ItemStack> recipe : successful.entrySet()) {
+            for (Entry<String, ItemStack> recipe : successful.entrySet()) {
                 removeFromInput(stack, recipe.getValue());
             }
         }
-        
+
         @Override
         protected String getRecipeInfo(Entry<String, ItemStack> recipe) {
             return LogHelper.getStackDescription(stack);
@@ -56,26 +60,29 @@ public class Crusher {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //Removing a Metallurgy Crusher recipe
+    // Removing a Metallurgy Crusher recipe
     @ZenMethod
     public static void removeRecipe(IItemStack input) {
         MineTweakerAPI.apply(new Remove(toStack(input)));
     }
 
     private static class Remove extends BaseMapRemoval<String, ItemStack> {
+
         private ItemStack stack;
-        
+
         public Remove(ItemStack stack) {
             super("Metallurgy Crusher", MetallurgyHelper.crusherMetaList);
-            
-            recipes.put(MetallurgyHelper.getCrusherKey(stack), MetallurgyHelper.crusherMetaList.get(MetallurgyHelper.getCrusherKey(stack)));
+
+            recipes.put(
+                    MetallurgyHelper.getCrusherKey(stack),
+                    MetallurgyHelper.crusherMetaList.get(MetallurgyHelper.getCrusherKey(stack)));
             this.stack = stack;
         }
 
         @Override
         public void apply() {
             super.apply();
-            for(Entry<String, ItemStack> recipe : successful.entrySet()) {
+            for (Entry<String, ItemStack> recipe : successful.entrySet()) {
                 removeFromInput(stack, recipe.getValue());
             }
         }
@@ -83,18 +90,18 @@ public class Crusher {
         @Override
         public void undo() {
             super.undo();
-            for(Entry<String, ItemStack> recipe : successful.entrySet()) {
+            for (Entry<String, ItemStack> recipe : successful.entrySet()) {
                 addToInput(stack, recipe.getValue());
             }
         }
-        
+
         @Override
         protected String getRecipeInfo(Entry<String, ItemStack> recipe) {
             return LogHelper.getStackDescription(stack);
         }
     }
 
-    //Helper Methods
+    // Helper Methods
     private static void addToInput(ItemStack input, ItemStack output) {
         ItemStack[] inputList = MetallurgyHelper.crusherInputList.get(output.getUnlocalizedName());
         if (inputList == null) {

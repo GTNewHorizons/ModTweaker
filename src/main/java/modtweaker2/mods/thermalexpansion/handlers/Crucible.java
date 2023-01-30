@@ -25,124 +25,123 @@ import cofh.thermalexpansion.util.crafting.CrucibleManager.RecipeCrucible;
 
 @ZenClass("mods.thermalexpansion.Crucible")
 public class Crucible {
-    
+
     public static final String name = "Thermal Expansion Crucible";
-    
-	@ZenMethod
-	public static void addRecipe(int energy, IItemStack input, ILiquidStack output) {
-        if(input == null || output == null) {
+
+    @ZenMethod
+    public static void addRecipe(int energy, IItemStack input, ILiquidStack output) {
+        if (input == null || output == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        if(CrucibleManager.recipeExists(toStack(input))) {
-            LogHelper.logWarning(String.format("Duplicate %s Recipe found for %s. Command ignored!", name, LogHelper.getStackDescription(toStack(input))));
+
+        if (CrucibleManager.recipeExists(toStack(input))) {
+            LogHelper.logWarning(
+                    String.format(
+                            "Duplicate %s Recipe found for %s. Command ignored!",
+                            name,
+                            LogHelper.getStackDescription(toStack(input))));
             return;
-	    }
-	    
-        RecipeCrucible recipe = ReflectionHelper.getInstance(ThermalHelper.crucibleRecipe, toStack(input), toFluid(output), energy);
-        
-        if(recipe != null) {
+        }
+
+        RecipeCrucible recipe = ReflectionHelper
+                .getInstance(ThermalHelper.crucibleRecipe, toStack(input), toFluid(output), energy);
+
+        if (recipe != null) {
             MineTweakerAPI.apply(new Add(recipe));
         } else {
             LogHelper.logError(String.format("Error while creating instance for %s recipe.", name));
         }
-	}
+    }
 
-	private static class Add extends BaseListAddition<RecipeCrucible> {
+    private static class Add extends BaseListAddition<RecipeCrucible> {
 
-		public Add(RecipeCrucible recipe) {
-			super(Crucible.name, null);
-			recipes.add(recipe);
-		}
+        public Add(RecipeCrucible recipe) {
+            super(Crucible.name, null);
+            recipes.add(recipe);
+        }
 
-		public void apply() {
-		    for(RecipeCrucible recipe : recipes) {
-		        boolean applied = CrucibleManager.addRecipe(
-		                recipe.getEnergy(),
-		                recipe.getInput(),
-		                recipe.getOutput());
-		        
-		        if(applied) {
-		            successful.add(recipe);
-		        }
-		    }
-		}
+        public void apply() {
+            for (RecipeCrucible recipe : recipes) {
+                boolean applied = CrucibleManager.addRecipe(recipe.getEnergy(), recipe.getInput(), recipe.getOutput());
 
-		public void undo() {
-		    for(RecipeCrucible recipe : successful) {
-		        CrucibleManager.removeRecipe(recipe.getInput());
-		    }
-		}
-		
-		@Override
-		protected boolean equals(RecipeCrucible recipe, RecipeCrucible otherRecipe) {
-		    return ThermalHelper.equals(recipe, otherRecipe);
-		}
-		
-		@Override
-		protected String getRecipeInfo(RecipeCrucible recipe) {
-		    return LogHelper.getStackDescription(recipe.getInput());
-		}
-	}
-
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	@ZenMethod
-	public static void removeRecipe(IIngredient input) {
-	    List<RecipeCrucible> recipes = new LinkedList<RecipeCrucible>();
-	    
-	    for(RecipeCrucible recipe : CrucibleManager.getRecipeList()) {
-	        if(recipe != null && matches(input, toIItemStack(recipe.getInput()))) {
-	            recipes.add(recipe);
-	        }
-	    }
-	    
-	    if(!recipes.isEmpty()) {
-			MineTweakerAPI.apply(new Remove(recipes));
-	    } else {
-	        LogHelper.logWarning(String.format("No %s Recipe found for %s.", name, input.toString()));
-	    }
-	}
-
-	private static class Remove extends BaseListRemoval<RecipeCrucible> {
-
-	    public Remove(List<RecipeCrucible> recipes) {
-			super(Crucible.name, null, recipes);
-		}
-
-		public void apply() {
-		    for(RecipeCrucible recipe : recipes) {
-		        boolean removed = CrucibleManager.removeRecipe(recipe.getInput());
-		        
-		        if(removed) {
-		            successful.add(recipe);
-		        }
-		    }
-		}
-
-		public void undo() {
-            for(RecipeCrucible recipe : successful) {
-                CrucibleManager.addRecipe(
-                        recipe.getEnergy(),
-                        recipe.getInput(),
-                        recipe.getOutput());
+                if (applied) {
+                    successful.add(recipe);
+                }
             }
-		}
-		
+        }
+
+        public void undo() {
+            for (RecipeCrucible recipe : successful) {
+                CrucibleManager.removeRecipe(recipe.getInput());
+            }
+        }
+
         @Override
         protected boolean equals(RecipeCrucible recipe, RecipeCrucible otherRecipe) {
             return ThermalHelper.equals(recipe, otherRecipe);
         }
-		
+
         @Override
         protected String getRecipeInfo(RecipeCrucible recipe) {
             return LogHelper.getStackDescription(recipe.getInput());
         }
-	}
-	
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
-	
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @ZenMethod
+    public static void removeRecipe(IIngredient input) {
+        List<RecipeCrucible> recipes = new LinkedList<RecipeCrucible>();
+
+        for (RecipeCrucible recipe : CrucibleManager.getRecipeList()) {
+            if (recipe != null && matches(input, toIItemStack(recipe.getInput()))) {
+                recipes.add(recipe);
+            }
+        }
+
+        if (!recipes.isEmpty()) {
+            MineTweakerAPI.apply(new Remove(recipes));
+        } else {
+            LogHelper.logWarning(String.format("No %s Recipe found for %s.", name, input.toString()));
+        }
+    }
+
+    private static class Remove extends BaseListRemoval<RecipeCrucible> {
+
+        public Remove(List<RecipeCrucible> recipes) {
+            super(Crucible.name, null, recipes);
+        }
+
+        public void apply() {
+            for (RecipeCrucible recipe : recipes) {
+                boolean removed = CrucibleManager.removeRecipe(recipe.getInput());
+
+                if (removed) {
+                    successful.add(recipe);
+                }
+            }
+        }
+
+        public void undo() {
+            for (RecipeCrucible recipe : successful) {
+                CrucibleManager.addRecipe(recipe.getEnergy(), recipe.getInput(), recipe.getOutput());
+            }
+        }
+
+        @Override
+        protected boolean equals(RecipeCrucible recipe, RecipeCrucible otherRecipe) {
+            return ThermalHelper.equals(recipe, otherRecipe);
+        }
+
+        @Override
+        protected String getRecipeInfo(RecipeCrucible recipe) {
+            return LogHelper.getStackDescription(recipe.getInput());
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @ZenMethod
     public static void refreshRecipes() {
         MineTweakerAPI.apply(new Refresh());
@@ -162,8 +161,7 @@ public class Crucible {
             return "Refreshing " + Crucible.name + " recipes";
         }
 
-        public void undo() {
-        }
+        public void undo() {}
 
         public String describeUndo() {
             return "Ignoring undo of " + Crucible.name + " recipe refresh";

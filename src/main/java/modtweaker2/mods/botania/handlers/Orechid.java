@@ -9,6 +9,7 @@ import vazkii.botania.api.BotaniaAPI;
 
 @ZenClass("mods.botania.Orechid")
 public class Orechid {
+
     @ZenMethod
     public static void addOre(IOreDictEntry oreDict, int weight) {
         MineTweakerAPI.apply(new Add(oreDict.getName(), weight));
@@ -20,6 +21,7 @@ public class Orechid {
     }
 
     private static class Add implements IUndoableAction {
+
         String oreDict;
         int weight;
 
@@ -72,6 +74,7 @@ public class Orechid {
     }
 
     private static class Remove implements IUndoableAction {
+
         String oreDict;
         int weight;
 

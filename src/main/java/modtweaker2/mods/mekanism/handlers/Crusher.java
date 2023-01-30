@@ -26,52 +26,58 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.mekanism.Crusher")
 public class Crusher {
-    
+
     public static final String name = "Mekanism Crusher";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings("unchecked")
     @ZenMethod
     public static void addRecipe(IItemStack itemInput, IItemStack itemOutput) {
-        if(itemInput == null || itemOutput == null) {
+        if (itemInput == null || itemOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
+
         CrusherRecipe recipe = new CrusherRecipe(toStack(itemInput), toStack(itemOutput));
-        
+
         MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.CRUSHER.get(), recipe));
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @ZenMethod
     public static void removeRecipe(IIngredient itemOutput, @Optional IIngredient itemInput) {
-        if(itemOutput == null) {
+        if (itemOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        if(itemInput == null) itemInput = IngredientAny.INSTANCE;
-        
+
+        if (itemInput == null) itemInput = IngredientAny.INSTANCE;
+
         Map<MachineInput, MachineRecipe> recipes = new HashMap<MachineInput, MachineRecipe>();
-        
-        for(Entry<ItemStackInput, CrusherRecipe> entry : ((Map<ItemStackInput, CrusherRecipe>)Recipe.CRUSHER.get()).entrySet() ) {
+
+        for (Entry<ItemStackInput, CrusherRecipe> entry : ((Map<ItemStackInput, CrusherRecipe>) Recipe.CRUSHER.get())
+                .entrySet()) {
             IItemStack inputItem = InputHelper.toIItemStack(entry.getKey().ingredient);
             IItemStack outputItem = InputHelper.toIItemStack(entry.getValue().recipeOutput.output);
-            
-            if(!StackHelper.matches(itemOutput, outputItem)) continue;
-            if(!StackHelper.matches(itemInput, inputItem)) continue;
-            
+
+            if (!StackHelper.matches(itemOutput, outputItem)) continue;
+            if (!StackHelper.matches(itemInput, inputItem)) continue;
+
             recipes.put(entry.getKey(), entry.getValue());
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.CRUSHER.get(), recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s recipe found for %s and %s. Command ignored!", name, itemInput.toString(), itemOutput.toString()));
+            LogHelper.logWarning(
+                    String.format(
+                            "No %s recipe found for %s and %s. Command ignored!",
+                            name,
+                            itemInput.toString(),
+                            itemOutput.toString()));
         }
     }
 }

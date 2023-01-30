@@ -2,12 +2,14 @@ package modtweaker2.mods.thaumcraft.research.commands;
 
 import static modtweaker2.helpers.LogHelper.log;
 import static modtweaker2.helpers.LogHelper.logPrinted;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.player.IPlayer;
 import minetweaker.api.server.ICommandFunction;
 import thaumcraft.api.research.ResearchCategories;
 
 public class ResearchLogger implements ICommandFunction {
+
     @Override
     public void execute(String[] arguments, IPlayer player) {
         if (arguments == null || arguments.length <= 0 || arguments[0] == null) {

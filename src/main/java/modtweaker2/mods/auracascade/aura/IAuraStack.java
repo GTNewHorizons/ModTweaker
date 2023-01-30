@@ -8,6 +8,7 @@ import stanhebben.zenscript.annotations.ZenOperator;
 
 @ZenClass("modtweaker.auraCascade.IAuraStack")
 public interface IAuraStack {
+
     @ZenGetter("definition")
     public IAuraDefinition getDefinition();
 

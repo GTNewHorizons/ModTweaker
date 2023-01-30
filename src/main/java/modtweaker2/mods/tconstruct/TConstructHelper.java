@@ -7,20 +7,21 @@ import java.util.Map;
 
 import mantle.utils.ItemMetaWrapper;
 import modtweaker2.helpers.ReflectionHelper;
-import net.minecraft.item.Item;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.AlloyMix;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.DryingRackRecipes.DryingRecipe;
 import tconstruct.library.crafting.ModifyBuilder;
-import tconstruct.library.crafting.PatternBuilder.ItemKey;
 import tconstruct.library.modifier.ItemModifier;
 import tconstruct.library.tools.ToolMaterial;
 
 public class TConstructHelper {
+
     public static HashMap<String, Integer> mappings = new HashMap<String, Integer>();
     public static List<AlloyMix> alloys = null;
     public static ArrayList<CastingRecipe> basinCasting = null;
@@ -46,7 +47,7 @@ public class TConstructHelper {
             for (Map.Entry<Integer, ToolMaterial> entry : TConstructRegistry.toolMaterials.entrySet()) {
                 mappings.put(entry.getValue().materialName, entry.getKey());
             }
-            
+
             fuelList = ReflectionHelper.getObject(tconstruct.library.crafting.Smeltery.instance, "smelteryFuels");
         } catch (Exception e) {}
     }
@@ -59,9 +60,10 @@ public class TConstructHelper {
         } else return mappings.get(material);
     }
 
-    //Returns a Drying Recipe, using reflection as the constructor is not visible
+    // Returns a Drying Recipe, using reflection as the constructor is not visible
     public static DryingRecipe getDryingRecipe(ItemStack input, int time, ItemStack output) {
-        return ReflectionHelper.getInstance(ReflectionHelper.getConstructor(DryingRecipe.class, ItemStack.class, int.class, ItemStack.class),
+        return ReflectionHelper.getInstance(
+                ReflectionHelper.getConstructor(DryingRecipe.class, ItemStack.class, int.class, ItemStack.class),
                 input,
                 time,
                 output);

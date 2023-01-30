@@ -1,11 +1,14 @@
 package modtweaker2.mods.thaumcraft.research;
 
 import static modtweaker2.helpers.StackHelper.areEqual;
+
 import minetweaker.IUndoableAction;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.crafting.CrucibleRecipe;
 import thaumcraft.api.crafting.IArcaneRecipe;
@@ -15,6 +18,7 @@ import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 
 public class RefreshResearch implements IUndoableAction {
+
     String research;
     String tab;
 
@@ -35,7 +39,8 @@ public class RefreshResearch implements IUndoableAction {
                         for (Object craft : CraftingManager.getInstance().getRecipeList()) {
                             if (craft instanceof IRecipe) {
                                 IRecipe theCraft = (IRecipe) craft;
-                                if (theCraft.getRecipeOutput() != null && areEqual(theCraft.getRecipeOutput(), recipe.getRecipeOutput())) {
+                                if (theCraft.getRecipeOutput() != null
+                                        && areEqual(theCraft.getRecipeOutput(), recipe.getRecipeOutput())) {
                                     pages[x] = new ResearchPage(theCraft);
                                     break;
                                 }
@@ -46,7 +51,8 @@ public class RefreshResearch implements IUndoableAction {
                         for (Object craft : ThaumcraftApi.getCraftingRecipes()) {
                             if (craft instanceof IArcaneRecipe) {
                                 IArcaneRecipe theCraft = (IArcaneRecipe) craft;
-                                if (theCraft.getRecipeOutput() != null && areEqual(theCraft.getRecipeOutput(), recipe.getRecipeOutput())) {
+                                if (theCraft.getRecipeOutput() != null
+                                        && areEqual(theCraft.getRecipeOutput(), recipe.getRecipeOutput())) {
                                     pages[x] = new ResearchPage(theCraft);
                                     break;
                                 }
@@ -57,7 +63,8 @@ public class RefreshResearch implements IUndoableAction {
                         for (Object craft : ThaumcraftApi.getCraftingRecipes()) {
                             if (craft instanceof CrucibleRecipe) {
                                 CrucibleRecipe theCraft = (CrucibleRecipe) craft;
-                                if (theCraft.getRecipeOutput() != null && areEqual(theCraft.getRecipeOutput(), recipe.getRecipeOutput())) {
+                                if (theCraft.getRecipeOutput() != null
+                                        && areEqual(theCraft.getRecipeOutput(), recipe.getRecipeOutput())) {
                                     pages[x] = new ResearchPage(theCraft);
                                     break;
                                 }
@@ -69,7 +76,11 @@ public class RefreshResearch implements IUndoableAction {
                             for (Object craft : ThaumcraftApi.getCraftingRecipes()) {
                                 if (craft instanceof InfusionRecipe) {
                                     InfusionRecipe theCraft = (InfusionRecipe) craft;
-                                    if (theCraft.getRecipeOutput() != null && theCraft.getRecipeOutput() instanceof ItemStack && areEqual(((ItemStack) theCraft.getRecipeOutput()), (ItemStack) recipe.getRecipeOutput())) {
+                                    if (theCraft.getRecipeOutput() != null
+                                            && theCraft.getRecipeOutput() instanceof ItemStack
+                                            && areEqual(
+                                                    ((ItemStack) theCraft.getRecipeOutput()),
+                                                    (ItemStack) recipe.getRecipeOutput())) {
                                         pages[x] = new ResearchPage(theCraft);
                                         break;
                                     }

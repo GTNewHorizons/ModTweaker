@@ -29,52 +29,58 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.mekanism.chemical.Dissolution")
 public class ChemicalDissolution {
-    
+
     public static final String name = "Mekanism Chemical Dissolution Chamber";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @SuppressWarnings("unchecked")
     @ZenMethod
     public static void addRecipe(IItemStack itemInput, IGasStack gasOutput) {
-        if(itemInput == null || gasOutput == null) {
+        if (itemInput == null || gasOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
+
         DissolutionRecipe recipe = new DissolutionRecipe(toStack(itemInput), toGas(gasOutput));
-        
+
         MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.CHEMICAL_DISSOLUTION_CHAMBER.get(), recipe));
     }
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @ZenMethod
     public static void removeRecipe(IIngredient gasOutput, @Optional IIngredient itemInput) {
-        if(gasOutput == null) {
+        if (gasOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        if(itemInput == null) itemInput = IngredientAny.INSTANCE;
-        
+
+        if (itemInput == null) itemInput = IngredientAny.INSTANCE;
+
         Map<MachineInput, MachineRecipe> recipes = new HashMap<MachineInput, MachineRecipe>();
-        
-        for(Entry<ItemStackInput, DissolutionRecipe> entry : ((Map<ItemStackInput, DissolutionRecipe>)Recipe.CHEMICAL_DISSOLUTION_CHAMBER.get()).entrySet()) {
+
+        for (Entry<ItemStackInput, DissolutionRecipe> entry : ((Map<ItemStackInput, DissolutionRecipe>) Recipe.CHEMICAL_DISSOLUTION_CHAMBER
+                .get()).entrySet()) {
             IItemStack inputItem = InputHelper.toIItemStack(entry.getKey().ingredient);
             IGasStack outputGas = new MCGasStack(entry.getValue().recipeOutput.output);
-            
-            if(!StackHelper.matches(gasOutput, outputGas)) continue;
-            if(!StackHelper.matches(itemInput, inputItem)) continue;
+
+            if (!StackHelper.matches(gasOutput, outputGas)) continue;
+            if (!StackHelper.matches(itemInput, inputItem)) continue;
 
             recipes.put(entry.getKey(), entry.getValue());
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.CHEMICAL_DISSOLUTION_CHAMBER.get(), recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s recipe found for %s and %s. Command ignored!", name, gasOutput.toString(), itemInput.toString()));
+            LogHelper.logWarning(
+                    String.format(
+                            "No %s recipe found for %s and %s. Command ignored!",
+                            name,
+                            gasOutput.toString(),
+                            itemInput.toString()));
         }
     }
 }

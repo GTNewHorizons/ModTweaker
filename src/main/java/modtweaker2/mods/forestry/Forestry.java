@@ -10,13 +10,14 @@ import modtweaker2.mods.forestry.handlers.Still;
 import modtweaker2.mods.forestry.handlers.ThermionicFabricator;
 
 public class Forestry {
-	public Forestry() {
-		MineTweakerAPI.registerClass(Fermenter.class);
-		MineTweakerAPI.registerClass(Still.class);
-		MineTweakerAPI.registerClass(Moistener.class);
-		MineTweakerAPI.registerClass(Carpenter.class);
-		MineTweakerAPI.registerClass(Squeezer.class);
-		MineTweakerAPI.registerClass(Centrifuge.class);
-		MineTweakerAPI.registerClass(ThermionicFabricator.class);
-	}
+
+    public Forestry() {
+        MineTweakerAPI.registerClass(Fermenter.class);
+        MineTweakerAPI.registerClass(Still.class);
+        MineTweakerAPI.registerClass(Moistener.class);
+        MineTweakerAPI.registerClass(Carpenter.class);
+        MineTweakerAPI.registerClass(Squeezer.class);
+        MineTweakerAPI.registerClass(Centrifuge.class);
+        MineTweakerAPI.registerClass(ThermionicFabricator.class);
+    }
 }

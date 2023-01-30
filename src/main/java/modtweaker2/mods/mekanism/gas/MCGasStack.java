@@ -10,8 +10,8 @@ import minetweaker.api.item.IItemTransformer;
 import minetweaker.api.liquid.ILiquidStack;
 import minetweaker.api.player.IPlayer;
 
-
 public class MCGasStack implements IGasStack {
+
     private final GasStack stack;
 
     public MCGasStack(GasStack stack) {
@@ -48,7 +48,7 @@ public class MCGasStack implements IGasStack {
     public Object getInternal() {
         return stack;
     }
-    
+
     @Override
     public String toString() {
         return "<gas:" + stack.getGas().getName() + ">";
@@ -130,6 +130,5 @@ public class MCGasStack implements IGasStack {
         // TODO Auto-generated method stub
         return null;
     }
-    
-    
+
 }

@@ -16,16 +16,18 @@ import naruto1310.extendedWorkbench.crafting.ExtendedCraftingManager;
 import naruto1310.extendedWorkbench.crafting.ExtendedShapedRecipes;
 import naruto1310.extendedWorkbench.crafting.ExtendedShapelessRecipes;
 import naruto1310.extendedWorkbench.crafting.IExtendedRecipe;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.extendedworkbench")
 public class ExtendedCrafting {
-    
+
     public static final String name = "Extended Workbench";
-    
+
     @ZenMethod
     public static void addShaped(IItemStack output, IItemStack[][] ingredients) {
         MineTweakerAPI.apply(new Add(getShapedRecipe(output, ingredients)));
@@ -33,10 +35,12 @@ public class ExtendedCrafting {
 
     @ZenMethod
     public static void addShapeless(IItemStack output, IItemStack[] ingredients) {
-        MineTweakerAPI.apply(new Add(new ExtendedShapelessRecipes(toStack(output), Arrays.asList(toStacks(ingredients)))));
+        MineTweakerAPI
+                .apply(new Add(new ExtendedShapelessRecipes(toStack(output), Arrays.asList(toStacks(ingredients)))));
     }
 
     private static class Add extends BaseCraftingAddition {
+
         public Add(IExtendedRecipe recipe) {
             super(ExtendedCrafting.name, ExtendedCraftingManager.getInstance().getRecipeList());
             recipes.add(recipe);
@@ -71,12 +75,18 @@ public class ExtendedCrafting {
 
     @ZenMethod
     public static void removeRecipe(IIngredient output) {
-        List<IRecipe> recipes = BaseCraftingRemoval.getRecipes(ExtendedCraftingManager.getInstance().getRecipeList(), output);
-        
-        if(!recipes.isEmpty()) {
-            MineTweakerAPI.apply(new BaseCraftingRemoval(ExtendedCrafting.name, ExtendedCraftingManager.getInstance().getRecipeList(), recipes));
+        List<IRecipe> recipes = BaseCraftingRemoval
+                .getRecipes(ExtendedCraftingManager.getInstance().getRecipeList(), output);
+
+        if (!recipes.isEmpty()) {
+            MineTweakerAPI.apply(
+                    new BaseCraftingRemoval(
+                            ExtendedCrafting.name,
+                            ExtendedCraftingManager.getInstance().getRecipeList(),
+                            recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s Recipe found for %s. Command ignored!", ExtendedCrafting.name, output));
+            LogHelper.logWarning(
+                    String.format("No %s Recipe found for %s. Command ignored!", ExtendedCrafting.name, output));
         }
     }
 }

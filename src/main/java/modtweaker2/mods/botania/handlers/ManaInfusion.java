@@ -19,12 +19,11 @@ import stanhebben.zenscript.annotations.ZenMethod;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 
-
 @ZenClass("mods.botania.ManaInfusion")
 public class ManaInfusion {
-    
+
     protected static final String name = "Botania Mana Infusion";
-    
+
     @ZenMethod
     public static void addInfusion(IItemStack output, IIngredient input, int mana) {
         MineTweakerAPI.apply(new Add(new RecipeManaInfusion(toStack(output), toObject(input), mana)));
@@ -45,6 +44,7 @@ public class ManaInfusion {
     }
 
     private static class Add extends BaseListAddition<RecipeManaInfusion> {
+
         public Add(RecipeManaInfusion recipe) {
             super(ManaInfusion.name, BotaniaAPI.manaInfusionRecipes);
             recipes.add(recipe);
@@ -62,22 +62,24 @@ public class ManaInfusion {
     public static void removeRecipe(IIngredient output) {
         // Get list of existing recipes, matching with parameter
         List<RecipeManaInfusion> recipes = new LinkedList<RecipeManaInfusion>();
-        
+
         for (RecipeManaInfusion r : BotaniaAPI.manaInfusionRecipes) {
             if (r.getOutput() != null && matches(output, toIItemStack(r.getOutput()))) {
                 recipes.add(r);
             }
         }
-        
+
         // Check if we found the recipes and apply the action
-        if(!recipes.isEmpty()) {
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new Remove(recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s Recipe found for %s. Command ignored!", ManaInfusion.name, output.toString()));
+            LogHelper.logWarning(
+                    String.format("No %s Recipe found for %s. Command ignored!", ManaInfusion.name, output.toString()));
         }
     }
 
     private static class Remove extends BaseListRemoval<RecipeManaInfusion> {
+
         public Remove(List<RecipeManaInfusion> recipes) {
             super(ManaInfusion.name, BotaniaAPI.manaInfusionRecipes, recipes);
         }

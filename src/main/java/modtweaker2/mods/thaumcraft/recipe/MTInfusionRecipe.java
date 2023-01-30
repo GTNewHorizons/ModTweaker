@@ -6,15 +6,18 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.InfusionRecipe;
 
 public class MTInfusionRecipe extends InfusionRecipe {
+
     private final boolean fuzzyCentre;
     private final boolean[] fuzzyRecipe;
 
-    public MTInfusionRecipe(String research, Object output, int inst, AspectList aspects2, ItemStack input, ItemStack[] recipe, boolean fuzzyCentre, boolean[] fuzzyRecipe) {
+    public MTInfusionRecipe(String research, Object output, int inst, AspectList aspects2, ItemStack input,
+            ItemStack[] recipe, boolean fuzzyCentre, boolean[] fuzzyRecipe) {
         super(research, output, inst, aspects2, input, recipe);
         this.fuzzyCentre = fuzzyCentre;
         this.fuzzyRecipe = fuzzyRecipe;

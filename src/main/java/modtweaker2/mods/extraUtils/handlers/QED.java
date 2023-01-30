@@ -1,5 +1,8 @@
 package modtweaker2.mods.extraUtils.handlers;
 
+import static modtweaker2.helpers.InputHelper.toIItemStack;
+import static modtweaker2.helpers.StackHelper.matches;
+
 import java.util.LinkedList;
 
 import minetweaker.MineTweakerAPI;
@@ -9,66 +12,71 @@ import modtweaker2.helpers.InputHelper;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
+
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 import com.rwtema.extrautils.tileentity.enderconstructor.EnderConstructorRecipesHandler;
 
-import static modtweaker2.helpers.InputHelper.toIItemStack;
-import static modtweaker2.helpers.StackHelper.matches;
-
 @ZenClass("mods.extraUtils.QED")
 public class QED {
 
-	public static final String name = "ExtraUtilities Q.E.D.";
+    public static final String name = "ExtraUtilities Q.E.D.";
 
-	@ZenMethod
-	public static void addShapedRecipe(IItemStack output, IIngredient[][] recipe) {
-		MineTweakerAPI.apply(new Add(new ShapedOreRecipe(InputHelper.toStack(output), InputHelper.toShapedObjects(recipe))));
-	}
-	
-	private static class Add extends BaseListAddition<IRecipe> {
+    @ZenMethod
+    public static void addShapedRecipe(IItemStack output, IIngredient[][] recipe) {
+        MineTweakerAPI
+                .apply(new Add(new ShapedOreRecipe(InputHelper.toStack(output), InputHelper.toShapedObjects(recipe))));
+    }
 
-		public Add(IRecipe recipe) {
-			super("QED", EnderConstructorRecipesHandler.recipes);
-			recipes.add(recipe);
-		}
+    private static class Add extends BaseListAddition<IRecipe> {
 
-		@Override
-		protected String getRecipeInfo(IRecipe recipe) {
-			return recipe.toString();
-		}
-	}
+        public Add(IRecipe recipe) {
+            super("QED", EnderConstructorRecipesHandler.recipes);
+            recipes.add(recipe);
+        }
 
-	@ZenMethod
-	public static void removeRecipe(IIngredient output) {
-		LinkedList<IRecipe> recipes = new LinkedList<IRecipe>();
+        @Override
+        protected String getRecipeInfo(IRecipe recipe) {
+            return recipe.toString();
+        }
+    }
 
-		for (IRecipe recipe : EnderConstructorRecipesHandler.recipes) {
-			if (recipe != null && recipe.getRecipeOutput() != null && matches(output, toIItemStack(recipe.getRecipeOutput()))) {
-				recipes.add(recipe);
-			}
-		}
+    @ZenMethod
+    public static void removeRecipe(IIngredient output) {
+        LinkedList<IRecipe> recipes = new LinkedList<IRecipe>();
 
-		if(!recipes.isEmpty()) {
-			MineTweakerAPI.apply(new Remove(recipes));
-		} else {
-			LogHelper.logWarning(String.format("No %s Recipe found for %s. Command ignored!", QED.name, LogHelper.getStackDescription(output)));
-		}
-	}
+        for (IRecipe recipe : EnderConstructorRecipesHandler.recipes) {
+            if (recipe != null && recipe.getRecipeOutput() != null
+                    && matches(output, toIItemStack(recipe.getRecipeOutput()))) {
+                recipes.add(recipe);
+            }
+        }
 
-	public static class Remove extends BaseListRemoval<IRecipe> {
+        if (!recipes.isEmpty()) {
+            MineTweakerAPI.apply(new Remove(recipes));
+        } else {
+            LogHelper.logWarning(
+                    String.format(
+                            "No %s Recipe found for %s. Command ignored!",
+                            QED.name,
+                            LogHelper.getStackDescription(output)));
+        }
+    }
 
-		protected Remove(LinkedList<IRecipe> stacks) {
-			super("QED", EnderConstructorRecipesHandler.recipes, stacks);
-		}
+    public static class Remove extends BaseListRemoval<IRecipe> {
 
-		@Override
-		protected String getRecipeInfo(IRecipe recipe) {
-			return recipe.toString();
-		}
-	}
+        protected Remove(LinkedList<IRecipe> stacks) {
+            super("QED", EnderConstructorRecipesHandler.recipes, stacks);
+        }
+
+        @Override
+        protected String getRecipeInfo(IRecipe recipe) {
+            return recipe.toString();
+        }
+    }
 
 }

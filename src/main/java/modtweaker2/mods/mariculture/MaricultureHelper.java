@@ -10,12 +10,14 @@ import mariculture.api.fishery.Fishing;
 import mariculture.api.fishery.Loot;
 import mariculture.api.fishery.Loot.Rarity;
 import modtweaker2.helpers.ReflectionHelper;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class MaricultureHelper {
+
     public static Map<Object, FuelInfo> fuels = null;
     public static HashMap<Rarity, ArrayList<Loot>> loot = null;
 

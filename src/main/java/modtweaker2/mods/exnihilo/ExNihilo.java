@@ -7,6 +7,7 @@ import modtweaker2.mods.exnihilo.handlers.Hammer;
 import modtweaker2.mods.exnihilo.handlers.Sieve;
 
 public class ExNihilo {
+
     public ExNihilo() {
         MineTweakerAPI.registerClass(Compost.class);
         MineTweakerAPI.registerClass(Crucible.class);

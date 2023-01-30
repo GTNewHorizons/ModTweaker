@@ -22,32 +22,39 @@ import thaumcraft.api.crafting.CrucibleRecipe;
 
 @ZenClass("mods.thaumcraft.Crucible")
 public class Crucible {
-    
+
     public static final String name = "Thaumcraft Crucible";
-    
-	@ZenMethod
-	public static void addRecipe(String key, IItemStack result, IIngredient catalyst, String aspects) {
-	    MineTweakerAPI.apply(new Add(new CrucibleRecipe(key, toStack(result), toObject(catalyst), ThaumcraftHelper.parseAspects(aspects))));
-	}
-    
-	private static class Add extends BaseListAddition<CrucibleRecipe> {
-		public Add(CrucibleRecipe recipe) {
-			super(Crucible.name, ThaumcraftApi.getCraftingRecipes());
-			recipes.add(recipe);
-		}
-		
-		@Override
-		protected String getRecipeInfo(CrucibleRecipe recipe) {
-		    return LogHelper.getStackDescription(recipe.getRecipeOutput());
-		}
-	}
 
-	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @ZenMethod
+    public static void addRecipe(String key, IItemStack result, IIngredient catalyst, String aspects) {
+        MineTweakerAPI.apply(
+                new Add(
+                        new CrucibleRecipe(
+                                key,
+                                toStack(result),
+                                toObject(catalyst),
+                                ThaumcraftHelper.parseAspects(aspects))));
+    }
 
-	@ZenMethod
-	public static void removeRecipe(IIngredient output) {
-	    List<CrucibleRecipe> recipes = new LinkedList<CrucibleRecipe>();
-	    
+    private static class Add extends BaseListAddition<CrucibleRecipe> {
+
+        public Add(CrucibleRecipe recipe) {
+            super(Crucible.name, ThaumcraftApi.getCraftingRecipes());
+            recipes.add(recipe);
+        }
+
+        @Override
+        protected String getRecipeInfo(CrucibleRecipe recipe) {
+            return LogHelper.getStackDescription(recipe.getRecipeOutput());
+        }
+    }
+
+    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @ZenMethod
+    public static void removeRecipe(IIngredient output) {
+        List<CrucibleRecipe> recipes = new LinkedList<CrucibleRecipe>();
+
         for (Object o : ThaumcraftApi.getCraftingRecipes()) {
             if (o instanceof CrucibleRecipe) {
                 CrucibleRecipe r = (CrucibleRecipe) o;
@@ -56,22 +63,24 @@ public class Crucible {
                 }
             }
         }
-        
-        if(!recipes.isEmpty()) {
-			MineTweakerAPI.apply(new Remove(recipes));
-        } else {
-            LogHelper.logWarning(String.format("No %s Recipe found for %s. Command ignored!", Crucible.name, output.toString()));
-        }
-	}
 
-	private static class Remove extends BaseListRemoval<CrucibleRecipe> {
-		public Remove(List<CrucibleRecipe> recipes) {
-			super(Crucible.name, ThaumcraftApi.getCraftingRecipes(), recipes);
-		}
+        if (!recipes.isEmpty()) {
+            MineTweakerAPI.apply(new Remove(recipes));
+        } else {
+            LogHelper.logWarning(
+                    String.format("No %s Recipe found for %s. Command ignored!", Crucible.name, output.toString()));
+        }
+    }
+
+    private static class Remove extends BaseListRemoval<CrucibleRecipe> {
+
+        public Remove(List<CrucibleRecipe> recipes) {
+            super(Crucible.name, ThaumcraftApi.getCraftingRecipes(), recipes);
+        }
 
         @Override
         protected String getRecipeInfo(CrucibleRecipe recipe) {
             return LogHelper.getStackDescription(recipe.getRecipeOutput());
         }
-	}
+    }
 }

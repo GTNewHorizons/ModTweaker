@@ -1,14 +1,15 @@
 package modtweaker2.mods.thaumcraft.research;
 
+import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
+
 import minetweaker.IUndoableAction;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 
-import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
-
 public class ClearPages implements IUndoableAction {
+
     String key;
     String tab;
     ResearchPage[] oldPages;
@@ -37,7 +38,7 @@ public class ClearPages implements IUndoableAction {
     @Override
     public void undo() {
         final ResearchItem research = getResearchSafe(tab, key);
-        if(research == null) {
+        if (research == null) {
             return;
         }
 

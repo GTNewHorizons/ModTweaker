@@ -21,12 +21,12 @@ public class AspectBracketHandler implements IBracketHandler {
 
     private final IZenSymbol symbolAny;
     private final IJavaMethod method;
-    
+
     public AspectBracketHandler() {
         this.symbolAny = MineTweakerAPI.getJavaStaticFieldSymbol(IngredientAny.class, "INSTANCE");
         this.method = MineTweakerAPI.getJavaMethod(AspectBracketHandler.class, "getAspect", String.class);
     }
-    
+
     public static IAspectStack getAspect(String name) {
         Aspect aspect = Aspect.getAspect(name.toLowerCase());
         if (aspect != null) {
@@ -35,13 +35,13 @@ public class AspectBracketHandler implements IBracketHandler {
             return null;
         }
     }
-    
+
     @Override
     public IZenSymbol resolve(IEnvironmentGlobal environment, List<Token> tokens) {
         if (tokens.size() == 1 && tokens.get(0).getValue().equals("*")) {
             return symbolAny;
         }
-        
+
         if (tokens.size() > 2) {
             if (tokens.get(0).getValue().equals("aspect") && tokens.get(1).getValue().equals(":")) {
                 return find(environment, tokens, 2, tokens.size());
@@ -60,8 +60,8 @@ public class AspectBracketHandler implements IBracketHandler {
         }
 
         Aspect aspect = Aspect.getAspect(value.toString().toLowerCase());
-        
-        if(aspect != null) {
+
+        if (aspect != null) {
             return new AspectReferenceSymbol(environment, value.toString());
         }
 
@@ -69,6 +69,7 @@ public class AspectBracketHandler implements IBracketHandler {
     }
 
     private class AspectReferenceSymbol implements IZenSymbol {
+
         private final IEnvironmentGlobal environment;
         private final String name;
 

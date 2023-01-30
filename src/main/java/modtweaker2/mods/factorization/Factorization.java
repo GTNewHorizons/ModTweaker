@@ -6,6 +6,7 @@ import modtweaker2.mods.factorization.handlers.Lacerator;
 import modtweaker2.mods.factorization.handlers.SlagFurnace;
 
 public class Factorization {
+
     public Factorization() {
         MineTweakerAPI.registerClass(Crystallizer.class);
         MineTweakerAPI.registerClass(Lacerator.class);

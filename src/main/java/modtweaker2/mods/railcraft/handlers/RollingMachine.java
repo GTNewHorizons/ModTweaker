@@ -13,19 +13,21 @@ import modtweaker2.helpers.LogHelper;
 import modtweaker2.mods.railcraft.RailcraftHelper;
 import modtweaker2.utils.BaseCraftingAddition;
 import modtweaker2.utils.BaseCraftingRemoval;
+
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.railcraft.Rolling")
 public class RollingMachine {
-    
+
     public static final String name = "Railcraft Rolling Machine";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @ZenMethod
     public static void addShaped(IItemStack output, IIngredient[][] ingredients) {
         MineTweakerAPI.apply(new Add(new ShapedOreRecipe(toStack(output), toShapedObjects(ingredients))));
@@ -37,6 +39,7 @@ public class RollingMachine {
     }
 
     private static class Add extends BaseCraftingAddition {
+
         public Add(IRecipe recipe) {
             super(RollingMachine.name, RailcraftHelper.rolling);
             recipes.add(recipe);
@@ -49,14 +52,19 @@ public class RollingMachine {
     public static void removeRecipe(IIngredient ingredient) {
         List<IRecipe> recipes = BaseCraftingRemoval.getRecipes(RailcraftHelper.rolling, ingredient);
 
-        if(!recipes.isEmpty()) {
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new Remove(recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s Recipes found for %s. Command ignored!", RollingMachine.name, ingredient.toString()));
+            LogHelper.logWarning(
+                    String.format(
+                            "No %s Recipes found for %s. Command ignored!",
+                            RollingMachine.name,
+                            ingredient.toString()));
         }
     }
 
     private static class Remove extends BaseCraftingRemoval {
+
         public Remove(List<IRecipe> recipes) {
             super(RollingMachine.name, RailcraftHelper.rolling, recipes);
         }

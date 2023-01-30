@@ -8,6 +8,7 @@ import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 
 public class MoveResearch implements IUndoableAction {
+
     String key;
     String newTab;
     int x;
@@ -40,7 +41,8 @@ public class MoveResearch implements IUndoableAction {
         }
     }
 
-    private void moveResearchItem(ResearchItem research, int x, int y, String newTab, String tab) throws ReflectiveOperationException {
+    private void moveResearchItem(ResearchItem research, int x, int y, String newTab, String tab)
+            throws ReflectiveOperationException {
         Class<?> res = Class.forName("thaumcraft.api.research.ResearchItem");
         Field ex = res.getField("displayColumn");
         ex.setAccessible(true);

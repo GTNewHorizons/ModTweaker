@@ -25,6 +25,7 @@ import modtweaker2.mods.mekanism.handlers.SolarNeutronActivator;
 import modtweaker2.utils.TweakerPlugin;
 
 public class Mekanism extends TweakerPlugin {
+
     public Mekanism() {
         MineTweakerAPI.registerBracketHandler(new GasBracketHandler());
         MineTweakerAPI.registerClass(IGasDefinition.class);

@@ -20,6 +20,7 @@ import stanhebben.zenscript.util.ZenPosition;
 
 @BracketHandler(priority = 100)
 public class GasBracketHandler implements IBracketHandler {
+
     public static IGasStack getGas(String name) {
         Gas gas = GasRegistry.getGas(name);
         if (gas != null) {
@@ -69,6 +70,7 @@ public class GasBracketHandler implements IBracketHandler {
     }
 
     private class GasReferenceSymbol implements IZenSymbol {
+
         private final IEnvironmentGlobal environment;
         private final String name;
 

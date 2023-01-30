@@ -22,9 +22,9 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 @ZenClass("mods.botania.Apothecary")
 public class Apothecary {
-    
+
     protected static final String name = "Botania Petal";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @ZenMethod
@@ -38,6 +38,7 @@ public class Apothecary {
     }
 
     private static class Add extends BaseListAddition<RecipePetals> {
+
         public Add(RecipePetals recipe) {
             super("Botania Petal", BotaniaAPI.petalRecipes);
             recipes.add(recipe);
@@ -55,18 +56,19 @@ public class Apothecary {
     public static void removeRecipe(IIngredient output) {
         // Get list of existing recipes, matching with parameter
         LinkedList<RecipePetals> result = new LinkedList<RecipePetals>();
-        
-        for(RecipePetals entry : BotaniaAPI.petalRecipes) {
-            if(entry != null && entry.getOutput() != null && matches(output, toIItemStack(entry.getOutput()))) {
+
+        for (RecipePetals entry : BotaniaAPI.petalRecipes) {
+            if (entry != null && entry.getOutput() != null && matches(output, toIItemStack(entry.getOutput()))) {
                 result.add(entry);
             }
         }
-        
+
         // Check if we found the recipes and apply the action
-        if(!result.isEmpty()) {
+        if (!result.isEmpty()) {
             MineTweakerAPI.apply(new Remove(result));
         } else {
-            LogHelper.logWarning(String.format("No %s Recipe found for %s. Command ignored!", Apothecary.name, output.toString()));
+            LogHelper.logWarning(
+                    String.format("No %s Recipe found for %s. Command ignored!", Apothecary.name, output.toString()));
         }
     }
 
@@ -76,6 +78,7 @@ public class Apothecary {
     }
 
     private static class Remove extends BaseListRemoval<RecipePetals> {
+
         public Remove(List<RecipePetals> recipes) {
             super(Apothecary.name, BotaniaAPI.petalRecipes, recipes);
         }

@@ -28,53 +28,64 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class ChemicalInfuser {
 
     public static final String name = "Mekanism Chemical Infuser";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings("unchecked")
     @ZenMethod
     public static void addRecipe(IGasStack leftGasInput, IGasStack rightGasInput, IGasStack gasOutput) {
-        if(leftGasInput == null || rightGasInput == null || gasOutput == null) {
+        if (leftGasInput == null || rightGasInput == null || gasOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        ChemicalInfuserRecipe recipe = new ChemicalInfuserRecipe(toGas(leftGasInput), toGas(rightGasInput), toGas(gasOutput));
-        
+
+        ChemicalInfuserRecipe recipe = new ChemicalInfuserRecipe(
+                toGas(leftGasInput),
+                toGas(rightGasInput),
+                toGas(gasOutput));
+
         MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.CHEMICAL_INFUSER.get(), recipe));
     }
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @ZenMethod
-    public static void removeRecipe(IIngredient gasOutput, @Optional IIngredient leftGasInput, @Optional IIngredient rightGasInput) {
-        if(gasOutput == null) {
+    public static void removeRecipe(IIngredient gasOutput, @Optional IIngredient leftGasInput,
+            @Optional IIngredient rightGasInput) {
+        if (gasOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        if(leftGasInput == null) leftGasInput = IngredientAny.INSTANCE;
-        if(rightGasInput == null) rightGasInput = IngredientAny.INSTANCE;
-        
+
+        if (leftGasInput == null) leftGasInput = IngredientAny.INSTANCE;
+        if (rightGasInput == null) rightGasInput = IngredientAny.INSTANCE;
+
         Map<MachineInput, MachineRecipe> recipes = new HashMap<MachineInput, MachineRecipe>();
-        
-        for(Entry<ChemicalPairInput, ChemicalInfuserRecipe> entry : ((Map<ChemicalPairInput, ChemicalInfuserRecipe>)Recipe.CHEMICAL_INFUSER.get()).entrySet()) {
+
+        for (Entry<ChemicalPairInput, ChemicalInfuserRecipe> entry : ((Map<ChemicalPairInput, ChemicalInfuserRecipe>) Recipe.CHEMICAL_INFUSER
+                .get()).entrySet()) {
             IGasStack inputGasLeft = new MCGasStack(entry.getKey().leftGas);
             IGasStack inputGasRight = new MCGasStack(entry.getKey().rightGas);
             IGasStack outputGas = new MCGasStack(entry.getValue().recipeOutput.output);
-            
-            if(!StackHelper.matches(gasOutput, outputGas)) continue;
-            if(!StackHelper.matches(leftGasInput, inputGasLeft)) continue;
-            if(!StackHelper.matches(rightGasInput, inputGasRight)) continue;
-            
+
+            if (!StackHelper.matches(gasOutput, outputGas)) continue;
+            if (!StackHelper.matches(leftGasInput, inputGasLeft)) continue;
+            if (!StackHelper.matches(rightGasInput, inputGasRight)) continue;
+
             recipes.put(entry.getKey(), entry.getValue());
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.CHEMICAL_INFUSER.get(), recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s recipe found for %s, %s and %s. Command ignored!", name, gasOutput.toString(), leftGasInput.toString(), rightGasInput.toString()));
+            LogHelper.logWarning(
+                    String.format(
+                            "No %s recipe found for %s, %s and %s. Command ignored!",
+                            name,
+                            gasOutput.toString(),
+                            leftGasInput.toString(),
+                            rightGasInput.toString()));
         }
     }
 }

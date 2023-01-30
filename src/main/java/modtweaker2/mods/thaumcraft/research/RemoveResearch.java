@@ -6,6 +6,7 @@ import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 
 public class RemoveResearch implements IUndoableAction {
+
     String key;
     String tab;
     ResearchItem removed;

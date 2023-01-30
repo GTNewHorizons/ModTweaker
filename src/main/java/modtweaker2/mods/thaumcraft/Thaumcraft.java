@@ -11,14 +11,15 @@ import modtweaker2.mods.thaumcraft.handlers.Research;
 import modtweaker2.mods.thaumcraft.handlers.Warp;
 
 public class Thaumcraft {
-	public Thaumcraft() {
-	    MineTweakerAPI.registerBracketHandler(new AspectBracketHandler());
-		MineTweakerAPI.registerClass(Arcane.class);
-		MineTweakerAPI.registerClass(Aspects.class);
-		MineTweakerAPI.registerClass(Crucible.class);
-		MineTweakerAPI.registerClass(Infusion.class);
-		MineTweakerAPI.registerClass(Research.class);
-		MineTweakerAPI.registerClass(Warp.class);
-		MineTweakerAPI.registerClass(Loot.class);
-	}
+
+    public Thaumcraft() {
+        MineTweakerAPI.registerBracketHandler(new AspectBracketHandler());
+        MineTweakerAPI.registerClass(Arcane.class);
+        MineTweakerAPI.registerClass(Aspects.class);
+        MineTweakerAPI.registerClass(Crucible.class);
+        MineTweakerAPI.registerClass(Infusion.class);
+        MineTweakerAPI.registerClass(Research.class);
+        MineTweakerAPI.registerClass(Warp.class);
+        MineTweakerAPI.registerClass(Loot.class);
+    }
 }

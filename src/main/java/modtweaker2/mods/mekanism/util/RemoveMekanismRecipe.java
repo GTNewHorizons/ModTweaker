@@ -17,30 +17,36 @@ import modtweaker2.utils.BaseMapRemoval;
 
 @SuppressWarnings("rawtypes")
 public class RemoveMekanismRecipe extends BaseMapRemoval<MachineInput, MachineRecipe> {
-    public RemoveMekanismRecipe(String name, Map<MachineInput, MachineRecipe> map, Map<MachineInput, MachineRecipe> recipes) {
-		super(name, map, recipes);
-	}
-    
+
+    public RemoveMekanismRecipe(String name, Map<MachineInput, MachineRecipe> map,
+            Map<MachineInput, MachineRecipe> recipes) {
+        super(name, map, recipes);
+    }
+
     @Override
     protected String getRecipeInfo(Entry<MachineInput, MachineRecipe> recipe) {
         MachineOutput output = recipe.getValue().recipeOutput;
-        
-        if(output instanceof ItemStackOutput) {
-            return LogHelper.getStackDescription(((ItemStackOutput)output).output);
+
+        if (output instanceof ItemStackOutput) {
+            return LogHelper.getStackDescription(((ItemStackOutput) output).output);
         } else if (output instanceof GasOutput) {
-            return LogHelper.getStackDescription(((GasOutput)output).output);
+            return LogHelper.getStackDescription(((GasOutput) output).output);
         } else if (output instanceof FluidOutput) {
-            return LogHelper.getStackDescription(((FluidOutput)output).output);
+            return LogHelper.getStackDescription(((FluidOutput) output).output);
         } else if (output instanceof ChemicalPairOutput) {
-            return "[" + LogHelper.getStackDescription(((ChemicalPairOutput)output).leftGas) + ", " +
-                    LogHelper.getStackDescription(((ChemicalPairOutput)output).rightGas) + "]";
+            return "[" + LogHelper.getStackDescription(((ChemicalPairOutput) output).leftGas)
+                    + ", "
+                    + LogHelper.getStackDescription(((ChemicalPairOutput) output).rightGas)
+                    + "]";
         } else if (output instanceof ChanceOutput) {
-            return LogHelper.getStackDescription(((ChanceOutput)output).primaryOutput);
+            return LogHelper.getStackDescription(((ChanceOutput) output).primaryOutput);
         } else if (output instanceof PressurizedOutput) {
-            return "[" + LogHelper.getStackDescription(((PressurizedOutput)output).getItemOutput()) + ", " +
-                    LogHelper.getStackDescription(((PressurizedOutput)output).getGasOutput()) + "]";
+            return "[" + LogHelper.getStackDescription(((PressurizedOutput) output).getItemOutput())
+                    + ", "
+                    + LogHelper.getStackDescription(((PressurizedOutput) output).getGasOutput())
+                    + "]";
         }
-        
+
         return null;
     }
 }

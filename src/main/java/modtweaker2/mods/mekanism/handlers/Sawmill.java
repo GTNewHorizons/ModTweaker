@@ -27,59 +27,67 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.mekanism.Sawmill")
 public class Sawmill {
-    
+
     public static final String name = "Mekanism Sawmill";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings("unchecked")
     @ZenMethod
-    public static void addRecipe(IItemStack itemInput, IItemStack itemOutput, @Optional IItemStack optionalItemOutput, @Optional double optionalChance) {
-        if(itemInput == null || itemOutput == null) {
+    public static void addRecipe(IItemStack itemInput, IItemStack itemOutput, @Optional IItemStack optionalItemOutput,
+            @Optional double optionalChance) {
+        if (itemInput == null || itemOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
+
         ItemStackInput input = new ItemStackInput(toStack(itemInput));
-        ChanceOutput output = optionalItemOutput == null ? new ChanceOutput(toStack(itemOutput)) :
-            new ChanceOutput(toStack(itemOutput), toStack(optionalItemOutput), optionalChance);
-        
+        ChanceOutput output = optionalItemOutput == null ? new ChanceOutput(toStack(itemOutput))
+                : new ChanceOutput(toStack(itemOutput), toStack(optionalItemOutput), optionalChance);
+
         SawmillRecipe recipe = new SawmillRecipe(input, output);
-        
+
         MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.PRECISION_SAWMILL.get(), recipe));
     }
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @ZenMethod
-    public static void removeRecipe(IIngredient itemInput, @Optional IIngredient itemOutput, @Optional IIngredient optionalItemOutput) {
-        if(itemInput == null) {
+    public static void removeRecipe(IIngredient itemInput, @Optional IIngredient itemOutput,
+            @Optional IIngredient optionalItemOutput) {
+        if (itemInput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        if(itemOutput == null) itemOutput = IngredientAny.INSTANCE;
-        if(optionalItemOutput == null) optionalItemOutput = IngredientAny.INSTANCE;
-        
+
+        if (itemOutput == null) itemOutput = IngredientAny.INSTANCE;
+        if (optionalItemOutput == null) optionalItemOutput = IngredientAny.INSTANCE;
+
         Map<MachineInput, MachineRecipe> recipes = new HashMap<MachineInput, MachineRecipe>();
-        
-        for(Entry<ItemStackInput, SawmillRecipe> entry : ((Map<ItemStackInput, SawmillRecipe>)Recipe.PRECISION_SAWMILL.get()).entrySet() ) {
+
+        for (Entry<ItemStackInput, SawmillRecipe> entry : ((Map<ItemStackInput, SawmillRecipe>) Recipe.PRECISION_SAWMILL
+                .get()).entrySet()) {
             IItemStack inputItem = InputHelper.toIItemStack(entry.getKey().ingredient);
             IItemStack outputItem = InputHelper.toIItemStack(entry.getValue().recipeOutput.primaryOutput);
             IItemStack outputItemOptional = InputHelper.toIItemStack(entry.getValue().recipeOutput.secondaryOutput);
-            
-            if(!StackHelper.matches(itemOutput, outputItem)) continue;
-            if(!StackHelper.matches(itemInput, inputItem)) continue;
-            if(!StackHelper.matches(optionalItemOutput, outputItemOptional)) continue;
-            
+
+            if (!StackHelper.matches(itemOutput, outputItem)) continue;
+            if (!StackHelper.matches(itemInput, inputItem)) continue;
+            if (!StackHelper.matches(optionalItemOutput, outputItemOptional)) continue;
+
             recipes.put(entry.getKey(), entry.getValue());
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.PRECISION_SAWMILL.get(), recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s recipe found for %s and %s. Command ignored!", name, itemInput.toString(), itemOutput.toString()));
+            LogHelper.logWarning(
+                    String.format(
+                            "No %s recipe found for %s and %s. Command ignored!",
+                            name,
+                            itemInput.toString(),
+                            itemOutput.toString()));
         }
     }
 }

@@ -29,52 +29,58 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.mekanism.chemical.Oxidizer")
 public class ChemicalOxidizer {
-    
+
     public static final String name = "Mekanism Chemical Oxidizer";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings("unchecked")
     @ZenMethod
     public static void addRecipe(IItemStack itemInput, IGasStack gasOutput) {
-        if(itemInput == null || gasOutput == null) {
+        if (itemInput == null || gasOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
+
         OxidationRecipe recipe = new OxidationRecipe(toStack(itemInput), toGas(gasOutput));
-        
+
         MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.CHEMICAL_OXIDIZER.get(), recipe));
     }
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @ZenMethod
     public static void removeRecipe(IIngredient gasOutput, @Optional IIngredient itemInput) {
-        if(gasOutput == null) {
+        if (gasOutput == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
-        if(itemInput == null) itemInput = IngredientAny.INSTANCE;
-        
+
+        if (itemInput == null) itemInput = IngredientAny.INSTANCE;
+
         Map<MachineInput, MachineRecipe> recipes = new HashMap<MachineInput, MachineRecipe>();
-        
-        for(Entry<ItemStackInput, OxidationRecipe> entry : ((Map<ItemStackInput, OxidationRecipe>)Recipe.CHEMICAL_OXIDIZER.get()).entrySet()) {
+
+        for (Entry<ItemStackInput, OxidationRecipe> entry : ((Map<ItemStackInput, OxidationRecipe>) Recipe.CHEMICAL_OXIDIZER
+                .get()).entrySet()) {
             IItemStack inputItem = InputHelper.toIItemStack(entry.getKey().ingredient);
             IGasStack outputGas = new MCGasStack(entry.getValue().recipeOutput.output);
-            
-            if(!StackHelper.matches(itemInput, inputItem)) continue;
-            if(!StackHelper.matches(gasOutput, outputGas)) continue;
-            
+
+            if (!StackHelper.matches(itemInput, inputItem)) continue;
+            if (!StackHelper.matches(gasOutput, outputGas)) continue;
+
             recipes.put(entry.getKey(), entry.getValue());
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.CHEMICAL_OXIDIZER.get(), recipes));
         } else {
-            LogHelper.logWarning(String.format("No %s recipe found for %s and %s. Command ignored!", name, gasOutput.toString(), itemInput.toString()));
+            LogHelper.logWarning(
+                    String.format(
+                            "No %s recipe found for %s and %s. Command ignored!",
+                            name,
+                            gasOutput.toString(),
+                            itemInput.toString()));
         }
     }
 }

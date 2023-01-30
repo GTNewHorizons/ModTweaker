@@ -8,6 +8,7 @@ import modtweaker2.mods.mariculture.handlers.Fishing;
 import modtweaker2.mods.mariculture.handlers.Vat;
 
 public class Mariculture {
+
     public Mariculture() {
         MineTweakerAPI.registerClass(Anvil.class);
         MineTweakerAPI.registerClass(Casting.class);
