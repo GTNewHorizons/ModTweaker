@@ -1,6 +1,5 @@
 dependencies {
-    compile("com.powerofbytes.minetweaker3:MineTweaker3:1.7.10-3.0.10B:Dev-Full")
-    compile("com.github.GTNewHorizons:ZenScript:unspecified")
+    api("com.github.GTNewHorizons:CraftTweaker:3.2.10:dev")
 
     compileOnly("com.azanor:Thaumcraft:1.7.10-4.2.3.5:deobf") { transitive = false }
     compileOnly("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-72-GTNH:dev") { transitive = false }
