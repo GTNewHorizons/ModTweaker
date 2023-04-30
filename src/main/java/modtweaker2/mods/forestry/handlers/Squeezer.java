@@ -19,6 +19,7 @@ import modtweaker2.helpers.LogHelper;
 import modtweaker2.mods.forestry.ForestryListAddition;
 import modtweaker2.mods.forestry.ForestryListRemoval;
 import modtweaker2.mods.forestry.recipes.SqueezerRecipe;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -89,6 +90,26 @@ public class Squeezer {
         }
 
         @Override
+        public void apply() {
+            super.apply();
+            if (!successful.isEmpty()) {
+                for (ISqueezerRecipe recipe : successful) {
+                    Thaumcraft.info(
+                            "RecipeManagers.squeezerManager.addRecipe(" + recipe.getProcessingTime()
+                                    + ", "
+                                    + Thaumcraft.convertStacks(recipe.getResources())
+                                    + ", "
+                                    + Thaumcraft.convertFluidStack(recipe.getFluidOutput())
+                                    + ", "
+                                    + Thaumcraft.convertStack(recipe.getRemnants())
+                                    + ", "
+                                    + recipe.getRemnantsChance()
+                                    + ");");
+                }
+            }
+        }
+
+        @Override
         public String getRecipeInfo(ISqueezerRecipe recipe) {
             return LogHelper.getStackDescription(recipe.getFluidOutput());
         }
@@ -142,6 +163,20 @@ public class Squeezer {
 
         public Remove(List<ISqueezerRecipe> recipes) {
             super(Squeezer.name, RecipeManagers.squeezerManager, recipes);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (ISqueezerRecipe recipe : successful) {
+                    Thaumcraft.info(
+                            "ForestryHelper.removeSqueezerRecipe("
+                                    + Thaumcraft.convertFluidStack(recipe.getFluidOutput())
+                                    + ");");
+                }
+            }
         }
 
         @Override

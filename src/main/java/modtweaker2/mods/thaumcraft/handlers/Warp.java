@@ -9,6 +9,7 @@ import java.util.List;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 
 import net.minecraft.item.ItemStack;
@@ -41,8 +42,17 @@ public class Warp {
         }
 
         public void apply() {
-            if (target instanceof String) ThaumcraftApi.addWarpToResearch((String) target, warp);
-            else if (target instanceof ItemStack) ThaumcraftApi.addWarpToItem((ItemStack) target, warp);
+            if (target instanceof String) {
+                ThaumcraftApi.addWarpToResearch((String) target, warp);
+                Thaumcraft.info("ThaumcraftApi.addWarpToResearch(\"" + (String) target + "\", " + warp + ");");
+            } else if (target instanceof ItemStack) {
+                ThaumcraftApi.addWarpToItem((ItemStack) target, warp);
+                Thaumcraft.info(
+                        "ThaumcraftApi.addWarpToItem(" + Thaumcraft.convertStack((ItemStack) target)
+                                + ", "
+                                + warp
+                                + ");");
+            }
         }
 
         public boolean canUndo() {

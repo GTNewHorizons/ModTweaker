@@ -5,6 +5,7 @@ import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
 import java.lang.reflect.Field;
 
 import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
@@ -48,6 +49,7 @@ public class SetAspects implements IUndoableAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Thaumcraft.info("TCHelper.setResearchAspects(\"" + key + "\", " + Thaumcraft.convertAspects(list) + ");");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package modtweaker2.mods.thaumcraft.research;
 
 import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategoryList;
 
@@ -17,6 +18,7 @@ public class RemoveTab implements IUndoableAction {
     public void apply() {
         list = ResearchCategories.getResearchList(tab);
         ResearchCategories.researchCategories.remove(tab);
+        Thaumcraft.info("ResearchCategories.researchCategories.remove(\"" + tab + "\");");
     }
 
     @Override

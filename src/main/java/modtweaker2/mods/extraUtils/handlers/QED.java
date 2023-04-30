@@ -10,6 +10,7 @@ import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.helpers.InputHelper;
 import modtweaker2.helpers.LogHelper;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
 
@@ -28,15 +29,32 @@ public class QED {
 
     @ZenMethod
     public static void addShapedRecipe(IItemStack output, IIngredient[][] recipe) {
-        MineTweakerAPI
-                .apply(new Add(new ShapedOreRecipe(InputHelper.toStack(output), InputHelper.toShapedObjects(recipe))));
+        MineTweakerAPI.apply(
+                new Add(
+                        new ShapedOreRecipe(InputHelper.toStack(output), InputHelper.toShapedObjects(recipe)),
+                        InputHelper.toShapedObjects(recipe)));
     }
 
     private static class Add extends BaseListAddition<IRecipe> {
 
-        public Add(IRecipe recipe) {
+        Object[] rawRecipe;
+
+        public Add(IRecipe recipe, Object[] rawRecipe) {
             super("QED", EnderConstructorRecipesHandler.recipes);
             recipes.add(recipe);
+            this.rawRecipe = rawRecipe;
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+            if (!successful.isEmpty()) {
+                for (IRecipe recipe : successful) {
+                    Thaumcraft.info(
+                            "EnderConstructorRecipesHandler.addRecipe(" + Thaumcraft.convertStack(
+                                    recipe.getRecipeOutput()) + ", " + Thaumcraft.convertArrayInLine(rawRecipe) + ");");
+                }
+            }
         }
 
         @Override
@@ -71,6 +89,19 @@ public class QED {
 
         protected Remove(LinkedList<IRecipe> stacks) {
             super("QED", EnderConstructorRecipesHandler.recipes, stacks);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (IRecipe recipe : successful) {
+                    Thaumcraft.info(
+                            "ExtraUtilitiesHelper.removeQEDRecipe(" + Thaumcraft.convertStack(recipe.getRecipeOutput())
+                                    + ");");
+                }
+            }
         }
 
         @Override

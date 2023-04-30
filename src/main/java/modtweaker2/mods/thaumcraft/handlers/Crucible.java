@@ -12,9 +12,13 @@ import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.helpers.LogHelper;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
+
+import net.minecraft.item.ItemStack;
+
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thaumcraft.api.ThaumcraftApi;
@@ -33,14 +37,35 @@ public class Crucible {
                                 key,
                                 toStack(result),
                                 toObject(catalyst),
-                                ThaumcraftHelper.parseAspects(aspects))));
+                                ThaumcraftHelper.parseAspects(aspects)),
+                        toObject(catalyst)));
     }
 
     private static class Add extends BaseListAddition<CrucibleRecipe> {
 
-        public Add(CrucibleRecipe recipe) {
+        Object catalystRaw;
+
+        public Add(CrucibleRecipe recipe, Object catalystRaw) {
             super(Crucible.name, ThaumcraftApi.getCraftingRecipes());
             recipes.add(recipe);
+            this.catalystRaw = catalystRaw;
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+            for (CrucibleRecipe a : successful) {
+                Thaumcraft.info(
+                        "ThaumcraftApi.addCrucibleRecipe(\"" + a.key
+                                + "\", "
+                                + Thaumcraft.convertStack(a.getRecipeOutput())
+                                + ", "
+                                + (catalystRaw instanceof String ? catalystRaw
+                                        : Thaumcraft.convertStack((ItemStack) catalystRaw))
+                                + ", "
+                                + Thaumcraft.convertAspects(a.aspects)
+                                + ");");
+            }
         }
 
         @Override
@@ -76,6 +101,17 @@ public class Crucible {
 
         public Remove(List<CrucibleRecipe> recipes) {
             super(Crucible.name, ThaumcraftApi.getCraftingRecipes(), recipes);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+            if (!successful.isEmpty()) {
+                for (CrucibleRecipe a : successful) {
+                    Thaumcraft.info(
+                            "TCHelper.removeCrucibleRecipe(" + Thaumcraft.convertStack(a.getRecipeOutput()) + ");");
+                }
+            }
         }
 
         @Override

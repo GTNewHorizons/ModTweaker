@@ -1,6 +1,7 @@
 package modtweaker2.mods.thaumcraft.research;
 
 import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
@@ -21,6 +22,7 @@ public class RemoveResearch implements IUndoableAction {
         if (tab != null) {
             removed = ResearchCategories.researchCategories.get(tab).research.get(key);
             ResearchCategories.researchCategories.get(tab).research.remove(key);
+            Thaumcraft.info("TCHelper.removeResearch(\"" + key + "\");");
         }
     }
 

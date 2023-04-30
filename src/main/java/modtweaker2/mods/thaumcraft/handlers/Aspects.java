@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import modtweaker2.utils.BaseUndoable;
 
@@ -60,6 +61,12 @@ public class Aspects {
             }
 
             ThaumcraftApi.objectTags.put(Arrays.asList(stack.getItem(), stack.getItemDamage()), newList);
+
+            Thaumcraft.info(
+                    "ThaumcraftApi.registerObjectTag(" + Thaumcraft.convertStack(stack)
+                            + ", "
+                            + Thaumcraft.convertAspects(newList)
+                            + ");");
 
             success = true;
         }

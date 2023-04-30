@@ -1,6 +1,7 @@
 package modtweaker2.mods.thaumcraft.research;
 
 import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 
 import net.minecraft.util.ResourceLocation;
 
@@ -21,6 +22,8 @@ public class AddTab implements IUndoableAction {
     @Override
     public void apply() {
         ResearchCategories.registerCategory(tab, icon, background);
+        Thaumcraft.info(
+                "ResearchCategories.registerCategory(\"" + tab + "\", \"" + icon + "\", \"" + background + "\");");
     }
 
     @Override

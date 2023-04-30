@@ -9,6 +9,7 @@ import java.util.function.Function;
 
 import minetweaker.IUndoableAction;
 import modtweaker2.helpers.LogHelper;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -58,6 +59,7 @@ public class OrphanResearch implements IUndoableAction {
                 remove(research, researchItem.siblings, siblings, researchItem::setSiblings);
             }
         }
+        Thaumcraft.info("TCHelper.orphanResearch(\"" + key + "\");");
     }
 
     @Override

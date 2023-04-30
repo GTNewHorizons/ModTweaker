@@ -5,6 +5,7 @@ import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
 import java.lang.reflect.Field;
 
 import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
@@ -47,6 +48,7 @@ public class Difficulty implements IUndoableAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Thaumcraft.info("TCHelper.setResearchComplexity(\"" + key + "\", " + difficulty + ");");
     }
 
     @Override

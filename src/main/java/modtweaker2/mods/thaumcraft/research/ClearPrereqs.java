@@ -3,6 +3,7 @@ package modtweaker2.mods.thaumcraft.research;
 import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
 
 import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
@@ -25,6 +26,7 @@ public class ClearPrereqs implements IUndoableAction {
         secretPrereqs = ResearchCategories.researchCategories.get(tab).research.get(key).parentsHidden;
         ResearchCategories.researchCategories.get(tab).research.get(key).setParents(new String[0]);
         ResearchCategories.researchCategories.get(tab).research.get(key).setParentsHidden(new String[0]);
+        Thaumcraft.info("TCHelper.clearPrereq(\"" + key + "\");");
     }
 
     @Override

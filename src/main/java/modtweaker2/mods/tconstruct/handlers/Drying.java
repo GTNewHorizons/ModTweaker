@@ -11,6 +11,7 @@ import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.mods.tconstruct.TConstructHelper;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -41,6 +42,23 @@ public class Drying {
         public Add(DryingRecipe recipe) {
             super(Drying.name, DryingRackRecipes.recipes);
             this.recipes.add(recipe);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (DryingRecipe recipe : successful) {
+                    Thaumcraft.info(
+                            "DryingRackRecipes.addDryingRecipe(" + Thaumcraft.convertStack(recipe.input)
+                                    + ", "
+                                    + recipe.time
+                                    + ", "
+                                    + Thaumcraft.convertStack(recipe.result)
+                                    + ");");
+                }
+            }
         }
 
         @Override

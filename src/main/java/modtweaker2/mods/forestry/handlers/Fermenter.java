@@ -21,6 +21,7 @@ import modtweaker2.helpers.LogHelper;
 import modtweaker2.mods.forestry.ForestryListAddition;
 import modtweaker2.mods.forestry.ForestryListRemoval;
 import modtweaker2.mods.forestry.recipes.FermenterRecipe;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.utils.BaseMapAddition;
 import modtweaker2.utils.BaseMapRemoval;
 
@@ -84,6 +85,27 @@ public class Fermenter {
         public Add(IFermenterRecipe recipe) {
             super(Fermenter.name, RecipeManagers.fermenterManager);
             recipes.add(recipe);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (IFermenterRecipe recipe : successful) {
+                    Thaumcraft.info(
+                            "RecipeManagers.fermenterManager.addRecipe(" + Thaumcraft.convertStack(recipe.getResource())
+                                    + ", "
+                                    + recipe.getFermentationValue()
+                                    + ", "
+                                    + recipe.getModifier()
+                                    + ", "
+                                    + Thaumcraft.convertFluidStack(recipe.getOutput())
+                                    + ", "
+                                    + Thaumcraft.convertFluidStack(recipe.getFluidResource())
+                                    + ");");
+                }
+            }
         }
 
         @Override

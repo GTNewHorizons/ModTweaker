@@ -1,6 +1,7 @@
 package modtweaker2.mods.thaumcraft.research;
 
 import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 
 import net.minecraft.item.ItemStack;
 
@@ -30,16 +31,36 @@ public class AddResearch implements IUndoableAction {
     @Override
     public void apply() {
         oldResearch = ResearchCategories.getResearch(research.key);
+        String a = "new ResearchItem(\"" + research.key
+                + "\", \""
+                + research.category
+                + "\", "
+                + Thaumcraft.convertAspects(research.tags)
+                + ", "
+                + research.displayColumn
+                + ", "
+                + research.displayRow
+                + ", "
+                + research.getComplexity()
+                + ", "
+                + Thaumcraft.convertStack(research.icon_item)
+                + ")";
         if (itemTriggers != null) {
             research = research.setItemTriggers(itemTriggers);
+            a += ".setItemTriggers(" + Thaumcraft.convertStacks(itemTriggers) + ")";
         }
         if (entityTriggers != null) {
             research = research.setEntityTriggers(entityTriggers);
+            a += ".setEntityTriggers(" + Thaumcraft.convertArray(entityTriggers) + ")";
         }
         if (aspectTriggers != null) {
             research = research.setAspectTriggers(aspectTriggers.getAspects());
+            a += ".setAspectTriggers(" + Thaumcraft.convertAspectsInLine(aspectTriggers) + ")";
         }
         research.registerResearchItem();
+
+        Thaumcraft.info(a);
+        Thaumcraft.addingResearch = research.key;
     }
 
     @Override

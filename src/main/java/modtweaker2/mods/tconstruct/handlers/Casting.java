@@ -17,6 +17,7 @@ import minetweaker.api.item.IngredientAny;
 import minetweaker.api.liquid.ILiquidStack;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.mods.tconstruct.TConstructHelper;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
 import stanhebben.zenscript.annotations.Optional;
@@ -66,6 +67,44 @@ public class Casting {
             super(Casting.name, list);
 
             this.recipes.add(recipe);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (CastingRecipe recipe : successful) {
+                    if (list == TConstructHelper.basinCasting) {
+                        Thaumcraft.info(
+                                "TConstructRegistry.getBasinCasting().addCastingRecipe("
+                                        + Thaumcraft.convertStack(recipe.output)
+                                        + ", "
+                                        + Thaumcraft.convertFluidStack(recipe.castingMetal)
+                                        + ", "
+                                        + Thaumcraft.convertStack(recipe.cast)
+                                        + ", "
+                                        + (recipe.consumeCast ? "true" : "false")
+                                        + ", "
+                                        + recipe.coolTime
+                                        + ");");
+
+                    } else if (list == TConstructHelper.tableCasting) {
+                        Thaumcraft.info(
+                                "TConstructRegistry.getTableCasting().addCastingRecipe("
+                                        + Thaumcraft.convertStack(recipe.output)
+                                        + ", "
+                                        + Thaumcraft.convertFluidStack(recipe.castingMetal)
+                                        + ", "
+                                        + Thaumcraft.convertStack(recipe.cast)
+                                        + ", "
+                                        + (recipe.consumeCast ? "true" : "false")
+                                        + ", "
+                                        + recipe.coolTime
+                                        + ");");
+                    }
+                }
+            }
         }
 
         @Override
@@ -142,6 +181,23 @@ public class Casting {
 
         public Remove(List<CastingRecipe> list, List<CastingRecipe> recipes) {
             super(Casting.name, list, recipes);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (CastingRecipe recipe : successful) {
+                    if (list == TConstructHelper.basinCasting) {
+                        Thaumcraft.info(
+                                "TConstructHelper.removeBasinRecipe(" + Thaumcraft.convertStack(recipe.output) + ");");
+                    } else if (list == TConstructHelper.tableCasting) {
+                        Thaumcraft.info(
+                                "TConstructHelper.removeTableRecipe(" + Thaumcraft.convertStack(recipe.output) + ");");
+                    }
+                }
+            }
         }
 
         @Override

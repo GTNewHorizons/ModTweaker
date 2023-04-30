@@ -3,6 +3,7 @@ package modtweaker2.mods.thaumcraft.research;
 import static modtweaker2.helpers.StackHelper.areEqual;
 
 import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 
 import net.minecraft.item.ItemStack;
@@ -90,6 +91,7 @@ public class RefreshResearch implements IUndoableAction {
                     }
                 }
             }
+            Thaumcraft.info("TCHelper.refreshResearchPages(\"" + research + "\");");
         }
     }
 

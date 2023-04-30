@@ -3,6 +3,7 @@ package modtweaker2.mods.thaumcraft.research;
 import java.lang.reflect.Field;
 
 import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
@@ -38,6 +39,7 @@ public class MoveResearch implements IUndoableAction {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            Thaumcraft.info("TCHelper.moveResearch(\"" + key + "\", \"" + newTab + "\", " + x + ", " + y + ");");
         }
     }
 

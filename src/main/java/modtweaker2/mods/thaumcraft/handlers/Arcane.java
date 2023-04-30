@@ -13,6 +13,7 @@ import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.helpers.LogHelper;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
@@ -41,7 +42,8 @@ public class Arcane {
                                 key,
                                 toStack(output),
                                 ThaumcraftHelper.parseAspects(aspects),
-                                toShapedObjects(ingredients))));
+                                toShapedObjects(ingredients)),
+                        toShapedObjects(ingredients)));
     }
 
     @ZenMethod
@@ -52,14 +54,45 @@ public class Arcane {
                                 key,
                                 toStack(output),
                                 ThaumcraftHelper.parseAspects(aspects),
-                                toObjects(ingredients))));
+                                toObjects(ingredients)),
+                        toObjects(ingredients)));
     }
 
     private static class Add extends BaseListAddition<IArcaneRecipe> {
 
-        public Add(IArcaneRecipe recipe) {
+        Object[] rawRecipe;
+
+        public Add(IArcaneRecipe recipe, Object[] rawRecipe) {
             super(Arcane.name, ThaumcraftApi.getCraftingRecipes());
             recipes.add(recipe);
+            this.rawRecipe = rawRecipe;
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+            if (!successful.isEmpty()) {
+                for (IArcaneRecipe a : successful) {
+                    if (a instanceof ShapedArcaneRecipe) Thaumcraft.info(
+                            "ThaumcraftApi.addArcaneCraftingRecipe(\"" + a.getResearch()
+                                    + "\", "
+                                    + Thaumcraft.convertStack(a.getRecipeOutput())
+                                    + ", "
+                                    + Thaumcraft.convertAspects(((ShapedArcaneRecipe) a).aspects)
+                                    + ", "
+                                    + Thaumcraft.convertArrayInLine(rawRecipe)
+                                    + ");");
+                    else Thaumcraft.info(
+                            "ThaumcraftApi.addShapelessArcaneCraftingRecipe(\"" + a.getResearch()
+                                    + "\", "
+                                    + Thaumcraft.convertStack(a.getRecipeOutput())
+                                    + ", "
+                                    + Thaumcraft.convertAspects(((ShapelessArcaneRecipe) a).aspects)
+                                    + ", "
+                                    + Thaumcraft.convertArrayInLine(rawRecipe)
+                                    + ");");
+                }
+            }
         }
 
         @Override
@@ -99,6 +132,17 @@ public class Arcane {
 
         public Remove(List<IArcaneRecipe> recipes) {
             super(Arcane.name, ThaumcraftApi.getCraftingRecipes(), recipes);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+            if (!successful.isEmpty()) {
+                for (IArcaneRecipe a : successful) {
+                    Thaumcraft
+                            .info("TCHelper.removeArcaneRecipe(" + Thaumcraft.convertStack(a.getRecipeOutput()) + ");");
+                }
+            }
         }
 
         @Override

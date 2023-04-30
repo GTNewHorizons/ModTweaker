@@ -4,6 +4,10 @@ import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.mods.chisel.ChiselHelper;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
+
+import net.minecraft.item.ItemStack;
+
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -26,7 +30,7 @@ public class Groups {
             MineTweakerAPI.getLogger().logError("Can't create variation from " + stack);
             return;
         }
-        MineTweakerAPI.apply(new AddVariation(group, variation, stack.toString()));
+        MineTweakerAPI.apply(new AddVariation(group, variation, stack.toString(), stack));
     }
 
     static class AddVariation implements IUndoableAction {
@@ -34,16 +38,23 @@ public class Groups {
         ICarvingGroup group;
         ICarvingVariation variation;
         String variationName;
+        IItemStack stack;
 
-        public AddVariation(ICarvingGroup group, ICarvingVariation variation, String variationName) {
+        public AddVariation(ICarvingGroup group, ICarvingVariation variation, String variationName, IItemStack stack) {
             this.group = group;
             this.variation = variation;
             this.variationName = variationName;
+            this.stack = stack;
         }
 
         @Override
         public void apply() {
             CarvingUtils.getChiselRegistry().addVariation(group.getName(), variation);
+            Thaumcraft.info(
+                    "ChiselHelper.addVariationFromStack(\"" + group.getName()
+                            + "\", "
+                            + Thaumcraft.convertStack((ItemStack) stack.getInternal())
+                            + ");");
         }
 
         @Override
@@ -79,7 +90,7 @@ public class Groups {
             MineTweakerAPI.getLogger().logError("Can't find variation from " + stack);
             return;
         }
-        MineTweakerAPI.apply(new RemoveVariation(variation, stack.toString()));
+        MineTweakerAPI.apply(new RemoveVariation(variation, stack.toString(), stack));
     }
 
     static class RemoveVariation implements IUndoableAction {
@@ -87,16 +98,21 @@ public class Groups {
         ICarvingVariation variation;
         String variationName;
         ICarvingGroup group;
+        IItemStack stack;
 
-        public RemoveVariation(ICarvingVariation variation, String variationName) {
+        public RemoveVariation(ICarvingVariation variation, String variationName, IItemStack stack) {
             this.variation = variation;
             this.variationName = variationName;
+            this.stack = stack;
         }
 
         @Override
         public void apply() {
             group = CarvingUtils.getChiselRegistry().getGroup(variation.getBlock(), variation.getBlockMeta());
             CarvingUtils.getChiselRegistry().removeVariation(variation.getBlock(), variation.getBlockMeta());
+            Thaumcraft.info(
+                    "ChiselHelper.removeVariationStack(" + Thaumcraft.convertStack((ItemStack) stack.getInternal())
+                            + ");");
         }
 
         @Override
@@ -147,6 +163,7 @@ public class Groups {
         @Override
         public void apply() {
             CarvingUtils.getChiselRegistry().addGroup(group);
+            Thaumcraft.info("ChiselHelper.addGroup(\"" + group.getName() + "\");");
         }
 
         @Override
@@ -196,6 +213,7 @@ public class Groups {
         @Override
         public void apply() {
             CarvingUtils.getChiselRegistry().removeGroup(group.getName());
+            Thaumcraft.info("CarvingUtils.getChiselRegistry().removeGroup(\"" + group.getName() + "\");");
         }
 
         @Override

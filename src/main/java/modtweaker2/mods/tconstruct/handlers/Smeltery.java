@@ -23,6 +23,7 @@ import minetweaker.api.item.IItemStack;
 import minetweaker.api.liquid.ILiquidStack;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.mods.tconstruct.TConstructHelper;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
 import modtweaker2.utils.BaseMapAddition;
@@ -70,6 +71,21 @@ public class Smeltery {
         }
 
         @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (AlloyMix recipe : successful) {
+                    Thaumcraft.info(
+                            "Smeltery.addAlloyMixing(" + Thaumcraft.convertFluidStack(recipe.result)
+                                    + ", "
+                                    + Thaumcraft.convertArrayInLine(recipe.mixers.toArray(new FluidStack[0]))
+                                    + ");");
+                }
+            }
+        }
+
+        @Override
         protected String getRecipeInfo(AlloyMix recipe) {
             return LogHelper.getStackDescription(recipe.result);
         }
@@ -103,6 +119,19 @@ public class Smeltery {
 
         public RemoveAlloy(List<AlloyMix> recipes) {
             super(nameAlloy, TConstructHelper.alloys, recipes);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (AlloyMix recipe : successful) {
+                    Thaumcraft.info(
+                            "TConstructHelper.removeSmelterAlloyMix(" + Thaumcraft.convertFluidStack(recipe.result)
+                                    + ");");
+                }
+            }
         }
 
         @Override
@@ -167,6 +196,19 @@ public class Smeltery {
                         recipe.temperature,
                         recipe.fluid);
                 successful.add(recipe);
+
+                Thaumcraft.info(
+                        "Smeltery.addMelting(" + Thaumcraft.convertStack(recipe.input)
+                                + ", "
+                                + Thaumcraft.convertBlock(recipe.getRendererBlock())
+                                + ", "
+                                + recipe.getRendererMeta()
+                                + ", "
+                                + recipe.temperature
+                                + ", "
+                                + Thaumcraft.convertFluidStack(recipe.fluid)
+                                + ");");
+
             }
         }
 
@@ -226,6 +268,8 @@ public class Smeltery {
                 TConstructHelper.renderIndex.remove(recipe.meta);
 
                 successful.add(recipe);
+
+                Thaumcraft.info("TConstructHelper.removeMeltingRecipe(" + Thaumcraft.convertStack(recipe.input) + ");");
             }
         }
 
@@ -304,6 +348,17 @@ public class Smeltery {
         }
 
         @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (Entry<Fluid, Integer[]> recipe : successful.entrySet()) {
+                    Thaumcraft.info("TConstructHelper.removeFuel(" + Thaumcraft.convertFluid(recipe.getKey()) + ");");
+                }
+            }
+        }
+
+        @Override
         public String getRecipeInfo(Entry<Fluid, Integer[]> recipe) {
             return LogHelper.getStackDescription(new FluidStack(recipe.getKey(), 1));
         }
@@ -329,6 +384,23 @@ public class Smeltery {
 
         public AddFuel(Map<Fluid, Integer[]> recipes) {
             super(Smeltery.nameFuel, TConstructHelper.fuelList, recipes);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (Entry<Fluid, Integer[]> recipe : successful.entrySet()) {
+                    Thaumcraft.info(
+                            "Smeltery.addSmelteryFuel(" + Thaumcraft.convertFluid(recipe.getKey())
+                                    + ", "
+                                    + recipe.getValue()[0]
+                                    + ", "
+                                    + recipe.getValue()[1]
+                                    + ");");
+                }
+            }
         }
 
         @Override

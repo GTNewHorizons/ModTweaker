@@ -12,6 +12,7 @@ import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.helpers.LogHelper;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -42,6 +43,21 @@ public class Apothecary {
         public Add(RecipePetals recipe) {
             super("Botania Petal", BotaniaAPI.petalRecipes);
             recipes.add(recipe);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (RecipePetals recipe : successful) {
+                    Thaumcraft.info(
+                            "BotaniaAPI.registerPetalRecipe(" + Thaumcraft.convertStack(recipe.getOutput())
+                                    + ", "
+                                    + Thaumcraft.convertArrayInLine(recipe.getInputs().toArray(new Object[0]))
+                                    + ");");
+                }
+            }
         }
 
         @Override
@@ -81,6 +97,18 @@ public class Apothecary {
 
         public Remove(List<RecipePetals> recipes) {
             super(Apothecary.name, BotaniaAPI.petalRecipes, recipes);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (RecipePetals recipe : successful) {
+                    Thaumcraft.info(
+                            "BotaniaHelper.removePetalRecipe(" + Thaumcraft.convertStack(recipe.getOutput()) + ");");
+                }
+            }
         }
 
         @Override

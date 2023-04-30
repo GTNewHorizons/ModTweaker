@@ -4,6 +4,7 @@ import static modtweaker2.helpers.StackHelper.areEqual;
 import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
 
 import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 
 import net.minecraft.enchantment.Enchantment;
@@ -42,12 +43,15 @@ public class AddPage implements IUndoableAction {
 
     @Override
     public void apply() {
+        String pageTX = null;
         if (type == PageType.NORMAL_CRAFTING) {
             for (Object craft : CraftingManager.getInstance().getRecipeList()) {
                 if (craft instanceof IRecipe) {
                     IRecipe theCraft = (IRecipe) craft;
                     if (theCraft.getRecipeOutput() != null && areEqual(theCraft.getRecipeOutput(), target)) {
                         page = new ResearchPage(theCraft);
+                        pageTX = "new ResearchPage(TCHelper.findCraftingRecipe(" + Thaumcraft.convertStack(target)
+                                + "))";
                         break;
                     }
                 }
@@ -58,6 +62,7 @@ public class AddPage implements IUndoableAction {
                     IArcaneRecipe theCraft = (IArcaneRecipe) craft;
                     if (theCraft.getRecipeOutput() != null && areEqual(theCraft.getRecipeOutput(), target)) {
                         page = new ResearchPage(theCraft);
+                        pageTX = "new ResearchPage(TCHelper.findArcaneRecipe(" + Thaumcraft.convertStack(target) + "))";
                         break;
                     }
                 }
@@ -68,6 +73,8 @@ public class AddPage implements IUndoableAction {
                     CrucibleRecipe theCraft = (CrucibleRecipe) craft;
                     if (theCraft.getRecipeOutput() != null && areEqual(theCraft.getRecipeOutput(), target)) {
                         page = new ResearchPage(theCraft);
+                        pageTX = "new ResearchPage(TCHelper.findCrucibleRecipe(" + Thaumcraft.convertStack(target)
+                                + "))";
                         break;
                     }
                 }
@@ -79,6 +86,8 @@ public class AddPage implements IUndoableAction {
                     if (theCraft.getRecipeOutput() != null && theCraft.getRecipeOutput() instanceof ItemStack
                             && areEqual(((ItemStack) (theCraft.getRecipeOutput())), target)) {
                         page = new ResearchPage(theCraft);
+                        pageTX = "new ResearchPage(TCHelper.findInfusionRecipe(" + Thaumcraft.convertStack(target)
+                                + "))";
                         break;
                     }
                 }
@@ -89,12 +98,14 @@ public class AddPage implements IUndoableAction {
                     InfusionEnchantmentRecipe theCraft = (InfusionEnchantmentRecipe) craft;
                     if (theCraft.getEnchantment() != null && theCraft.getEnchantment() == enchant) {
                         page = new ResearchPage(theCraft);
+                        pageTX = "new ResearchPage(TCHelper.findInfusionEnchantRecipe(" + enchant.effectId + "))";
                         break;
                     }
                 }
             }
         }
         if (page == null) return;
+        if (pageTX == null) pageTX = "new ResearchPage(\"" + page.text + "\")";
         oldPages = ResearchCategories.researchCategories.get(tab).research.get(key).getPages();
         if (oldPages == null) oldPages = new ResearchPage[0];
         ResearchPage[] newPages = new ResearchPage[oldPages.length + 1];
@@ -103,6 +114,7 @@ public class AddPage implements IUndoableAction {
         }
         newPages[oldPages.length] = page;
         ResearchCategories.researchCategories.get(tab).research.get(key).setPages(newPages);
+        Thaumcraft.addPageInfo(key, pageTX);
     }
 
     @Override

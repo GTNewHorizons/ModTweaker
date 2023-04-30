@@ -3,6 +3,7 @@ package modtweaker2.mods.thaumcraft.research;
 import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
 
 import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
@@ -23,6 +24,7 @@ public class ClearPages implements IUndoableAction {
     public void apply() {
         oldPages = ResearchCategories.researchCategories.get(tab).research.get(key).getPages();
         ResearchCategories.researchCategories.get(tab).research.get(key).setPages(new ResearchPage[0]);
+        Thaumcraft.info("TCHelper.clearPages(\"" + key + "\");");
     }
 
     @Override

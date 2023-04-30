@@ -19,6 +19,7 @@ import modtweaker2.mods.forestry.ForestryListAddition;
 import modtweaker2.mods.forestry.ForestryListRemoval;
 import modtweaker2.mods.forestry.recipes.CarpenterRecipe;
 import modtweaker2.mods.forestry.recipes.DescriptiveRecipe;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 
 import net.minecraft.item.ItemStack;
 
@@ -54,7 +55,10 @@ public class Carpenter {
                 toShapedObjects(ingredients),
                 toStack(output),
                 false);
-        MineTweakerAPI.apply(new Add(new CarpenterRecipe(packagingTime, null, toStack(box), craftRecipe)));
+        MineTweakerAPI.apply(
+                new Add(
+                        new CarpenterRecipe(packagingTime, null, toStack(box), craftRecipe),
+                        toShapedObjects(ingredients)));
     }
 
     /**
@@ -75,8 +79,10 @@ public class Carpenter {
                 toShapedObjects(ingredients),
                 toStack(output),
                 false);
-        MineTweakerAPI
-                .apply(new Add(new CarpenterRecipe(packagingTime, toFluid(fluidInput), toStack(box), craftRecipe)));
+        MineTweakerAPI.apply(
+                new Add(
+                        new CarpenterRecipe(packagingTime, toFluid(fluidInput), toStack(box), craftRecipe),
+                        toShapedObjects(ingredients)));
     }
 
     @Deprecated
@@ -89,8 +95,10 @@ public class Carpenter {
                 toShapedObjects(transform(ingredients, 3)),
                 toStack(output),
                 false);
-        MineTweakerAPI
-                .apply(new Add(new CarpenterRecipe(packagingTime, toFluid(fluidInput), toStack(box), craftRecipe)));
+        MineTweakerAPI.apply(
+                new Add(
+                        new CarpenterRecipe(packagingTime, toFluid(fluidInput), toStack(box), craftRecipe),
+                        toShapedObjects(transform(ingredients, 3))));
     }
 
     private static IItemStack[][] transform(IItemStack[] arr, int N) {
@@ -107,9 +115,33 @@ public class Carpenter {
 
     private static class Add extends ForestryListAddition<ICarpenterRecipe, ICarpenterManager> {
 
-        public Add(ICarpenterRecipe recipe) {
+        Object[] rawRecipe;
+
+        public Add(ICarpenterRecipe recipe, Object[] rawRecipe) {
             super(Carpenter.name, RecipeManagers.carpenterManager);
             recipes.add(recipe);
+            this.rawRecipe = rawRecipe;
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (ICarpenterRecipe recipe : successful) {
+                    Thaumcraft.info(
+                            "RecipeManagers.carpenterManager.addRecipe(" + recipe.getPackagingTime()
+                                    + ", "
+                                    + Thaumcraft.convertFluidStack(recipe.getFluidResource())
+                                    + ", "
+                                    + Thaumcraft.convertStack(recipe.getBox())
+                                    + ", "
+                                    + Thaumcraft.convertStack(recipe.getCraftingGridRecipe().getRecipeOutput())
+                                    + ", "
+                                    + Thaumcraft.convertArrayInLine(rawRecipe)
+                                    + ");");
+                }
+            }
         }
 
         @Override
@@ -155,6 +187,20 @@ public class Carpenter {
 
         public Remove(List<ICarpenterRecipe> recipes) {
             super(Carpenter.name, RecipeManagers.carpenterManager, recipes);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (ICarpenterRecipe recipe : successful) {
+                    Thaumcraft.info(
+                            "ForestryHelper.removeCarpenterRecipe("
+                                    + Thaumcraft.convertStack(recipe.getCraftingGridRecipe().getRecipeOutput())
+                                    + ");");
+                }
+            }
         }
 
         @Override

@@ -17,6 +17,7 @@ import modtweaker2.helpers.LogHelper;
 import modtweaker2.mods.forestry.ForestryListAddition;
 import modtweaker2.mods.forestry.ForestryListRemoval;
 import modtweaker2.mods.forestry.recipes.CentrifugeRecipe;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 
 import net.minecraft.item.ItemStack;
 
@@ -103,6 +104,18 @@ public class Centrifuge {
 
         public Remove(List<ICentrifugeRecipe> recipes) {
             super(Centrifuge.name, RecipeManagers.centrifugeManager, recipes);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+            if (!successful.isEmpty()) {
+                for (ICentrifugeRecipe recipe : successful) {
+                    Thaumcraft.info(
+                            "ForestryHelper.removeCentrifugeRecipe(" + Thaumcraft.convertStack(recipe.getInput())
+                                    + ");");
+                }
+            }
         }
 
         @Override

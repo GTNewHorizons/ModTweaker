@@ -11,6 +11,7 @@ import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.mods.railcraft.RailcraftHelper;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.utils.BaseCraftingAddition;
 import modtweaker2.utils.BaseCraftingRemoval;
 
@@ -30,19 +31,39 @@ public class RollingMachine {
 
     @ZenMethod
     public static void addShaped(IItemStack output, IIngredient[][] ingredients) {
-        MineTweakerAPI.apply(new Add(new ShapedOreRecipe(toStack(output), toShapedObjects(ingredients))));
+        MineTweakerAPI.apply(
+                new Add(
+                        new ShapedOreRecipe(toStack(output), toShapedObjects(ingredients)),
+                        toShapedObjects(ingredients)));
     }
 
     @ZenMethod
     public static void addShapeless(IItemStack output, IIngredient[] ingredients) {
-        MineTweakerAPI.apply(new Add(new ShapelessOreRecipe(toStack(output), toObjects(ingredients))));
+        MineTweakerAPI.apply(
+                new Add(new ShapelessOreRecipe(toStack(output), toObjects(ingredients)), toObjects(ingredients)));
     }
 
     private static class Add extends BaseCraftingAddition {
 
-        public Add(IRecipe recipe) {
+        Object[] rawRecipe;
+
+        public Add(IRecipe recipe, Object[] rawRecipe) {
             super(RollingMachine.name, RailcraftHelper.rolling);
             recipes.add(recipe);
+            this.rawRecipe = rawRecipe;
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (IRecipe recipe : successful) {
+                    Thaumcraft.info(
+                            "RailcraftCraftingManager.rollingMachine.addRecipe(" + Thaumcraft.convertStack(
+                                    recipe.getRecipeOutput()) + ", " + Thaumcraft.convertArrayInLine(rawRecipe) + ");");
+                }
+            }
         }
     }
 
@@ -67,6 +88,19 @@ public class RollingMachine {
 
         public Remove(List<IRecipe> recipes) {
             super(RollingMachine.name, RailcraftHelper.rolling, recipes);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (IRecipe recipe : successful) {
+                    Thaumcraft.info(
+                            "RailcraftHelper.removeRollingRecipe(" + Thaumcraft.convertStack(recipe.getRecipeOutput())
+                                    + ");");
+                }
+            }
         }
     }
 }

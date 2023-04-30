@@ -3,6 +3,7 @@ package modtweaker2.mods.thaumcraft.research;
 import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
 
 import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
@@ -30,6 +31,7 @@ public class AddSibling implements IUndoableAction {
         }
         newSiblings[oldSiblings.length] = sibling;
         ResearchCategories.researchCategories.get(tab).research.get(key).setSiblings(sibling);
+        Thaumcraft.addSibling(key, "\"" + sibling + "\"");
     }
 
     @Override

@@ -16,6 +16,7 @@ import modtweaker2.mods.forestry.ForestryListRemoval;
 import modtweaker2.mods.forestry.recipes.DescriptiveRecipe;
 import modtweaker2.mods.forestry.recipes.FabricatorRecipe;
 import modtweaker2.mods.forestry.recipes.FabricatorSmeltingRecipe;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 
 import net.minecraftforge.fluids.FluidRegistry;
 
@@ -85,7 +86,8 @@ public class ThermionicFabricator {
         IDescriptiveRecipe recipe = new DescriptiveRecipe(3, 3, toShapedObjects(ingredients), toStack(output), false);
         MineTweakerAPI.apply(
                 new AddCast(
-                        new FabricatorRecipe(toStack(plan), FluidRegistry.getFluidStack("glass", fluidInput), recipe)));
+                        new FabricatorRecipe(toStack(plan), FluidRegistry.getFluidStack("glass", fluidInput), recipe),
+                        toShapedObjects(ingredients)));
     }
 
     @Deprecated
@@ -93,7 +95,10 @@ public class ThermionicFabricator {
     public static void addCast(ILiquidStack fluidInput, IIngredient[][] ingredients, IItemStack plan,
             IItemStack output) {
         IDescriptiveRecipe recipe = new DescriptiveRecipe(3, 3, toShapedObjects(ingredients), toStack(output), false);
-        MineTweakerAPI.apply(new AddCast(new FabricatorRecipe(toStack(plan), toFluid(fluidInput), recipe)));
+        MineTweakerAPI.apply(
+                new AddCast(
+                        new FabricatorRecipe(toStack(plan), toFluid(fluidInput), recipe),
+                        toShapedObjects(ingredients)));
     }
 
     /*
@@ -115,9 +120,31 @@ public class ThermionicFabricator {
 
     private static class AddCast extends ForestryListAddition<IFabricatorRecipe, IFabricatorManager> {
 
-        public AddCast(IFabricatorRecipe recipe) {
+        Object[] rawRecipe;
+
+        public AddCast(IFabricatorRecipe recipe, Object[] rawRecipe) {
             super(ThermionicFabricator.nameCasting, RecipeManagers.fabricatorManager);
             recipes.add(recipe);
+            this.rawRecipe = rawRecipe;
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (IFabricatorRecipe recipe : successful) {
+                    Thaumcraft.info(
+                            "RecipeManagers.fabricatorManager.addRecipe(" + Thaumcraft.convertStack(recipe.getPlan())
+                                    + ", "
+                                    + Thaumcraft.convertFluidStack(recipe.getLiquid())
+                                    + ", "
+                                    + Thaumcraft.convertStack(recipe.getRecipeOutput())
+                                    + ", "
+                                    + Thaumcraft.convertArrayInLine(rawRecipe)
+                                    + ");");
+                }
+            }
         }
 
         @Override
@@ -209,6 +236,19 @@ public class ThermionicFabricator {
 
         public RemoveCasts(List<IFabricatorRecipe> recipes) {
             super(ThermionicFabricator.nameCasting, RecipeManagers.fabricatorManager, recipes);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+
+            if (!successful.isEmpty()) {
+                for (IFabricatorRecipe recipe : successful) {
+                    Thaumcraft.info(
+                            "ForestryHelper.removeFabricatorRecipe(" + Thaumcraft.convertStack(recipe.getRecipeOutput())
+                                    + ");");
+                }
+            }
         }
 
         @Override

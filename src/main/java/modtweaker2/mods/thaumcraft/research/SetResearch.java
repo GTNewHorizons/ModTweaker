@@ -5,6 +5,7 @@ import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
 import java.lang.reflect.Field;
 
 import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import modtweaker2.mods.thaumcraft.handlers.Research.SetType;
 import thaumcraft.api.research.ResearchCategories;
@@ -29,14 +30,31 @@ public class SetResearch implements IUndoableAction {
     public void apply() {
         ResearchItem research = ResearchCategories.researchCategories.get(tab).research.get(key);
         if (flag) {
-            if (type == SetType.AUTO) research.setAutoUnlock();
-            else if (type == SetType.ROUND) research.setRound();
-            else if (type == SetType.SPIKE) research.setSpecial();
-            else if (type == SetType.SECONDARY) research.setSecondary();
-            else if (type == SetType.STUB) research.setStub();
-            else if (type == SetType.VIRTUAL) research.setVirtual();
-            else if (type == SetType.CONCEAL) research.setConcealed();
-            else if (type == SetType.HIDDEN) research.setHidden();
+            if (type == SetType.AUTO) {
+                research.setAutoUnlock();
+                Thaumcraft.researchInfo(key, ".setAutoUnlock()");
+            } else if (type == SetType.ROUND) {
+                research.setRound();
+                Thaumcraft.researchInfo(key, ".setRound()");
+            } else if (type == SetType.SPIKE) {
+                research.setSpecial();
+                Thaumcraft.researchInfo(key, ".setSpecial()");
+            } else if (type == SetType.SECONDARY) {
+                research.setSecondary();
+                Thaumcraft.researchInfo(key, ".setSecondary()");
+            } else if (type == SetType.STUB) {
+                research.setStub();
+                Thaumcraft.researchInfo(key, ".setStub()");
+            } else if (type == SetType.VIRTUAL) {
+                research.setVirtual();
+                Thaumcraft.researchInfo(key, ".setVirtual()");
+            } else if (type == SetType.CONCEAL) {
+                research.setConcealed();
+                Thaumcraft.researchInfo(key, ".setConcealed()");
+            } else if (type == SetType.HIDDEN) {
+                research.setHidden();
+                Thaumcraft.researchInfo(key, ".setHidden()");
+            }
             applied = true;
         } else {
             try {

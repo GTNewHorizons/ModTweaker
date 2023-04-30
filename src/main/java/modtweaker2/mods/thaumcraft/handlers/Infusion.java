@@ -12,6 +12,7 @@ import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.helpers.LogHelper;
+import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import modtweaker2.mods.thaumcraft.recipe.MTInfusionRecipe;
 import modtweaker2.utils.BaseListAddition;
@@ -85,6 +86,26 @@ public class Infusion {
         }
 
         @Override
+        public void apply() {
+            super.apply();
+            for (InfusionRecipe a : successful) {
+                Thaumcraft.info(
+                        "ThaumcraftApi.addInfusionCraftingRecipe(\"" + a.getResearch()
+                                + "\", "
+                                + Thaumcraft.convertStack((ItemStack) a.getRecipeOutput())
+                                + ", "
+                                + a.getInstability()
+                                + ", "
+                                + Thaumcraft.convertAspects(a.getAspects())
+                                + ", "
+                                + Thaumcraft.convertStack(a.getRecipeInput())
+                                + ", "
+                                + Thaumcraft.convertStacks(a.getComponents())
+                                + ");");
+            }
+        }
+
+        @Override
         protected String getRecipeInfo(InfusionRecipe recipe) {
             Object out = ((InfusionRecipe) recipe).getRecipeOutput();
             if (out instanceof ItemStack) {
@@ -98,6 +119,26 @@ public class Infusion {
         public AddEnchant(InfusionEnchantmentRecipe inp) {
             super(Infusion.enchName, ThaumcraftApi.getCraftingRecipes());
             recipes.add(inp);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+            for (InfusionEnchantmentRecipe a : successful) {
+                Thaumcraft.info(
+                        "ThaumcraftApi.addInfusionCraftingRecipe(\"" + a.research
+                                + "\", "
+                                + "Enchantment.enchantmentsList["
+                                + a.enchantment.effectId
+                                + "]"
+                                + ", "
+                                + a.instability
+                                + ", "
+                                + Thaumcraft.convertAspects(a.getAspects())
+                                + ", "
+                                + Thaumcraft.convertStacks(a.components)
+                                + ");");
+            }
         }
 
         @Override
@@ -162,6 +203,18 @@ public class Infusion {
         }
 
         @Override
+        public void apply() {
+            super.apply();
+            if (!successful.isEmpty()) {
+                for (InfusionRecipe a : successful) {
+                    Thaumcraft.info(
+                            "TCHelper.removeInfusionRecipe(" + Thaumcraft.convertStack((ItemStack) a.getRecipeOutput())
+                                    + ");");
+                }
+            }
+        }
+
+        @Override
         protected String getRecipeInfo(InfusionRecipe recipe) {
 
             Object o = recipe.getRecipeOutput();
@@ -178,6 +231,16 @@ public class Infusion {
 
         public RemoveEnchant(List<InfusionEnchantmentRecipe> recipes) {
             super(Infusion.enchName, ThaumcraftApi.getCraftingRecipes(), recipes);
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+            if (!successful.isEmpty()) {
+                for (InfusionEnchantmentRecipe a : successful) {
+                    Thaumcraft.info("TCHelper.removeInfusionEnchantmentRecipe(" + a.getEnchantment().effectId + ");");
+                }
+            }
         }
 
         @Override
