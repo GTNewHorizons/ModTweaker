@@ -6,13 +6,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
+
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
-
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thaumcraft.api.ThaumcraftApi;

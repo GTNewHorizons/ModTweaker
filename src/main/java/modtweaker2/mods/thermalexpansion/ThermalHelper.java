@@ -5,8 +5,6 @@ import static modtweaker2.helpers.StackHelper.areEqualOrNull;
 
 import java.lang.reflect.Constructor;
 
-import modtweaker2.helpers.LogHelper;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -17,6 +15,7 @@ import cofh.thermalexpansion.util.crafting.PulverizerManager.RecipePulverizer;
 import cofh.thermalexpansion.util.crafting.SawmillManager.RecipeSawmill;
 import cofh.thermalexpansion.util.crafting.SmelterManager.RecipeSmelter;
 import cofh.thermalexpansion.util.crafting.TransposerManager.RecipeTransposer;
+import modtweaker2.helpers.LogHelper;
 
 public class ThermalHelper {
 

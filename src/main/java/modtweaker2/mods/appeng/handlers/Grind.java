@@ -6,6 +6,9 @@ import static modtweaker2.helpers.StackHelper.matches;
 
 import java.util.LinkedList;
 
+import appeng.api.AEApi;
+import appeng.api.features.IGrinderEntry;
+import appeng.core.features.registries.entries.AppEngGrinderRecipe;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -18,9 +21,6 @@ import modtweaker2.utils.BaseListRemoval;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import appeng.api.AEApi;
-import appeng.api.features.IGrinderEntry;
-import appeng.core.features.registries.entries.AppEngGrinderRecipe;
 
 @ZenClass("mods.appeng.Grinder")
 public class Grind {

@@ -13,6 +13,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.minecraft.item.ItemStack;
+
+import forestry.api.fuels.FermenterFuel;
+import forestry.api.fuels.FuelManager;
+import forestry.api.recipes.IFermenterManager;
+import forestry.api.recipes.IFermenterRecipe;
+import forestry.api.recipes.RecipeManagers;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -23,16 +30,8 @@ import modtweaker2.mods.forestry.ForestryListRemoval;
 import modtweaker2.mods.forestry.recipes.FermenterRecipe;
 import modtweaker2.utils.BaseMapAddition;
 import modtweaker2.utils.BaseMapRemoval;
-
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import forestry.api.fuels.FermenterFuel;
-import forestry.api.fuels.FuelManager;
-import forestry.api.recipes.IFermenterManager;
-import forestry.api.recipes.IFermenterRecipe;
-import forestry.api.recipes.RecipeManagers;
 
 @ZenClass("mods.forestry.Fermenter")
 public class Fermenter {

@@ -4,6 +4,16 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
+
 import mekanism.api.gas.GasStack;
 import minetweaker.MineTweakerAPI;
 import minetweaker.MineTweakerImplementationAPI;
@@ -15,17 +25,6 @@ import modtweaker2.mods.mekanism.gas.MCGasStack;
 import modtweaker2.mods.thaumcraft.aspect.AspectStack;
 import modtweaker2.mods.thaumcraft.aspect.MCAspectStack;
 import modtweaker2.utils.TweakerPlugin;
-
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
-
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 

@@ -6,6 +6,9 @@ import static modtweaker2.helpers.InputHelper.toStacks;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -16,10 +19,6 @@ import naruto1310.extendedWorkbench.crafting.ExtendedCraftingManager;
 import naruto1310.extendedWorkbench.crafting.ExtendedShapedRecipes;
 import naruto1310.extendedWorkbench.crafting.ExtendedShapelessRecipes;
 import naruto1310.extendedWorkbench.crafting.IExtendedRecipe;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 

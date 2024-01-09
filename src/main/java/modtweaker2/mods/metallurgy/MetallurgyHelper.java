@@ -3,13 +3,13 @@ package modtweaker2.mods.metallurgy;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import modtweaker2.helpers.ReflectionHelper;
-
 import net.minecraft.item.ItemStack;
 
 import com.teammetallurgy.metallurgy.recipes.AlloyerRecipes;
 import com.teammetallurgy.metallurgy.recipes.AlloyerRecipes.AlloyRecipe;
 import com.teammetallurgy.metallurgy.recipes.CrusherRecipes;
+
+import modtweaker2.helpers.ReflectionHelper;
 
 public class MetallurgyHelper {
 

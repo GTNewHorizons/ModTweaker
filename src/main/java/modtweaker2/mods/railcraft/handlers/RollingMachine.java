@@ -6,6 +6,10 @@ import static modtweaker2.helpers.InputHelper.toStack;
 
 import java.util.List;
 
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -13,11 +17,6 @@ import modtweaker2.helpers.LogHelper;
 import modtweaker2.mods.railcraft.RailcraftHelper;
 import modtweaker2.utils.BaseCraftingAddition;
 import modtweaker2.utils.BaseCraftingRemoval;
-
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 

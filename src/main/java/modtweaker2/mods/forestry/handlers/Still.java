@@ -7,6 +7,9 @@ import static modtweaker2.helpers.StackHelper.matches;
 import java.util.LinkedList;
 import java.util.List;
 
+import forestry.api.recipes.IStillManager;
+import forestry.api.recipes.IStillRecipe;
+import forestry.api.recipes.RecipeManagers;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.liquid.ILiquidStack;
@@ -17,9 +20,6 @@ import modtweaker2.mods.forestry.recipes.StillRecipe;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import forestry.api.recipes.IStillManager;
-import forestry.api.recipes.IStillRecipe;
-import forestry.api.recipes.RecipeManagers;
 
 @ZenClass("mods.forestry.Still")
 public class Still {

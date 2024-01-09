@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.minecraft.item.ItemStack;
+
 import mariculture.api.core.FuelInfo;
 import mariculture.api.core.MaricultureHandlers;
 import mariculture.api.core.RecipeSmelter;
@@ -24,9 +26,6 @@ import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
 import modtweaker2.utils.BaseMapAddition;
 import modtweaker2.utils.BaseMapRemoval;
-
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;

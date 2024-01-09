@@ -4,20 +4,19 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.minecraft.item.ItemStack;
+
+import ic2.api.recipe.IRecipeInput;
+import ic2.api.recipe.RecipeInputItemStack;
+import ic2.api.recipe.RecipeOutput;
+import ic2.api.recipe.Recipes;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.helpers.InputHelper;
 import modtweaker2.utils.BaseMapAddition;
 import modtweaker2.utils.BaseMapRemoval;
-
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import ic2.api.recipe.IRecipeInput;
-import ic2.api.recipe.RecipeInputItemStack;
-import ic2.api.recipe.RecipeOutput;
-import ic2.api.recipe.Recipes;
 
 @ZenClass("mods.ic2classic.BlockCutter")
 public class BlockCutter {

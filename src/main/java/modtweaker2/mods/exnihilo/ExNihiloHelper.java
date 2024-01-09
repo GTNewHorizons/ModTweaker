@@ -2,9 +2,9 @@ package modtweaker2.mods.exnihilo;
 
 import java.util.Map;
 
-import modtweaker2.helpers.ReflectionHelper;
 import exnihilo.registries.HeatRegistry;
 import exnihilo.utils.ItemInfo;
+import modtweaker2.helpers.ReflectionHelper;
 
 public class ExNihiloHelper {
 

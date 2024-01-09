@@ -7,6 +7,8 @@ import static modtweaker2.helpers.StackHelper.matches;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.teammetallurgy.metallurgy.recipes.AlloyerRecipes.AlloyRecipe;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -16,8 +18,6 @@ import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-
-import com.teammetallurgy.metallurgy.recipes.AlloyerRecipes.AlloyRecipe;
 
 @ZenClass("mods.metallurgy.Alloyer")
 public class Alloyer {

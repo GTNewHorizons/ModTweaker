@@ -2,9 +2,9 @@ package modtweaker2.utils;
 
 import java.util.List;
 
-import modtweaker2.helpers.LogHelper;
-
 import net.minecraft.item.crafting.IRecipe;
+
+import modtweaker2.helpers.LogHelper;
 
 public abstract class BaseCraftingAddition extends BaseListAddition<IRecipe> {
 

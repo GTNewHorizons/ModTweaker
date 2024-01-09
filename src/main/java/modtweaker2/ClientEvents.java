@@ -2,15 +2,14 @@ package modtweaker2;
 
 import static modtweaker2.helpers.LogHelper.print;
 
-import minetweaker.api.item.IItemStack;
-import minetweaker.api.minecraft.MineTweakerMC;
-import minetweaker.api.player.IPlayer;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import minetweaker.api.item.IItemStack;
+import minetweaker.api.minecraft.MineTweakerMC;
+import minetweaker.api.player.IPlayer;
 
 public class ClientEvents {
 

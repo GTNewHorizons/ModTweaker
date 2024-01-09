@@ -1,9 +1,8 @@
 package modtweaker2.mods.thaumcraft.research;
 
-import minetweaker.IUndoableAction;
-
 import net.minecraft.item.ItemStack;
 
+import minetweaker.IUndoableAction;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;

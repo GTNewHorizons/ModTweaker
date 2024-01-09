@@ -11,6 +11,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.minecraft.item.ItemStack;
+
+import exnihilo.registries.SieveRegistry;
+import exnihilo.registries.helpers.SiftingResult;
+import exnihilo.utils.ItemInfo;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -18,15 +23,9 @@ import minetweaker.api.item.IngredientAny;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.utils.BaseMapAddition;
 import modtweaker2.utils.BaseMapRemoval;
-
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import exnihilo.registries.SieveRegistry;
-import exnihilo.registries.helpers.SiftingResult;
-import exnihilo.utils.ItemInfo;
 
 @ZenClass("mods.exnihilo.Sieve")
 public class Sieve {

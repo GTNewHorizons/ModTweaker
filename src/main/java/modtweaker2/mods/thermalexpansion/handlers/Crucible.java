@@ -8,6 +8,8 @@ import static modtweaker2.helpers.StackHelper.matches;
 import java.util.LinkedList;
 import java.util.List;
 
+import cofh.thermalexpansion.util.crafting.CrucibleManager;
+import cofh.thermalexpansion.util.crafting.CrucibleManager.RecipeCrucible;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -20,8 +22,6 @@ import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import cofh.thermalexpansion.util.crafting.CrucibleManager;
-import cofh.thermalexpansion.util.crafting.CrucibleManager.RecipeCrucible;
 
 @ZenClass("mods.thermalexpansion.Crucible")
 public class Crucible {

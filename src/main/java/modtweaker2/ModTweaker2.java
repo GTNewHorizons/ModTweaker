@@ -2,6 +2,21 @@ package modtweaker2;
 
 import java.io.File;
 
+import net.minecraftforge.common.MinecraftForge;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.relauncher.Side;
 import minetweaker.MineTweakerImplementationAPI;
 import minetweaker.MineTweakerImplementationAPI.ReloadEvent;
 import minetweaker.runtime.providers.ScriptProviderDirectory;
@@ -27,22 +42,6 @@ import modtweaker2.mods.thaumcraft.Thaumcraft;
 import modtweaker2.mods.thermalexpansion.ThermalExpansion;
 import modtweaker2.proxy.CommonProxy;
 import modtweaker2.utils.TweakerPlugin;
-
-import net.minecraftforge.common.MinecraftForge;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = ModProps.modid, version = ModProps.version, dependencies = ModProps.dependencies)
 public class ModTweaker2 {

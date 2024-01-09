@@ -10,6 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.minecraft.item.ItemStack;
+
+import forestry.api.fuels.FuelManager;
+import forestry.api.fuels.MoistenerFuel;
+import forestry.api.recipes.IMoistenerManager;
+import forestry.api.recipes.IMoistenerRecipe;
+import forestry.api.recipes.RecipeManagers;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -19,16 +26,8 @@ import modtweaker2.mods.forestry.ForestryListRemoval;
 import modtweaker2.mods.forestry.recipes.MoistenerRecipe;
 import modtweaker2.utils.BaseMapAddition;
 import modtweaker2.utils.BaseMapRemoval;
-
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import forestry.api.fuels.FuelManager;
-import forestry.api.fuels.MoistenerFuel;
-import forestry.api.recipes.IMoistenerManager;
-import forestry.api.recipes.IMoistenerRecipe;
-import forestry.api.recipes.RecipeManagers;
 
 @ZenClass("mods.forestry.Moistener")
 public class Moistener {

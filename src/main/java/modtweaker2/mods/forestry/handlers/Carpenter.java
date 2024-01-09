@@ -10,6 +10,12 @@ import static modtweaker2.helpers.StackHelper.matches;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
+
+import forestry.api.recipes.ICarpenterManager;
+import forestry.api.recipes.ICarpenterRecipe;
+import forestry.api.recipes.IDescriptiveRecipe;
+import forestry.api.recipes.RecipeManagers;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -19,16 +25,9 @@ import modtweaker2.mods.forestry.ForestryListAddition;
 import modtweaker2.mods.forestry.ForestryListRemoval;
 import modtweaker2.mods.forestry.recipes.CarpenterRecipe;
 import modtweaker2.mods.forestry.recipes.DescriptiveRecipe;
-
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import forestry.api.recipes.ICarpenterManager;
-import forestry.api.recipes.ICarpenterRecipe;
-import forestry.api.recipes.IDescriptiveRecipe;
-import forestry.api.recipes.RecipeManagers;
 
 @ZenClass("mods.forestry.Carpenter")
 public class Carpenter {

@@ -7,6 +7,8 @@ import static modtweaker2.helpers.StackHelper.matches;
 import java.util.LinkedList;
 import java.util.List;
 
+import cofh.thermalexpansion.util.crafting.InsolatorManager;
+import cofh.thermalexpansion.util.crafting.InsolatorManager.RecipeInsolator;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -19,8 +21,6 @@ import modtweaker2.utils.BaseListRemoval;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import cofh.thermalexpansion.util.crafting.InsolatorManager;
-import cofh.thermalexpansion.util.crafting.InsolatorManager.RecipeInsolator;
 
 @ZenClass("mods.thermalexpansion.Insolator")
 public class Insolator {

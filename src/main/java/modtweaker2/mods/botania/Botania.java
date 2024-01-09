@@ -1,5 +1,7 @@
 package modtweaker2.mods.botania;
 
+import net.minecraft.item.ItemStack;
+
 import minetweaker.MineTweakerAPI;
 import modtweaker2.mods.botania.handlers.Apothecary;
 import modtweaker2.mods.botania.handlers.Brew;
@@ -9,9 +11,6 @@ import modtweaker2.mods.botania.handlers.ManaInfusion;
 import modtweaker2.mods.botania.handlers.Orechid;
 import modtweaker2.mods.botania.handlers.PureDaisy;
 import modtweaker2.mods.botania.handlers.RuneAltar;
-
-import net.minecraft.item.ItemStack;
-
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 public class Botania {

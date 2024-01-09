@@ -2,13 +2,12 @@ package modtweaker2.mods.thaumcraft.research;
 
 import static modtweaker2.helpers.StackHelper.areEqual;
 
-import minetweaker.IUndoableAction;
-import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 
+import minetweaker.IUndoableAction;
+import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.crafting.CrucibleRecipe;
 import thaumcraft.api.crafting.IArcaneRecipe;

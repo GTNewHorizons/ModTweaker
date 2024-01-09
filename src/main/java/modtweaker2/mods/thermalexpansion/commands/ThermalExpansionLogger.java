@@ -4,12 +4,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import minetweaker.MineTweakerAPI;
-import minetweaker.MineTweakerImplementationAPI;
-import minetweaker.api.player.IPlayer;
-import minetweaker.api.server.ICommandFunction;
-import modtweaker2.helpers.LogHelper;
-import modtweaker2.helpers.StringHelper;
 import cofh.thermalexpansion.util.crafting.CrucibleManager;
 import cofh.thermalexpansion.util.crafting.CrucibleManager.RecipeCrucible;
 import cofh.thermalexpansion.util.crafting.FurnaceManager;
@@ -24,6 +18,12 @@ import cofh.thermalexpansion.util.crafting.SmelterManager;
 import cofh.thermalexpansion.util.crafting.SmelterManager.RecipeSmelter;
 import cofh.thermalexpansion.util.crafting.TransposerManager;
 import cofh.thermalexpansion.util.crafting.TransposerManager.RecipeTransposer;
+import minetweaker.MineTweakerAPI;
+import minetweaker.MineTweakerImplementationAPI;
+import minetweaker.api.player.IPlayer;
+import minetweaker.api.server.ICommandFunction;
+import modtweaker2.helpers.LogHelper;
+import modtweaker2.helpers.StringHelper;
 
 public class ThermalExpansionLogger implements ICommandFunction {
 

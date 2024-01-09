@@ -6,15 +6,14 @@ import static modtweaker2.helpers.InputHelper.toStack;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
-
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -52,8 +51,7 @@ public class TiCTweaks {
     @ZenMethod
     public static void addRepairMaterial(IItemStack stack, String material, int value) {
         ItemStack input = toStack(stack);
-        MineTweakerAPI.apply(
-                new Add(PatternBuilder.instance.new ItemKey(input.getItem(), input.getItemDamage(), value, material)));
+        MineTweakerAPI.apply(new Add(new ItemKey(input.getItem(), input.getItemDamage(), value, material)));
     }
 
     // Tweaks for setting repair materials

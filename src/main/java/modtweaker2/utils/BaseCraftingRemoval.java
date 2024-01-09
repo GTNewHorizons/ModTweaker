@@ -6,11 +6,11 @@ import static modtweaker2.helpers.StackHelper.matches;
 import java.util.LinkedList;
 import java.util.List;
 
-import minetweaker.api.item.IIngredient;
-import modtweaker2.helpers.LogHelper;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+
+import minetweaker.api.item.IIngredient;
+import modtweaker2.helpers.LogHelper;
 
 public class BaseCraftingRemoval extends BaseListRemoval<IRecipe> {
 

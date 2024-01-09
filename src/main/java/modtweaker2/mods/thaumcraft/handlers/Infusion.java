@@ -8,6 +8,9 @@ import static modtweaker2.helpers.StackHelper.matches;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.item.ItemStack;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -16,10 +19,6 @@ import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import modtweaker2.mods.thaumcraft.recipe.MTInfusionRecipe;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
-
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thaumcraft.api.ThaumcraftApi;

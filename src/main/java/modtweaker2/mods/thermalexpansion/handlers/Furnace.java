@@ -7,6 +7,8 @@ import static modtweaker2.helpers.StackHelper.matches;
 import java.util.LinkedList;
 import java.util.List;
 
+import cofh.thermalexpansion.util.crafting.FurnaceManager;
+import cofh.thermalexpansion.util.crafting.FurnaceManager.RecipeFurnace;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -18,8 +20,6 @@ import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import cofh.thermalexpansion.util.crafting.FurnaceManager;
-import cofh.thermalexpansion.util.crafting.FurnaceManager.RecipeFurnace;
 
 @ZenClass("mods.thermalexpansion.Furnace")
 public class Furnace {

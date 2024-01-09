@@ -4,15 +4,15 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import appeng.api.AEApi;
+import appeng.api.features.IGrinderEntry;
+import appeng.api.features.IInscriberRecipe;
 import minetweaker.MineTweakerAPI;
 import minetweaker.MineTweakerImplementationAPI;
 import minetweaker.api.player.IPlayer;
 import minetweaker.api.server.ICommandFunction;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.helpers.StringHelper;
-import appeng.api.AEApi;
-import appeng.api.features.IGrinderEntry;
-import appeng.api.features.IInscriberRecipe;
 
 public class AppliedEnergisticsLogger implements ICommandFunction {
 
