@@ -8,7 +8,7 @@ dependencies {
     compileOnly("com.github.GTNewHorizons:ForestryMC:4.8.1:dev") { transitive = false }
     compileOnly("com.github.GTNewHorizons:Mantle:0.4.0:dev") { transitive = false }
     compileOnly("com.github.GTNewHorizons:Railcraft:9.15.3:dev") { transitive = false }
-    compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.11.4-GTNH:api") { transitive = false }
+    compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.11.3-GTNH:api") { transitive = false }
     compileOnly("curse.maven:botanical-addons-237152:2281663") { transitive = false }
     compileOnly("curse.maven:extra-utilities-225561:2264384") { transitive = false }
     compileOnly("curse.maven:thermal-expansion-69163:2388759") { transitive = false }
