@@ -7,11 +7,10 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import minetweaker.IUndoableAction;
-import modtweaker2.helpers.LogHelper;
-
 import org.apache.commons.lang3.ArrayUtils;
 
+import minetweaker.IUndoableAction;
+import modtweaker2.helpers.LogHelper;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategoryList;
 import thaumcraft.api.research.ResearchItem;

@@ -3,10 +3,10 @@ package modtweaker2.mods.forestry;
 import java.util.ArrayList;
 import java.util.List;
 
-import modtweaker2.helpers.LogHelper;
-import modtweaker2.utils.BaseListAddition;
 import forestry.api.recipes.ICraftingProvider;
 import forestry.api.recipes.IForestryRecipe;
+import modtweaker2.helpers.LogHelper;
+import modtweaker2.utils.BaseListAddition;
 
 public abstract class ForestryListAddition<T extends IForestryRecipe, C extends ICraftingProvider<T>>
         extends BaseListAddition<T> {

@@ -3,6 +3,9 @@ package modtweaker2.mods.botania.handlers;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -11,10 +14,6 @@ import modtweaker2.helpers.LogHelper;
 import modtweaker2.helpers.StackHelper;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
-
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import vazkii.botania.api.BotaniaAPI;

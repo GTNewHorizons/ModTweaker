@@ -5,6 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+
 import mantle.utils.ItemMetaWrapper;
 import minetweaker.MineTweakerAPI;
 import minetweaker.MineTweakerImplementationAPI;
@@ -13,11 +17,6 @@ import minetweaker.api.server.ICommandFunction;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.helpers.StringHelper;
 import modtweaker2.mods.tconstruct.TConstructHelper;
-
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-
 import tconstruct.library.crafting.AlloyMix;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.DryingRackRecipes;

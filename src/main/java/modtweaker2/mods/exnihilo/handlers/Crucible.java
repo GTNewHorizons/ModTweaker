@@ -11,6 +11,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
+
+import exnihilo.registries.CrucibleRegistry;
+import exnihilo.registries.helpers.Meltable;
+import exnihilo.utils.ItemInfo;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -19,16 +26,8 @@ import modtweaker2.helpers.LogHelper;
 import modtweaker2.mods.exnihilo.ExNihiloHelper;
 import modtweaker2.utils.BaseMapAddition;
 import modtweaker2.utils.BaseMapRemoval;
-
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import exnihilo.registries.CrucibleRegistry;
-import exnihilo.registries.helpers.Meltable;
-import exnihilo.utils.ItemInfo;
 
 @ZenClass("mods.exnihilo.Crucible")
 public class Crucible {

@@ -9,6 +9,7 @@ import java.util.Random;
 import net.minecraft.item.ItemStack;
 
 import com.google.common.collect.ImmutableMap;
+
 import forestry.api.recipes.ICentrifugeRecipe;
 
 public class CentrifugeRecipe implements ICentrifugeRecipe {

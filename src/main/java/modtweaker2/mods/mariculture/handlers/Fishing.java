@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.item.ItemStack;
+
+import cpw.mods.fml.common.Loader;
 import mariculture.api.fishery.Loot;
 import mariculture.api.fishery.Loot.Rarity;
 import mariculture.api.fishery.RodType;
@@ -15,13 +18,9 @@ import minetweaker.api.item.IItemStack;
 import modtweaker2.helpers.ReflectionHelper;
 import modtweaker2.mods.mariculture.MaricultureHelper;
 import modtweaker2.utils.BaseUndoable;
-
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import cpw.mods.fml.common.Loader;
 
 @ZenClass("mods.mariculture.Fishing")
 public class Fishing {

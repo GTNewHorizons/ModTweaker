@@ -3,6 +3,8 @@ package modtweaker2.mods.thaumcraft.aspect;
 import java.util.Collections;
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
+
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemCondition;
 import minetweaker.api.item.IItemStack;
@@ -11,9 +13,6 @@ import minetweaker.api.item.IngredientOr;
 import minetweaker.api.liquid.ILiquidStack;
 import minetweaker.api.minecraft.MineTweakerMC;
 import minetweaker.api.player.IPlayer;
-
-import net.minecraft.item.ItemStack;
-
 import thaumcraft.api.aspects.AspectList;
 
 public class MCAspectStack implements IAspectStack {

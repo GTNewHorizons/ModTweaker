@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.MineTweakerImplementationAPI;
 import minetweaker.api.player.IPlayer;
@@ -12,8 +14,6 @@ import modtweaker2.helpers.LogHelper;
 import modtweaker2.helpers.ReflectionHelper;
 import modtweaker2.helpers.StringHelper;
 import modtweaker2.mods.factorization.FactorizationHelper;
-
-import net.minecraft.item.ItemStack;
 
 public class FactorizationLogger implements ICommandFunction {
 

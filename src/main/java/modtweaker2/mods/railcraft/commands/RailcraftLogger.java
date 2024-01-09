@@ -5,6 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.MineTweakerImplementationAPI;
 import minetweaker.api.player.IPlayer;
@@ -17,9 +20,6 @@ import modtweaker2.helpers.LogHelper;
 import modtweaker2.helpers.ReflectionHelper;
 import modtweaker2.helpers.StringHelper;
 import modtweaker2.mods.railcraft.RailcraftHelper;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 
 public class RailcraftLogger implements ICommandFunction {
 

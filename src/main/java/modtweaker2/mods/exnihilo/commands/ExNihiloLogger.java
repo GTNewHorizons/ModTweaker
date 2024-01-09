@@ -6,14 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import minetweaker.MineTweakerAPI;
-import minetweaker.MineTweakerImplementationAPI;
-import minetweaker.api.player.IPlayer;
-import minetweaker.api.server.ICommandFunction;
-import modtweaker2.helpers.LogHelper;
-import modtweaker2.helpers.StringHelper;
-import modtweaker2.mods.exnihilo.ExNihiloHelper;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -26,6 +18,13 @@ import exnihilo.registries.helpers.Meltable;
 import exnihilo.registries.helpers.SiftingResult;
 import exnihilo.registries.helpers.Smashable;
 import exnihilo.utils.ItemInfo;
+import minetweaker.MineTweakerAPI;
+import minetweaker.MineTweakerImplementationAPI;
+import minetweaker.api.player.IPlayer;
+import minetweaker.api.server.ICommandFunction;
+import modtweaker2.helpers.LogHelper;
+import modtweaker2.helpers.StringHelper;
+import modtweaker2.mods.exnihilo.ExNihiloHelper;
 
 public class ExNihiloLogger implements ICommandFunction {
 

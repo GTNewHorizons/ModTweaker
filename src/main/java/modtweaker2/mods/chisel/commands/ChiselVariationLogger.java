@@ -5,17 +5,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import minetweaker.MineTweakerAPI;
-import minetweaker.MineTweakerImplementationAPI;
-import minetweaker.api.player.IPlayer;
-import minetweaker.api.server.ICommandFunction;
-import modtweaker2.mods.chisel.ChiselHelper;
-
 import net.minecraft.item.Item;
 
 import com.cricketcraft.chisel.api.carving.CarvingUtils;
 import com.cricketcraft.chisel.api.carving.ICarvingGroup;
 import com.cricketcraft.chisel.api.carving.ICarvingVariation;
+
+import minetweaker.MineTweakerAPI;
+import minetweaker.MineTweakerImplementationAPI;
+import minetweaker.api.player.IPlayer;
+import minetweaker.api.server.ICommandFunction;
+import modtweaker2.mods.chisel.ChiselHelper;
 
 public class ChiselVariationLogger implements ICommandFunction {
 

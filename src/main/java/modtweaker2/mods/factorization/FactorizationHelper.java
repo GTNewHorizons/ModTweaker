@@ -4,9 +4,9 @@ import static modtweaker2.helpers.ReflectionHelper.getStaticObject;
 
 import java.util.List;
 
-import modtweaker2.helpers.ReflectionHelper;
-
 import net.minecraft.item.ItemStack;
+
+import modtweaker2.helpers.ReflectionHelper;
 
 public class FactorizationHelper {
 

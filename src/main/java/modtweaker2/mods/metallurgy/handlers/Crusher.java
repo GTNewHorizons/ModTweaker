@@ -5,15 +5,14 @@ import static modtweaker2.helpers.StackHelper.areEqual;
 
 import java.util.Map.Entry;
 
+import net.minecraft.item.ItemStack;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.mods.metallurgy.MetallurgyHelper;
 import modtweaker2.utils.BaseMapAddition;
 import modtweaker2.utils.BaseMapRemoval;
-
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 

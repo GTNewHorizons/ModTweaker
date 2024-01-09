@@ -2,12 +2,12 @@ package modtweaker2.mods.chisel.commands;
 
 import java.util.List;
 
+import com.cricketcraft.chisel.api.carving.CarvingUtils;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.MineTweakerImplementationAPI;
 import minetweaker.api.player.IPlayer;
 import minetweaker.api.server.ICommandFunction;
-
-import com.cricketcraft.chisel.api.carving.CarvingUtils;
 
 public class ChiselGroupLogger implements ICommandFunction {
 

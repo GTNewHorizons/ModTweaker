@@ -1,9 +1,8 @@
 package modtweaker2.mods.botania.lexicon;
 
-import minetweaker.IUndoableAction;
-
 import net.minecraft.util.ResourceLocation;
 
+import minetweaker.IUndoableAction;
 import vazkii.botania.api.lexicon.LexiconCategory;
 
 public class SetCategoryIcon implements IUndoableAction {

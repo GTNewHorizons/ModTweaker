@@ -8,6 +8,10 @@ import static modtweaker2.helpers.StackHelper.matches;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import appeng.api.AEApi;
+import appeng.api.features.IInscriberRecipe;
+import appeng.api.features.InscriberProcessType;
+import appeng.core.features.registries.entries.InscriberRecipe;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -18,10 +22,6 @@ import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import appeng.api.AEApi;
-import appeng.api.features.IInscriberRecipe;
-import appeng.api.features.InscriberProcessType;
-import appeng.core.features.registries.entries.InscriberRecipe;
 
 @ZenClass("mods.appeng.Inscriber")
 public class Inscriber {

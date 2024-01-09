@@ -2,13 +2,13 @@ package modtweaker2.commands;
 
 import java.util.Set;
 
+import net.minecraft.entity.EntityList;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.MineTweakerImplementationAPI;
 import minetweaker.api.player.IPlayer;
 import minetweaker.api.server.ICommandFunction;
 import modtweaker2.ModTweaker2;
-
-import net.minecraft.entity.EntityList;
 
 public class EntityMappingLogger implements ICommandFunction {
 

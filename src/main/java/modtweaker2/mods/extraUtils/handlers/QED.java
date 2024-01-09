@@ -5,6 +5,11 @@ import static modtweaker2.helpers.StackHelper.matches;
 
 import java.util.LinkedList;
 
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+
+import com.rwtema.extrautils.tileentity.enderconstructor.EnderConstructorRecipesHandler;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -12,14 +17,8 @@ import modtweaker2.helpers.InputHelper;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
-
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-
-import com.rwtema.extrautils.tileentity.enderconstructor.EnderConstructorRecipesHandler;
 
 @ZenClass("mods.extraUtils.QED")
 public class QED {

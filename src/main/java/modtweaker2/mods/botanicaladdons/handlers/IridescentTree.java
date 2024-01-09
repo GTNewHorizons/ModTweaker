@@ -3,16 +3,15 @@ package modtweaker2.mods.botanicaladdons.handlers;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.helpers.InputHelper;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.utils.BaseListAddition;
 import modtweaker2.utils.BaseListRemoval;
-
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-
 import ninja.shadowfox.shadowfox_botany.api.ShadowFoxAPI;
 import ninja.shadowfox.shadowfox_botany.api.trees.IIridescentSaplingVariant;
 import ninja.shadowfox.shadowfox_botany.api.trees.IridescentSaplingBaseVariant;

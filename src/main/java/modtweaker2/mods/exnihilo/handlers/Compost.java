@@ -8,6 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import exnihilo.registries.CompostRegistry;
+import exnihilo.registries.helpers.Color;
+import exnihilo.registries.helpers.Compostable;
+import exnihilo.utils.ItemInfo;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -17,10 +21,6 @@ import modtweaker2.utils.BaseMapRemoval;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import exnihilo.registries.CompostRegistry;
-import exnihilo.registries.helpers.Color;
-import exnihilo.registries.helpers.Compostable;
-import exnihilo.utils.ItemInfo;
 
 @ZenClass("mods.exnihilo.Composting")
 public class Compost {

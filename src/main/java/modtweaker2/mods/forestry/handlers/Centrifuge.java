@@ -9,6 +9,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import net.minecraft.item.ItemStack;
+
+import forestry.api.recipes.ICentrifugeManager;
+import forestry.api.recipes.ICentrifugeRecipe;
+import forestry.api.recipes.RecipeManagers;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -17,14 +22,8 @@ import modtweaker2.helpers.LogHelper;
 import modtweaker2.mods.forestry.ForestryListAddition;
 import modtweaker2.mods.forestry.ForestryListRemoval;
 import modtweaker2.mods.forestry.recipes.CentrifugeRecipe;
-
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import forestry.api.recipes.ICentrifugeManager;
-import forestry.api.recipes.ICentrifugeRecipe;
-import forestry.api.recipes.RecipeManagers;
 
 @ZenClass("mods.forestry.Centrifuge")
 public class Centrifuge {

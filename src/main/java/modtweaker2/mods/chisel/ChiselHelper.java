@@ -6,14 +6,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import minetweaker.api.item.IItemStack;
-
 import net.minecraft.block.Block;
 
 import com.cricketcraft.chisel.api.carving.CarvingUtils;
 import com.cricketcraft.chisel.api.carving.ICarvingGroup;
 import com.cricketcraft.chisel.api.carving.ICarvingVariation;
 import com.google.common.collect.Lists;
+
+import minetweaker.api.item.IItemStack;
 
 public class ChiselHelper {
 

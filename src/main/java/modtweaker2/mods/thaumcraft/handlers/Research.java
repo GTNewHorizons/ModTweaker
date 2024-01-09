@@ -2,6 +2,9 @@ package modtweaker2.mods.thaumcraft.handlers;
 
 import static modtweaker2.helpers.InputHelper.toStack;
 
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.util.ResourceLocation;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.player.IPlayer;
@@ -23,10 +26,6 @@ import modtweaker2.mods.thaumcraft.research.RemoveResearch;
 import modtweaker2.mods.thaumcraft.research.RemoveTab;
 import modtweaker2.mods.thaumcraft.research.SetAspects;
 import modtweaker2.mods.thaumcraft.research.SetResearch;
-
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.util.ResourceLocation;
-
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;

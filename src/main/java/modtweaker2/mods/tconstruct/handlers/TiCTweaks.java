@@ -53,7 +53,7 @@ public class TiCTweaks {
     public static void addRepairMaterial(IItemStack stack, String material, int value) {
         ItemStack input = toStack(stack);
         MineTweakerAPI.apply(
-                new Add(PatternBuilder.instance.new ItemKey(input.getItem(), input.getItemDamage(), value, material)));
+                new Add(new ItemKey(input.getItem(), input.getItemDamage(), value, material)));
     }
 
     // Tweaks for setting repair materials

@@ -1,9 +1,8 @@
 package modtweaker2.mods.botania.lexicon;
 
-import minetweaker.IUndoableAction;
-
 import net.minecraft.item.ItemStack;
 
+import minetweaker.IUndoableAction;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings.EntryData;

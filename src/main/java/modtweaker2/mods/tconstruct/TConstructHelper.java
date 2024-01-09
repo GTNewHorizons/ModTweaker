@@ -5,13 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import mantle.utils.ItemMetaWrapper;
-import modtweaker2.helpers.ReflectionHelper;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
+import mantle.utils.ItemMetaWrapper;
+import modtweaker2.helpers.ReflectionHelper;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.AlloyMix;
 import tconstruct.library.crafting.CastingRecipe;

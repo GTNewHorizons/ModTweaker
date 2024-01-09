@@ -6,6 +6,14 @@ import static modtweaker2.helpers.StackHelper.matches;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraftforge.fluids.FluidRegistry;
+
+import forestry.api.recipes.IDescriptiveRecipe;
+import forestry.api.recipes.IFabricatorManager;
+import forestry.api.recipes.IFabricatorRecipe;
+import forestry.api.recipes.IFabricatorSmeltingManager;
+import forestry.api.recipes.IFabricatorSmeltingRecipe;
+import forestry.api.recipes.RecipeManagers;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -16,18 +24,9 @@ import modtweaker2.mods.forestry.ForestryListRemoval;
 import modtweaker2.mods.forestry.recipes.DescriptiveRecipe;
 import modtweaker2.mods.forestry.recipes.FabricatorRecipe;
 import modtweaker2.mods.forestry.recipes.FabricatorSmeltingRecipe;
-
-import net.minecraftforge.fluids.FluidRegistry;
-
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import forestry.api.recipes.IDescriptiveRecipe;
-import forestry.api.recipes.IFabricatorManager;
-import forestry.api.recipes.IFabricatorRecipe;
-import forestry.api.recipes.IFabricatorSmeltingManager;
-import forestry.api.recipes.IFabricatorSmeltingRecipe;
-import forestry.api.recipes.RecipeManagers;
 
 @ZenClass("mods.forestry.ThermionicFabricator")
 public class ThermionicFabricator {

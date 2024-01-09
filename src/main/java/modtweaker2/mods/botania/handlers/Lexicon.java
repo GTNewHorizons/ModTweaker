@@ -7,6 +7,9 @@ import static modtweaker2.helpers.InputHelper.toStack;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.entity.EntityList;
+import net.minecraft.item.crafting.IRecipe;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -24,10 +27,6 @@ import modtweaker2.mods.botania.lexicon.RemoveRecipeMapping;
 import modtweaker2.mods.botania.lexicon.SetCategoryIcon;
 import modtweaker2.mods.botania.lexicon.SetCategoryPriority;
 import modtweaker2.mods.botania.lexicon.SetEntryKnowledgeType;
-
-import net.minecraft.entity.EntityList;
-import net.minecraft.item.crafting.IRecipe;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import vazkii.botania.api.BotaniaAPI;

@@ -9,6 +9,8 @@ import static modtweaker2.helpers.StackHelper.matches;
 import java.util.LinkedList;
 import java.util.List;
 
+import cofh.thermalexpansion.util.crafting.TransposerManager;
+import cofh.thermalexpansion.util.crafting.TransposerManager.RecipeTransposer;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -23,8 +25,6 @@ import modtweaker2.utils.BaseListRemoval;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import cofh.thermalexpansion.util.crafting.TransposerManager;
-import cofh.thermalexpansion.util.crafting.TransposerManager.RecipeTransposer;
 
 @ZenClass("mods.thermalexpansion.Transposer")
 public class Transposer {

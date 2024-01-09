@@ -4,14 +4,13 @@ import static modtweaker2.helpers.InputHelper.toStack;
 
 import java.util.Arrays;
 
+import net.minecraft.entity.EntityList;
+import net.minecraft.item.ItemStack;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import modtweaker2.utils.BaseUndoable;
-
-import net.minecraft.entity.EntityList;
-import net.minecraft.item.ItemStack;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thaumcraft.api.ThaumcraftApi;

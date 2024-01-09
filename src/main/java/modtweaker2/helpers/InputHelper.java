@@ -3,6 +3,13 @@ package modtweaker2.helpers;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+
 import minetweaker.api.entity.IEntity;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
@@ -10,13 +17,6 @@ import minetweaker.api.liquid.ILiquidStack;
 import minetweaker.api.oredict.IOreDictEntry;
 import minetweaker.mc1710.item.MCItemStack;
 import minetweaker.mc1710.liquid.MCLiquidStack;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 public class InputHelper {
 

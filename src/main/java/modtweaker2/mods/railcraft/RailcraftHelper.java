@@ -3,6 +3,10 @@ package modtweaker2.mods.railcraft;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.fluids.FluidStack;
+
 import mods.railcraft.api.crafting.IBlastFurnaceRecipe;
 import mods.railcraft.api.crafting.ICokeOvenRecipe;
 import mods.railcraft.api.crafting.IRockCrusherRecipe;
@@ -13,10 +17,6 @@ import mods.railcraft.common.util.crafting.CokeOvenCraftingManager.CokeOvenRecip
 import mods.railcraft.common.util.crafting.RockCrusherCraftingManager.CrusherRecipe;
 import modtweaker2.helpers.LogHelper;
 import modtweaker2.helpers.ReflectionHelper;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.fluids.FluidStack;
 
 public class RailcraftHelper {
 

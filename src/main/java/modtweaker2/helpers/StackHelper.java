@@ -2,6 +2,9 @@ package modtweaker2.helpers;
 
 import static modtweaker2.helpers.InputHelper.toStack;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
+
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.item.IngredientAny;
@@ -10,9 +13,6 @@ import modtweaker2.mods.botania.Botania;
 import modtweaker2.mods.mekanism.MekanismHelper;
 import modtweaker2.mods.mekanism.gas.IGasStack;
 import modtweaker2.utils.TweakerPlugin;
-
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 
 public class StackHelper {
 
