@@ -21,8 +21,8 @@ import mekanism.common.recipe.machines.PurificationRecipe;
 import mekanism.common.recipe.machines.SawmillRecipe;
 import mekanism.common.recipe.machines.SeparatorRecipe;
 import mekanism.common.recipe.machines.SmeltingRecipe;
-import mekanism.common.recipe.machines.ThermalEvaporationRecipe;
 import mekanism.common.recipe.machines.SolarNeutronRecipe;
+import mekanism.common.recipe.machines.ThermalEvaporationRecipe;
 import mekanism.common.recipe.machines.WasherRecipe;
 import minetweaker.MineTweakerAPI;
 import minetweaker.MineTweakerImplementationAPI;
@@ -259,12 +259,15 @@ public class MekanismLogger implements ICommandFunction {
                                     LogHelper.getStackDescription(recipe.recipeOutput.rightGas)));
                 }
             }
-            
-            if(args.isEmpty() || args.contains("ThermalEvaporation")) {
-                for(ThermalEvaporationRecipe recipe : (Collection<ThermalEvaporationRecipe>)Recipe.THERMAL_EVAPORATION_PLANT.get().values()) {
-                    MineTweakerAPI.logCommand(String.format("mods.mekanism.ThermalEvaporation.addRecipe(%s, %s);",
-                            LogHelper.getStackDescription(recipe.recipeInput.ingredient),
-                            LogHelper.getStackDescription(recipe.recipeOutput.output)));
+
+            if (args.isEmpty() || args.contains("ThermalEvaporation")) {
+                for (ThermalEvaporationRecipe recipe : (Collection<ThermalEvaporationRecipe>) Recipe.THERMAL_EVAPORATION_PLANT
+                        .get().values()) {
+                    MineTweakerAPI.logCommand(
+                            String.format(
+                                    "mods.mekanism.ThermalEvaporation.addRecipe(%s, %s);",
+                                    LogHelper.getStackDescription(recipe.recipeInput.ingredient),
+                                    LogHelper.getStackDescription(recipe.recipeOutput.output)));
                 }
             }
 

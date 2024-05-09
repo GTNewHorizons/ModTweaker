@@ -26,9 +26,9 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.mekanism.ThermalEvaporation")
 public class ThermalEvaporation {
-    
+
     public static final String name = "Mekanism Thermal Evaporation";
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @SuppressWarnings("unchecked")
@@ -38,9 +38,9 @@ public class ThermalEvaporation {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
         }
-        
+
         ThermalEvaporationRecipe recipe = new ThermalEvaporationRecipe(toFluid(liquidInput), toFluid(liquidOutput));
-        
+
         MineTweakerAPI.apply(new AddMekanismRecipe(name, Recipe.THERMAL_EVAPORATION_PLANT.get(), recipe));
     }
 
@@ -57,8 +57,9 @@ public class ThermalEvaporation {
         if (liquidOutput == null) liquidOutput = IngredientAny.INSTANCE;
 
         Map<MachineInput, MachineRecipe> recipes = new HashMap<MachineInput, MachineRecipe>();
-        
-        for(Entry<FluidInput, ThermalEvaporationRecipe> entry : ((Map<FluidInput, ThermalEvaporationRecipe>)Recipe.THERMAL_EVAPORATION_PLANT.get()).entrySet() ) {
+
+        for (Entry<FluidInput, ThermalEvaporationRecipe> entry : ((Map<FluidInput, ThermalEvaporationRecipe>) Recipe.THERMAL_EVAPORATION_PLANT
+                .get()).entrySet()) {
             ILiquidStack inputLiquid = InputHelper.toILiquidStack(entry.getKey().ingredient);
             ILiquidStack outputLiquid = InputHelper.toILiquidStack(entry.getValue().recipeOutput.output);
 
@@ -67,8 +68,8 @@ public class ThermalEvaporation {
 
             recipes.put(entry.getKey(), entry.getValue());
         }
-        
-        if(!recipes.isEmpty()) {
+
+        if (!recipes.isEmpty()) {
             MineTweakerAPI.apply(new RemoveMekanismRecipe(name, Recipe.THERMAL_EVAPORATION_PLANT.get(), recipes));
         } else {
             LogHelper.logWarning(
