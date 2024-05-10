@@ -21,8 +21,8 @@ import mekanism.common.recipe.machines.PurificationRecipe;
 import mekanism.common.recipe.machines.SawmillRecipe;
 import mekanism.common.recipe.machines.SeparatorRecipe;
 import mekanism.common.recipe.machines.SmeltingRecipe;
-import mekanism.common.recipe.machines.SolarEvaporationRecipe;
 import mekanism.common.recipe.machines.SolarNeutronRecipe;
+import mekanism.common.recipe.machines.ThermalEvaporationRecipe;
 import mekanism.common.recipe.machines.WasherRecipe;
 import minetweaker.MineTweakerAPI;
 import minetweaker.MineTweakerImplementationAPI;
@@ -42,7 +42,7 @@ public class MekanismLogger implements ICommandFunction {
         validArguments.add("Crystallizer");
         validArguments.add("Dissolution");
         validArguments.add("Enrichment");
-        validArguments.add("SolarEvaporation");
+        validArguments.add("ThermalEvaporation");
         validArguments.add("Infuser");
         validArguments.add("Injection");
         validArguments.add("SolarNeutronActivator");
@@ -260,12 +260,12 @@ public class MekanismLogger implements ICommandFunction {
                 }
             }
 
-            if (args.isEmpty() || args.contains("SolarEvaporation")) {
-                for (SolarEvaporationRecipe recipe : (Collection<SolarEvaporationRecipe>) Recipe.SOLAR_EVAPORATION_PLANT
+            if (args.isEmpty() || args.contains("ThermalEvaporation")) {
+                for (ThermalEvaporationRecipe recipe : (Collection<ThermalEvaporationRecipe>) Recipe.THERMAL_EVAPORATION_PLANT
                         .get().values()) {
                     MineTweakerAPI.logCommand(
                             String.format(
-                                    "mods.mekanism.SolarEvaporation.addRecipe(%s, %s);",
+                                    "mods.mekanism.ThermalEvaporation.addRecipe(%s, %s);",
                                     LogHelper.getStackDescription(recipe.recipeInput.ingredient),
                                     LogHelper.getStackDescription(recipe.recipeOutput.output)));
                 }
