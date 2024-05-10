@@ -1,7 +1,7 @@
 dependencies {
     api("com.github.GTNewHorizons:CraftTweaker:3.3.1:dev")
 
-    compileOnly("com.azanor:Thaumcraft:1.7.10-4.2.3.5:deobf") { transitive = false }
+    compileOnly("curse.maven:thaumcraft-223628:2227552") { transitive = false }
     compileOnly("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-400-GTNH:dev") { transitive = false }
     compileOnly("com.github.GTNewHorizons:Botania:1.11.0-GTNH:dev") { transitive = false }
     compileOnly("com.github.GTNewHorizons:Chisel:2.14.1-GTNH:api") { transitive = false }
