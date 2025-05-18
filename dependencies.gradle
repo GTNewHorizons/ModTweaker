@@ -1,14 +1,14 @@
 dependencies {
-    api("com.github.GTNewHorizons:CraftTweaker:3.3.1:dev")
+    api("com.github.GTNewHorizons:CraftTweaker:3.4.2:dev")
 
     compileOnly("curse.maven:thaumcraft-223628:2227552") { transitive = false }
-    compileOnly("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-400-GTNH:dev") { transitive = false }
-    compileOnly("com.github.GTNewHorizons:Botania:1.11.0-GTNH:dev") { transitive = false }
-    compileOnly("com.github.GTNewHorizons:Chisel:2.14.1-GTNH:api") { transitive = false }
-    compileOnly("com.github.GTNewHorizons:ForestryMC:4.9.0:dev") { transitive = false }
-    compileOnly("com.github.GTNewHorizons:Mantle:0.4.1:dev") { transitive = false }
-    compileOnly("com.github.GTNewHorizons:Railcraft:9.15.8:dev") { transitive = false }
-    compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.12.0-GTNH:api") { transitive = false }
+    compileOnly("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-608-GTNH:dev") { transitive = false }
+    compileOnly("com.github.GTNewHorizons:Botania:1.12.8-GTNH:dev") { transitive = false }
+    compileOnly("com.github.GTNewHorizons:Chisel:2.16.4-GTNH:api") { transitive = false }
+    compileOnly("com.github.GTNewHorizons:ForestryMC:4.10.8:dev") { transitive = false }
+    compileOnly("com.github.GTNewHorizons:Mantle:0.5.0:dev") { transitive = false }
+    compileOnly("com.github.GTNewHorizons:Railcraft:9.16.28:dev") { transitive = false }
+    compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.13.28-GTNH:api") { transitive = false }
     compileOnly("curse.maven:botanical-addons-237152:2281663") { transitive = false }
     compileOnly("curse.maven:extra-utilities-225561:2264384") { transitive = false }
     compileOnly("curse.maven:thermal-expansion-69163:2388759") { transitive = false }
