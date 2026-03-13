@@ -13,9 +13,9 @@ dependencies {
     compileOnly("curse.maven:extra-utilities-225561:2264384") { transitive = false }
     compileOnly("curse.maven:thermal-expansion-69163:2388759") { transitive = false }
     compileOnly("curse.maven:mekanism-268560:2475797") { transitive = false }
-    compileOnly("exnihilo:Ex-Nihilo:1.38-53:deobf") { transitive = false }
+    compileOnly("curse.maven:ex-nihilo-221696:2316201") { transitive = false }
     compileOnly("net.industrial-craft:industrialcraft-2:2.2.828-experimental:api") { transitive = false }
-    compileOnly("pneumaticCraft:PneumaticCraft-1.7.10:1.7.0-74:userdev") { transitive = false }
+    compileOnly("curse.maven:pneumaticcraft-224125:2513763") { transitive = false }
 	compileOnly("curse.maven:aura-cascade-227099:2261766") { transitive = false }
 	compileOnly("curse.maven:metallurgy-59641:2322815") { transitive = false }
 	compileOnly("curse.maven:mariculture-68023:2323944") { transitive = false }
