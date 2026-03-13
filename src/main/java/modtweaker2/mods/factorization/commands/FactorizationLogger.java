@@ -87,7 +87,7 @@ public class FactorizationLogger implements ICommandFunction {
             if (player != null) {
                 player.sendChat(
                         MineTweakerImplementationAPI.platform
-                                .getMessage("List generated; see minetweaker.log in your minecraft dir"));
+                                .getMessage("List generated; see minetweaker.log in your logs dir"));
             }
         }
     }

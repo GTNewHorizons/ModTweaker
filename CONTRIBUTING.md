@@ -31,7 +31,7 @@ Once you know it's a bug, there's a couple of things that we absolutely must hav
     * "If I place block X next to block Y when sneaking, all nearby sand turns into lava"
 * What version of Modtweaker, the Mod which handler you are using and Minetweaker are you running?
 * Your ZenScripts. If your are able to narrow down the statements which causes problems, then that chunk, otherwise all Scripts. (For most issues the Minetweaker prints the the file and line which cause it.)
-* The MineTweaker log, where all actions it does are logged. (minetweaker.log in your Minecraft directory)
+* The MineTweaker log, where all actions it does are logged. (minetweaker.log in your logs directory)
 * Was there a crash? If so, we need the (vanilla) crashlog and your Forge log.
   * Enable debugMode in the config. This prints extra information to the logs, and helps us figure out what is going on.
   * Use [Gist](https://gist.github.com/), [Pastebin](http://pastebin.com/) or some other text paste site for your crashlog/Forge log or any config files (don't use screenshots for text files please!). 
