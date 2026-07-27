@@ -78,8 +78,8 @@ public class Research {
     }
 
     @ZenMethod
-    public static void addResearch(String key, String tab, @Optional String aspects, int x, int y, int difficulty,
-            String domain, String path) {
+    public static void addResearch(String key, String tab, @Optional String aspects, @Optional int x, @Optional int y,
+            @Optional int difficulty, @Optional String domain, @Optional String path) {
 
         MineTweakerAPI.apply(
                 new AddResearch(
@@ -97,8 +97,8 @@ public class Research {
     }
 
     @ZenMethod
-    public static void addResearch(String key, String tab, @Optional String aspects, int x, int y, int difficulty,
-            IItemStack item) {
+    public static void addResearch(String key, String tab, @Optional String aspects, @Optional int x, @Optional int y,
+            @Optional int difficulty, @Optional IItemStack item) {
 
         MineTweakerAPI.apply(
                 new AddResearch(
@@ -116,8 +116,9 @@ public class Research {
     }
 
     @ZenMethod
-    public static void addResearch(String key, String tab, @Optional String aspects, int x, int y, int difficulty,
-            IItemStack item, IItemStack[] triggers, String[] entTriggers, String aspectsTrigger) {
+    public static void addResearch(String key, String tab, @Optional String aspects, @Optional int x, @Optional int y,
+            @Optional int difficulty, @Optional IItemStack item, @Optional IItemStack[] triggers,
+            @Optional String[] entTriggers, @Optional String aspectsTrigger) {
 
         MineTweakerAPI.apply(
                 new AddResearch(
