@@ -20,8 +20,9 @@ public class ToolStats {
      */
     @java.lang.Deprecated
     @ZenMethod
-    public static void set(String material, @Optional String name, int level, int durability, int speed, int damage,
-            double handle, int reinforced, double stonebound, String style, String ability) {
+    public static void set(String material, @Optional String name, @Optional int level, @Optional int durability,
+            @Optional int speed, @Optional int damage, @Optional double handle, @Optional int reinforced,
+            @Optional double stonebound, @Optional String style, @Optional String ability) {
         if (name == null) name = material + " ";
         MineTweakerAPI.apply(
                 new SetToolStats(
@@ -46,8 +47,9 @@ public class ToolStats {
      */
     @java.lang.Deprecated
     @ZenMethod
-    public static void set(String material, @Optional String name, int level, int durability, int speed, int damage,
-            double handle, int reinforced, double stonebound, String style, int primaryColor) {
+    public static void set(@Optional String material, @Optional String name, @Optional int level,
+            @Optional int durability, @Optional int speed, @Optional int damage, @Optional double handle,
+            @Optional int reinforced, @Optional double stonebound, @Optional String style, @Optional int primaryColor) {
         if (name == null) name = material + " ";
         MineTweakerAPI.apply(
                 new SetToolStats(
@@ -68,8 +70,9 @@ public class ToolStats {
     }
 
     @ZenMethod
-    public static void setStats(String material, @Optional String name, int level, int durability, int speed,
-            int damage, double handle, int reinforced, double stonebound, String style, int primaryColor) {
+    public static void setStats(String material, @Optional String name, @Optional int level, @Optional int durability,
+            @Optional int speed, @Optional int damage, @Optional double handle, @Optional int reinforced,
+            @Optional double stonebound, @Optional String style, @Optional int primaryColor) {
         if (name == null) name = material + " ";
         MineTweakerAPI.apply(
                 new SetToolStats(

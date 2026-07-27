@@ -33,7 +33,7 @@ public class Casting {
 
     @ZenMethod
     public static void addBasinRecipe(IItemStack output, ILiquidStack metal, @Optional IItemStack cast,
-            @Optional boolean consume, int delay) {
+            @Optional boolean consume, @Optional int delay) {
         if (metal == null || output == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
@@ -47,7 +47,7 @@ public class Casting {
 
     @ZenMethod
     public static void addTableRecipe(IItemStack output, ILiquidStack metal, @Optional IItemStack cast,
-            @Optional boolean consume, int delay) {
+            @Optional boolean consume, @Optional int delay) {
         if (metal == null || output == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;

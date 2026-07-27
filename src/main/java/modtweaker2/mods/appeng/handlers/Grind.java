@@ -96,7 +96,7 @@ public class Grind {
     @ZenMethod
     public static void addRecipe(IItemStack outputStack, IItemStack inputStack, @Optional IItemStack outputStack2,
             @Optional float outputStack2Chance, @Optional IItemStack outputStack3, @Optional float outputStack3Chance,
-            int inputEnergy) {
+            @Optional int inputEnergy) {
         if (inputStack == null || outputStack == null) {
             LogHelper.logError(String.format("Required parameters missing for %s Recipe.", name));
             return;
