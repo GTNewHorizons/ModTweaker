@@ -6,26 +6,12 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.ResourceLocation;
 
 import minetweaker.MineTweakerAPI;
+import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.player.IPlayer;
 import modtweaker2.helpers.InputHelper;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
-import modtweaker2.mods.thaumcraft.research.AddPage;
-import modtweaker2.mods.thaumcraft.research.AddPrereq;
-import modtweaker2.mods.thaumcraft.research.AddResearch;
-import modtweaker2.mods.thaumcraft.research.AddSibling;
-import modtweaker2.mods.thaumcraft.research.AddTab;
-import modtweaker2.mods.thaumcraft.research.ClearPages;
-import modtweaker2.mods.thaumcraft.research.ClearPrereqs;
-import modtweaker2.mods.thaumcraft.research.ClearSiblings;
-import modtweaker2.mods.thaumcraft.research.Difficulty;
-import modtweaker2.mods.thaumcraft.research.MoveResearch;
-import modtweaker2.mods.thaumcraft.research.OrphanResearch;
-import modtweaker2.mods.thaumcraft.research.RefreshResearch;
-import modtweaker2.mods.thaumcraft.research.RemoveResearch;
-import modtweaker2.mods.thaumcraft.research.RemoveTab;
-import modtweaker2.mods.thaumcraft.research.SetAspects;
-import modtweaker2.mods.thaumcraft.research.SetResearch;
+import modtweaker2.mods.thaumcraft.research.*;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -136,33 +122,38 @@ public class Research {
     }
 
     @ZenMethod
-    public static void addPage(String key, String unlocalized) {
+    public static void addPage(String key, String unlocalizedPageName) {
 
-        MineTweakerAPI.apply(new AddPage(key, PageType.TEXT, unlocalized));
+        MineTweakerAPI.apply(new AddPage(key, PageType.TEXT, unlocalizedPageName));
     }
 
     @ZenMethod
-    public static void addCraftingPage(String key, IItemStack item) {
+    public static void addPage(String research, String unlocalizedPageName, String prereqResearch) {
 
-        MineTweakerAPI.apply(new AddPage(key, PageType.NORMAL_CRAFTING, toStack(item)));
+        MineTweakerAPI.apply(new AddPage(research, unlocalizedPageName, prereqResearch));
     }
 
     @ZenMethod
-    public static void addCruciblePage(String key, IItemStack item) {
-
-        MineTweakerAPI.apply(new AddPage(key, PageType.CRUCIBLE_CRAFTING, toStack(item)));
+    public static void addCraftingPage(String key, IIngredient items) {
+        MineTweakerAPI.apply(new AddPage(key, PageType.NORMAL_CRAFTING, items.getItems()));
     }
 
     @ZenMethod
-    public static void addArcanePage(String key, IItemStack item) {
+    public static void addCruciblePage(String key, IIngredient items) {
 
-        MineTweakerAPI.apply(new AddPage(key, PageType.ARCANE_CRAFTING, toStack(item)));
+        MineTweakerAPI.apply(new AddPage(key, PageType.CRUCIBLE_CRAFTING, items.getItems()));
     }
 
     @ZenMethod
-    public static void addInfusionPage(String key, IItemStack item) {
+    public static void addArcanePage(String key, IIngredient items) {
 
-        MineTweakerAPI.apply(new AddPage(key, PageType.INFUSION_CRAFTING, toStack(item)));
+        MineTweakerAPI.apply(new AddPage(key, PageType.ARCANE_CRAFTING, items.getItems()));
+    }
+
+    @ZenMethod
+    public static void addInfusionPage(String key, IIngredient items) {
+
+        MineTweakerAPI.apply(new AddPage(key, PageType.INFUSION_CRAFTING, items.getItems()));
     }
 
     @ZenMethod
@@ -276,6 +267,30 @@ public class Research {
     public static boolean hasResearched(IPlayer player, String key) {
 
         return ThaumcraftApiHelper.isResearchComplete(player.getName(), key);
+    }
+
+    @ZenMethod
+    public static void addItemTriggers(String res, IIngredient iitem) {
+
+        MineTweakerAPI.apply(new SetItemTriggers(res, iitem.getItems()));
+    }
+
+    @ZenMethod
+    public static void clearItemTriggers(String res) {
+
+        MineTweakerAPI.apply(new SetItemTriggers(res));
+    }
+
+    @ZenMethod
+    public static void addEntityTriggers(String res, String entity) {
+
+        MineTweakerAPI.apply(new SetEntityTriggers(res, entity));
+    }
+
+    @ZenMethod
+    public static void clearEntityTriggers(String res) {
+
+        MineTweakerAPI.apply(new SetEntityTriggers(res));
     }
 
     public enum SetType {

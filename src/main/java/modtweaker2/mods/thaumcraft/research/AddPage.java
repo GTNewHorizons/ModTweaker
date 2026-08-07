@@ -3,19 +3,24 @@ package modtweaker2.mods.thaumcraft.research;
 import static modtweaker2.helpers.StackHelper.areEqual;
 import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 
 import minetweaker.IUndoableAction;
+import minetweaker.MineTweakerAPI;
+import minetweaker.api.item.IItemStack;
+import modtweaker2.helpers.InputHelper;
 import modtweaker2.mods.thaumcraft.ThaumcraftHelper;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.crafting.CrucibleRecipe;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.InfusionEnchantmentRecipe;
 import thaumcraft.api.crafting.InfusionRecipe;
-import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.research.ResearchPage.PageType;
@@ -24,84 +29,138 @@ public class AddPage implements IUndoableAction {
 
     String key;
     String tab;
-    ResearchPage page;
+    ResearchPage newPage;
     ResearchPage[] oldPages;
     PageType type;
-    ItemStack target;
+    List<ItemStack> targets;
     Enchantment enchant;
 
     public AddPage(String res, PageType a, Object b) {
         key = res;
         tab = ThaumcraftHelper.getResearchTab(key);
         type = a;
-        if (type == PageType.TEXT) page = new ResearchPage((String) b);
+        if (type == PageType.TEXT) newPage = new ResearchPage((String) b);
         else if (type == PageType.INFUSION_ENCHANTMENT) enchant = (Enchantment) b;
-        if (b instanceof ItemStack) target = (ItemStack) b;
+        if (b instanceof List) {
+            List list = (List) b;
+            if (list.isEmpty()) MineTweakerAPI.getLogger().logError("Got empty list!");
+            else if (list.get(0) instanceof IItemStack) {
+                List<IItemStack> list2 = (List<IItemStack>) b;
+                targets = new ArrayList<>();
+                for (IItemStack iitem : list2) {
+                    targets.add(InputHelper.toStack(iitem));
+                }
+            } else MineTweakerAPI.getLogger().logError("Couldn't get List<IItemStack> from your IIngredient!");
+        }
+    }
+
+    public AddPage(String res, String pagename, String prereq) {
+        key = res;
+        tab = ThaumcraftHelper.getResearchTab(key);
+        if (!prereq.isEmpty()) newPage = new ResearchPage(prereq, pagename);
     }
 
     @Override
     public void apply() {
         if (type == PageType.NORMAL_CRAFTING) {
+            List<IRecipe> crafts = new ArrayList<>();
             for (Object craft : CraftingManager.getInstance().getRecipeList()) {
                 if (craft instanceof IRecipe) {
                     IRecipe theCraft = (IRecipe) craft;
-                    if (theCraft.getRecipeOutput() != null && areEqual(theCraft.getRecipeOutput(), target)) {
-                        page = new ResearchPage(theCraft);
-                        break;
+                    ItemStack output = theCraft.getRecipeOutput();
+                    if (output != null && targets.stream().anyMatch(target -> areEqual(output, target))) {
+                        crafts.add(theCraft);
                     }
                 }
             }
+            if (crafts.isEmpty()) {
+                MineTweakerAPI.getLogger().logError("Found zero recipes for page!");
+            } else if (crafts.size() == 1) {
+                newPage = new ResearchPage(crafts.get(0));
+            } else {
+                IRecipe[] craftsArray = crafts.toArray(new IRecipe[0]);
+                newPage = new ResearchPage(craftsArray);
+            }
         } else if (type == PageType.ARCANE_CRAFTING) {
+            List<IArcaneRecipe> crafts = new ArrayList<>();
             for (Object craft : ThaumcraftApi.getCraftingRecipes()) {
                 if (craft instanceof IArcaneRecipe) {
                     IArcaneRecipe theCraft = (IArcaneRecipe) craft;
-                    if (theCraft.getRecipeOutput() != null && areEqual(theCraft.getRecipeOutput(), target)) {
-                        page = new ResearchPage(theCraft);
-                        break;
+                    ItemStack output = theCraft.getRecipeOutput();
+                    if (output != null && targets.stream().anyMatch(target -> areEqual(output, target))) {
+                        crafts.add(theCraft);
                     }
                 }
             }
+            if (crafts.isEmpty()) {
+                MineTweakerAPI.getLogger().logError("Found zero recipes for page!");
+            } else if (crafts.size() == 1) {
+                newPage = new ResearchPage(crafts.get(0));
+            } else {
+                IArcaneRecipe[] craftsArray = crafts.toArray(new IArcaneRecipe[0]);
+                newPage = new ResearchPage(craftsArray);
+            }
+
         } else if (type == PageType.CRUCIBLE_CRAFTING) {
+            List<CrucibleRecipe> crafts = new ArrayList<>();
+            for (ItemStack item : targets) MineTweakerAPI.getLogger().logInfo(item.getUnlocalizedName() + ", ");
             for (Object craft : ThaumcraftApi.getCraftingRecipes()) {
                 if (craft instanceof CrucibleRecipe) {
                     CrucibleRecipe theCraft = (CrucibleRecipe) craft;
-                    if (theCraft.getRecipeOutput() != null && areEqual(theCraft.getRecipeOutput(), target)) {
-                        page = new ResearchPage(theCraft);
-                        break;
+                    ItemStack output = theCraft.getRecipeOutput();
+                    if (output != null) {
+                        if (targets.stream().anyMatch(target -> areEqual(output, target))) {
+                            crafts.add(theCraft);
+                        }
                     }
                 }
             }
+            if (crafts.isEmpty()) {
+                MineTweakerAPI.getLogger().logError("Found zero recipes for page!");
+            } else if (crafts.size() == 1) {
+                newPage = new ResearchPage(crafts.get(0));
+            } else {
+                CrucibleRecipe[] craftsArray = crafts.toArray(new CrucibleRecipe[0]);
+                newPage = new ResearchPage(craftsArray);
+            }
         } else if (type == PageType.INFUSION_CRAFTING) {
+            List<InfusionRecipe> crafts = new ArrayList<>();
             for (Object craft : ThaumcraftApi.getCraftingRecipes()) {
                 if (craft instanceof InfusionRecipe) {
                     InfusionRecipe theCraft = (InfusionRecipe) craft;
-                    if (theCraft.getRecipeOutput() != null && theCraft.getRecipeOutput() instanceof ItemStack
-                            && areEqual(((ItemStack) (theCraft.getRecipeOutput())), target)) {
-                        page = new ResearchPage(theCraft);
-                        break;
+                    Object output = theCraft.getRecipeOutput();
+                    if (output != null && theCraft.getRecipeOutput() instanceof ItemStack) {
+                        ItemStack item = (ItemStack) output;
+                        if (targets.stream().anyMatch(target -> areEqual(item, target))) crafts.add(theCraft);
                     }
                 }
+            }
+            if (crafts.isEmpty()) {
+                MineTweakerAPI.getLogger().logError("Found zero recipes for page!");
+            } else if (crafts.size() == 1) {
+                newPage = new ResearchPage(crafts.get(0));
+            } else {
+                InfusionRecipe[] craftsArray = crafts.toArray(new InfusionRecipe[0]);
+                newPage = new ResearchPage(craftsArray);
             }
         } else if (type == PageType.INFUSION_ENCHANTMENT) {
             for (Object craft : ThaumcraftApi.getCraftingRecipes()) {
                 if (craft instanceof InfusionEnchantmentRecipe) {
                     InfusionEnchantmentRecipe theCraft = (InfusionEnchantmentRecipe) craft;
                     if (theCraft.getEnchantment() != null && theCraft.getEnchantment() == enchant) {
-                        page = new ResearchPage(theCraft);
+                        newPage = new ResearchPage(theCraft);
                         break;
                     }
                 }
             }
         }
-        if (page == null) return;
-        oldPages = ResearchCategories.researchCategories.get(tab).research.get(key).getPages();
+        if (newPage == null) return;
+        oldPages = getResearchSafe(tab, key).getPages();
         if (oldPages == null) oldPages = new ResearchPage[0];
         ResearchPage[] newPages = new ResearchPage[oldPages.length + 1];
-        for (int x = 0; x < oldPages.length; x++) {
-            newPages[x] = oldPages[x];
-        }
-        newPages[oldPages.length] = page;
-        ResearchCategories.researchCategories.get(tab).research.get(key).setPages(newPages);
+        System.arraycopy(oldPages, 0, newPages, 0, oldPages.length);
+        newPages[oldPages.length] = newPage;
+        getResearchSafe(tab, key).setPages(newPages);
     }
 
     @Override
