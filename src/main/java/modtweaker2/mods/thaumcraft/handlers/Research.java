@@ -124,7 +124,7 @@ public class Research {
     @ZenMethod
     public static void addPage(String key, String unlocalizedPageName) {
 
-        MineTweakerAPI.apply(new AddPage(key, PageType.TEXT, unlocalizedPageName));
+        MineTweakerAPI.apply(new AddPage(key, PageType.TEXT, unlocalizedPageName, null));
     }
 
     @ZenMethod
@@ -134,32 +134,32 @@ public class Research {
     }
 
     @ZenMethod
-    public static void addCraftingPage(String key, IIngredient items) {
-        MineTweakerAPI.apply(new AddPage(key, PageType.NORMAL_CRAFTING, items.getItems()));
+    public static void addCraftingPage(String key, IIngredient items, @Optional int[] recipe_numbers) {
+        MineTweakerAPI.apply(new AddPage(key, PageType.NORMAL_CRAFTING, items.getItems(), recipe_numbers));
     }
 
     @ZenMethod
-    public static void addCruciblePage(String key, IIngredient items) {
+    public static void addCruciblePage(String key, IIngredient items, @Optional int[] recipe_numbers) {
 
-        MineTweakerAPI.apply(new AddPage(key, PageType.CRUCIBLE_CRAFTING, items.getItems()));
+        MineTweakerAPI.apply(new AddPage(key, PageType.CRUCIBLE_CRAFTING, items.getItems(), recipe_numbers));
     }
 
     @ZenMethod
-    public static void addArcanePage(String key, IIngredient items) {
+    public static void addArcanePage(String key, IIngredient items, @Optional int[] recipe_numbers) {
 
-        MineTweakerAPI.apply(new AddPage(key, PageType.ARCANE_CRAFTING, items.getItems()));
+        MineTweakerAPI.apply(new AddPage(key, PageType.ARCANE_CRAFTING, items.getItems(), recipe_numbers));
     }
 
     @ZenMethod
-    public static void addInfusionPage(String key, IIngredient items) {
+    public static void addInfusionPage(String key, IIngredient items, @Optional int[] recipe_numbers) {
 
-        MineTweakerAPI.apply(new AddPage(key, PageType.INFUSION_CRAFTING, items.getItems()));
+        MineTweakerAPI.apply(new AddPage(key, PageType.INFUSION_CRAFTING, items.getItems(), recipe_numbers));
     }
 
     @ZenMethod
     public static void addEnchantmentPage(String key, int i) {
 
-        MineTweakerAPI.apply(new AddPage(key, PageType.INFUSION_ENCHANTMENT, Enchantment.enchantmentsList[i]));
+        MineTweakerAPI.apply(new AddPage(key, PageType.INFUSION_ENCHANTMENT, Enchantment.enchantmentsList[i], null));
     }
 
     @ZenMethod

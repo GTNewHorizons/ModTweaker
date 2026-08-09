@@ -4,7 +4,9 @@ import static modtweaker2.helpers.StackHelper.areEqual;
 import static modtweaker2.mods.thaumcraft.ThaumcraftHelper.getResearchSafe;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
@@ -33,9 +35,15 @@ public class AddPage implements IUndoableAction {
     ResearchPage[] oldPages;
     PageType type;
     List<ItemStack> targets;
+    Set<Integer> recipe_numbers;
     Enchantment enchant;
 
-    public AddPage(String res, PageType a, Object b) {
+    public AddPage(String res, PageType a, Object b, int[] numArr) {
+        if (numArr != null && numArr.length > 0) {
+            MineTweakerAPI.logInfo("got recipes number array!");
+            recipe_numbers = new HashSet<>(numArr.length);
+            for (int num : numArr) recipe_numbers.add(num);
+        }
         key = res;
         tab = ThaumcraftHelper.getResearchTab(key);
         type = a;
@@ -64,12 +72,14 @@ public class AddPage implements IUndoableAction {
     public void apply() {
         if (type == PageType.NORMAL_CRAFTING) {
             List<IRecipe> crafts = new ArrayList<>();
+            int recipe_number = 0;
             for (Object craft : CraftingManager.getInstance().getRecipeList()) {
                 if (craft instanceof IRecipe) {
                     IRecipe theCraft = (IRecipe) craft;
                     ItemStack output = theCraft.getRecipeOutput();
                     if (output != null && targets.stream().anyMatch(target -> areEqual(output, target))) {
-                        crafts.add(theCraft);
+                        recipe_number++;
+                        if (recipe_numbers == null || recipe_numbers.contains(recipe_number)) crafts.add(theCraft);
                     }
                 }
             }
@@ -83,12 +93,14 @@ public class AddPage implements IUndoableAction {
             }
         } else if (type == PageType.ARCANE_CRAFTING) {
             List<IArcaneRecipe> crafts = new ArrayList<>();
+            int recipe_number = 0;
             for (Object craft : ThaumcraftApi.getCraftingRecipes()) {
                 if (craft instanceof IArcaneRecipe) {
                     IArcaneRecipe theCraft = (IArcaneRecipe) craft;
                     ItemStack output = theCraft.getRecipeOutput();
                     if (output != null && targets.stream().anyMatch(target -> areEqual(output, target))) {
-                        crafts.add(theCraft);
+                        recipe_number++;
+                        if (recipe_numbers == null || recipe_numbers.contains(recipe_number)) crafts.add(theCraft);
                     }
                 }
             }
@@ -103,6 +115,7 @@ public class AddPage implements IUndoableAction {
 
         } else if (type == PageType.CRUCIBLE_CRAFTING) {
             List<CrucibleRecipe> crafts = new ArrayList<>();
+            int recipe_number = 0;
             for (ItemStack item : targets) MineTweakerAPI.getLogger().logInfo(item.getUnlocalizedName() + ", ");
             for (Object craft : ThaumcraftApi.getCraftingRecipes()) {
                 if (craft instanceof CrucibleRecipe) {
@@ -110,7 +123,8 @@ public class AddPage implements IUndoableAction {
                     ItemStack output = theCraft.getRecipeOutput();
                     if (output != null) {
                         if (targets.stream().anyMatch(target -> areEqual(output, target))) {
-                            crafts.add(theCraft);
+                            recipe_number++;
+                            if (recipe_numbers == null || recipe_numbers.contains(recipe_number)) crafts.add(theCraft);
                         }
                     }
                 }
@@ -125,13 +139,17 @@ public class AddPage implements IUndoableAction {
             }
         } else if (type == PageType.INFUSION_CRAFTING) {
             List<InfusionRecipe> crafts = new ArrayList<>();
+            int recipe_number = 0;
             for (Object craft : ThaumcraftApi.getCraftingRecipes()) {
                 if (craft instanceof InfusionRecipe) {
                     InfusionRecipe theCraft = (InfusionRecipe) craft;
                     Object output = theCraft.getRecipeOutput();
                     if (output != null && theCraft.getRecipeOutput() instanceof ItemStack) {
                         ItemStack item = (ItemStack) output;
-                        if (targets.stream().anyMatch(target -> areEqual(item, target))) crafts.add(theCraft);
+                        if (targets.stream().anyMatch(target -> areEqual(item, target))) {
+                            recipe_number++;
+                            if (recipe_numbers == null || recipe_numbers.contains(recipe_number)) crafts.add(theCraft);
+                        }
                     }
                 }
             }
