@@ -6,6 +6,7 @@
 /eclipse/
 .classpath
 .project
+/libs/
 /bin/
 /config/
 /crash-reports/
